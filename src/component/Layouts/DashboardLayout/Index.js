@@ -12,7 +12,7 @@ export default function Index() {
           </Col>         
         </Row>
         <Row>
-        <Col md="3" xs="4" className="px-0">
+        <Col md="2" xs="3" className="px-0">
             <Sidebar />
           </Col>
         </Row>

@@ -1,7 +1,11 @@
-import React from "react";
+import React,{useState} from "react";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink,Badge } from "reactstrap";
+import Switch from './../../../NetworkSwitch/index';
 import "./style.css";
 export default function Index() {
+  const[isModalOpen,setModalOpen]= useState(false);
+  const showButton = () => { return setModalOpen(!isModalOpen)}
+  console.log(isModalOpen);
   return (
     <div>
       <Navbar className="navBar" expand="md" light>
@@ -16,7 +20,8 @@ export default function Index() {
             <NavLink href="#">Airdrop</NavLink>
           </NavItem>
           <NavItem>
-           <NavLink href="#"><Badge pill>Secondary</Badge></NavLink>
+           <NavLink href="#" onClick={()=>showButton()}><Badge pill>Secondary</Badge></NavLink>
+            <Switch showButton={showButton} isModalOpen={isModalOpen} />
           </NavItem>
         </Nav>
       </Navbar>
