@@ -1,4 +1,4 @@
-import { SET_LOADER_VISIBILITY, SET_IS_CONNECTED } from "./actionTypes";
+import { SET_LOADER_VISIBILITY, SET_IS_WALLET_CONNECTED } from "./actionTypes";
 
 export function setLoaderVisibility(isOpen) {
   return {
@@ -7,9 +7,9 @@ export function setLoaderVisibility(isOpen) {
   };
 }
 
-export function setIsConnected(value) {
+export function setIsWalletConnected(value) {
   return {
-    type: SET_IS_CONNECTED,
+    type: SET_IS_WALLET_CONNECTED,
     connectionStatus: value,
   }
 }
