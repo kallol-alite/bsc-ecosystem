@@ -3,10 +3,16 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import {DAppProvider} from '@usedapp/core';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ToastContainer />
+    <DAppProvider>
+      <App />
+    </DAppProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
