@@ -63,7 +63,14 @@ export const useContractValueTrasnformation = (properties, config) => {
   return displayState;
 };
 
+//Returns error queue from redux
 export const useErrorQueue = () => {
   const { transactionErrorQueue } = useSelector((state) => state.masterReducer);
   return transactionErrorQueue;
+};
+
+//Returns success queue from redux
+export const useSuccessQueue = () => {
+  const { transactionSuccessQueue } = useSelector((state) => state.masterReducer);
+  return transactionSuccessQueue;
 };
