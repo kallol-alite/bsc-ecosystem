@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import MakeQuerablePromise from "../../utils/querable-promise";
 
-import { setIsConnected } from "../../actions/master-actions";
+import { setIsWalletConnected } from "../../actions/master-actions";
 
 const WalletModal = () => {
   const { account, activateBrowserWallet, deactivate } = useEthers();
@@ -17,12 +17,12 @@ const WalletModal = () => {
       activateBrowserWalletPromise.then(
         function () {
           if (activateBrowserWalletPromise.isFulfilled()) {
-            dispatch(setIsConnected(true));
+            dispatch(setIsWalletConnected(true));
           }
         },
         function () {
           /* code if some error */
-          dispatch(setIsConnected(false));
+          dispatch(setIsWalletConnected(false));
         }
       );
     } else if (account) {
