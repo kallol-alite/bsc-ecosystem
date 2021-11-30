@@ -2,10 +2,13 @@ import React,{useState} from "react";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink,Badge } from "reactstrap";
 import Switch from './../../../NetworkSwitch/index';
 import "./style.css";
+import WalletModal from "../../../WalletModal";
+
 export default function Index() {
   const[isModalOpen,setModalOpen]= useState(false);
+
   const showButton = () => { return setModalOpen(!isModalOpen)}
-  console.log(isModalOpen);
+
   return (
     <div>
       <Navbar className="navBar" expand="md" light>
@@ -14,7 +17,7 @@ export default function Index() {
         </NavbarBrand>
         <Nav navbar>
           <NavItem>
-            <NavLink href='#'>Wallet</NavLink>
+            <WalletModal />
           </NavItem>
           <NavItem>
             <NavLink href="#">Airdrop</NavLink>
