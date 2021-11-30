@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
+.container {
+  font-family: "DM Sans", sans-serif !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+  height: 100vh !important;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  width: 100%;
+  line-height: 1rem;
+  font-size: calc(0.6875rem + (1.125 - 0.6875) * ((100vw - 450px) / (1600 - 450)));
+  /* font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width]))); */
+}
+.card {
+  width: 31.25rem;
+  /* width: 500px; */
+  border-radius: 0.8rem;
+  box-shadow: 0 5px 20px rgb(13 56 199 / 10%) !important;
+  border: 1px double #05e2b7 !important;
+  background-image: linear-gradient(#fff, #fff), radial-gradient(circle at top left, #1866ed 4.02%, #c1d7fc 97.87%);
+}
+.divider {
+  border-bottom: 1px solid #cfd7de;
+}
+.numbers {
+  display: flex;
+  justify-content: space-between;
+}
+.numbersBlock {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 1.2rem 2.5rem;
+  text-align: center;
+}
+.dividerRight {
+  border-right: 1px solid #cfd7de;
+}
+/* .numbers :nth-child(1) {
+  border-right: 1px solid #cfd7de !important;
+}
+.numbers :nth-child(2) {
+  border-right: 1px solid #cfd7de !important;
+} */
+.cardHeader {
+  color: #271d4a;
+}
+.ssgt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #768193;
+  font-weight: 600;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+.stakeButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  flex-grow: 1;
+}
+.zero {
+  color: #05e2b7;
+  font-size: 1.2rem;
+}
+.bigBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 1rem;
+  color: #768193;
+  font-weight: 600;
+}
+.nftCard {
+  background-color: #f2f5fa;
+  /* padding: 30 !important; */
+  width: 100% !important;
+}
+.values {
+  color: #768193;
+  font-weight: 600;
+}
+.disabled {
+  opacity: 0.5;
+}
+@media screen and (max-width: 900px) {
+  .card {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .card {
+    width: 15rem;
+    margin-top: 1rem;
+  }
+  .numbers {
+    display: block;
+  }
+  .dividerRight {
+    border-bottom: 1px solid #cfd7de;
+  }
+  .ssgt {
+    padding: 0 0 15px;
+  }
+  .stakeButtons {
+    justify-content: space-between;
+  }
+}

@@ -1,9 +1,11 @@
-import { SET_LOADER_VISIBILITY, SET_IS_WALLET_CONNECTED } from "../actions/actionTypes";
+import { SET_LOADER_VISIBILITY, SET_IS_WALLET_CONNECTED, SET_DAPP_TXN_ERROR_QUEUE, SET_DAPP_TXN_SUCCESS_QUEUE } from "../actions/actionTypes";
 
 const masterReducer = (
   state = {
     showLoader: false,
     isWalletConnected: false,
+    transactionErrorQueue: [],
+    transactionSuccessQueue: [],
   },
   action
 ) => {
@@ -12,6 +14,10 @@ const masterReducer = (
       return { ...state, showLoader: action.status };
     case SET_IS_WALLET_CONNECTED:
       return { ...state, isWalletConnected: action.connectionStatus};
+    case SET_DAPP_TXN_ERROR_QUEUE:
+      return { ...state, transactionErrorQueue: [action.error, ...state.transactionErrorQueue] };
+    case SET_DAPP_TXN_SUCCESS_QUEUE:
+      return { ...state, transactionSuccessQueue: [action.success, ...state.transactionSuccessQueue] };
     default:
       return state;
   }
