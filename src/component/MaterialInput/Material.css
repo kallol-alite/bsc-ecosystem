@@ -1,13 +1,13 @@
-.box {
+div.box {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 50px;
 }
-.material {
+div.material {
   position: relative;
 }
-.label {
+label.label {
   position: absolute;
   font-size: 1rem;
   top: 50%;
@@ -51,7 +51,6 @@ input.input:focus + .label {
   transform: translateY(-50%) scale(0.9);
 }
 input.input:not(:placeholder-shown) + .label {
-  top: 0;
   transform: translateY(-50%) scale(0.9);
 }
 
@@ -64,6 +63,5 @@ input.input2:focus + .label {
   transform: translateY(-50%) scale(0.9);
 }
 input.input2:not(:placeholder-shown) + .label {
-  top: 0;
   transform: translateY(-50%) scale(0.9);
 }

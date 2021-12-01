@@ -17,17 +17,24 @@ button.btnStyle {
   border: 1px solid #05e2b7;
   border-radius: 0.8rem;
   font-weight: var(--buttonFontWeight);
+  min-width: 6rem;
 }
 button.btnStyle:hover {
-  background: #05e2b7;
+  background-color: #6bffda;
+  border-color: #05e2b7;
 }
 button.btnStyle2 {
+  opacity: 0.5;
   background: var(--gradientbutton);
   font-weight: var(--buttonFontWeight);
   border: 1px solid transparent;
   border-radius: 1.2rem;
   width: 6rem;
   height: 3rem;
+}
+button.btnStyle2:hover {
+  opacity: 1;
+  border-color: var(--gradientbutton);
 }
 button.btnStyle3 {
   background: rgba(23, 199, 167, 0.1);
@@ -44,7 +51,12 @@ button.btnStyle4 {
   border: 1px solid transparent;
   border-radius: 1.2rem;
   width: 100%;
+  opacity: 0.5;
   margin-top: 0.8rem;
+}
+button.btnStyle4 {
+  border: var(--gradientbutton);
+  opacity: 1;
 }
 button.btnStyle5 {
   background: #efefef;

@@ -6,7 +6,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 .container {
   font-family: "DM Sans", sans-serif;
   height: 100vh;
@@ -21,7 +20,7 @@
   /* font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width]))); */
 }
 div.card {
-  width: 30rem;
+  width: 25rem;
   border-radius: 0.8rem;
   box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
   border: 1px double #05e2b7;
@@ -40,6 +39,9 @@ div.card {
   flex-direction: column;
   padding: 1.2rem 2.5rem;
   text-align: center;
+  flex-basis: 33.33%;
+  justify-content: center;
+  align-items: center;
 }
 .dividerRight {
   border-right: 1px solid #cfd7de;
@@ -103,7 +105,11 @@ div.card {
   .dividerRight {
     border-bottom: 1px solid #cfd7de;
   }
+  .ssgtValues {
+    flex-basis: 100%;
+  }
   .stakeButtons {
-    justify-content: space-evenly;
+    justify-content: center;
+    flex-basis: 100%;
   }
 }

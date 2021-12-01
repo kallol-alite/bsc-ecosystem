@@ -5,7 +5,7 @@ import Buttons from "../Button";
 import styles from "../StackingCard/Card.module.css";
 // import MaterialInput from "../MaterialInput";
 // import PopupModal from "../Model";
-const Cards = () => {
+const StackingCard = () => {
   return (
     <>
       <div className={styles.container}>
@@ -92,4 +92,4 @@ const Cards = () => {
   );
 };
 
-export default Cards;
+export default StackingCard;
