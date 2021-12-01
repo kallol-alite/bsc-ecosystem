@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 import { CardDetais } from "../../utils/Carddetails";
 import Buttons from "../Button";
 import styles from "../StackingCard/Card.module.css";
+import StakeModal from "../../component/StakeModal/index";
+import FarmingUnstakeModal from "../FarmingUnstakeModal";
+
 // import MaterialInput from "../MaterialInput";
-// import PopupModal from "../Model";
 const StackingCard = () => {
+  const [modal, setModal] = useState(false);
+  const openModal = () => setModal(!modal);
+  const [modal1, setModal1] = useState(false);
+  const openModal1 = () => setModal1(!modal1);
   return (
     <>
       <div className={styles.container}>
@@ -20,35 +26,41 @@ const StackingCard = () => {
                   <div className={styles.divider}></div>
                   <div className={styles.numbers}>
                     <div className={styles.numbersBlock}>
-                      <CardTitle tag="p">{details.APY}</CardTitle>
-                      <CardText tag="strong">{details.apyNumber}</CardText>
+                      <div>{details.APY}</div>
+                      <div className="fw-bold">{details.apyNumber}</div>
                     </div>
                     <div className={styles.dividerRight}></div>
                     <div className={styles.numbersBlock}>
-                      <CardTitle tag="p">{details.totalStaked}</CardTitle>
-                      <CardText tag="strong">{details.dollar}</CardText>
+                      <div>{details.totalStaked}</div>
+                      <div className="fw-bold">{details.dollar}</div>
                     </div>
                     <div className={styles.dividerRight}></div>
                     <div className={styles.numbersBlock}>
-                      <CardTitle tag="p">{details.totalStackers}</CardTitle>
-                      <CardText tag="strong">{details.number}</CardText>
+                      <div>{details.totalStackers}</div>
+                      <div className="fw-bold">{details.number}</div>
                     </div>
                   </div>
                   <div className={styles.divider}></div>
                   <div className={styles.stakeDiv}>
                     <div className={styles.ssgtValues}>
-                      <CardText>{details.ssgtStack}</CardText>
+                      <div>{details.ssgtStack}</div>
                       <CardText tag="h3" className={styles.zero}>
                         {details.zero}
                       </CardText>
-                      <CardText>{details.USD}</CardText>
+                      <div>{details.USD}</div>
                     </div>
                     <div className={styles.stakeButtons}>
                       <div style={{ margin: 5 }}>
-                        <Buttons buttonStyle="btnStyle">Unstake &#45;</Buttons>
+                        <Buttons buttonStyle="btnStyle" onClick={openModal1}>
+                          Unstake &#45;
+                        </Buttons>
+                        <FarmingUnstakeModal toggle1={openModal1} isOpen1={modal1} />
                       </div>
                       <div style={{ margin: 5 }}>
-                        <Buttons buttonStyle="btnStyle6">Stake &#43; </Buttons>
+                        <Buttons buttonStyle="btnStyle6" onClick={openModal}>
+                          Stake &#43;{" "}
+                        </Buttons>
+                        <StakeModal toggle={openModal} isOpen={modal} />
                       </div>
                     </div>
                   </div>
@@ -56,22 +68,22 @@ const StackingCard = () => {
                   <div className="p-2">
                     <div className={styles.bigBox}>
                       <div>
-                        <CardText>{details.ssgtEarned}</CardText>
+                        <div>{details.ssgtEarned}</div>
                         <CardText tag="h3" className={styles.zero}>
                           {details.zero}
                         </CardText>
-                        <CardText>{details.USD}</CardText>
+                        <div>{details.USD}</div>
                       </div>
                       <div>
                         <Buttons buttonStyle="btnStyle2">Harvest</Buttons>
                       </div>
                     </div>
                     <div className={styles.values}>
-                      <CardText>{details.ssgtPending}</CardText>
+                      <div>{details.ssgtPending}</div>
                       <CardText tag="h3" className={styles.zero}>
                         {details.zero}
                       </CardText>
-                      <CardText>{details.USD}</CardText>
+                      <div>{details.USD}</div>
                     </div>
                   </div>
                   {/* <div className={styles.nftCard}>

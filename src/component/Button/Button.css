@@ -20,7 +20,7 @@ button.btnStyle {
   min-width: 6rem;
 }
 button.btnStyle:hover {
-  background-color: #6bffda;
+  background-color: #55ac57;
   border-color: #05e2b7;
 }
 button.btnStyle2 {
@@ -44,6 +44,12 @@ button.btnStyle3 {
   border-radius: 0.3125rem;
   margin-left: 0.8rem;
 }
+button.btnStyle3:hover {
+  opacity: 0.9;
+  color: black;
+  border: 1px solid #17c7a7;
+  background-color: rgba(23, 199, 167, 0.1);
+}
 
 button.btnStyle4 {
   background: var(--gradientbutton);
@@ -54,7 +60,7 @@ button.btnStyle4 {
   opacity: 0.5;
   margin-top: 0.8rem;
 }
-button.btnStyle4 {
+button.btnStyle4:hover {
   border: var(--gradientbutton);
   opacity: 1;
 }
@@ -64,4 +70,9 @@ button.btnStyle5 {
   border: 1px solid transparent;
   border-radius: 1.2rem;
   width: 100%;
+}
+button.btnStyle5:hover {
+  opacity: 0.3;
+  background: #efefef;
+  color: black;
 }

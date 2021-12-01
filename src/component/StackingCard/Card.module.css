@@ -6,7 +6,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-.container {
+/* .container {
   font-family: "DM Sans", sans-serif;
   height: 100vh;
   display: flex;
@@ -17,9 +17,10 @@
   width: 100%;
   line-height: 1rem;
   font-size: calc(0.6875rem + (1.125 - 0.6875) * ((100vw - 450px) / (1600 - 450)));
-  /* font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width]))); */
-}
+} */
 div.card {
+  font-size: calc(0.6875rem + (1.125 - 0.6875) * ((100vw - 450px) / (1600 - 450)));
+  font-family: "DM Sans", sans-serif;
   width: 25rem;
   border-radius: 0.8rem;
   box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
@@ -67,6 +68,7 @@ div.card {
 .zero {
   color: #05e2b7;
   font-size: 1.2rem;
+  margin-top: 5px;
 }
 .bigBox {
   display: flex;

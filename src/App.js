@@ -1,17 +1,17 @@
 import Layout from "./component/Layouts/DashboardLayout/Index";
 // import Farming from './component/Farming';
 // import Staking from './component/Staking';
+import FarmingCard from "./components/FarmingCard.js";
 import { Switch, Route } from "react-router-dom";
-// import StackingCard from "./component/StackingCard";
+import StackingCard from "./component/StackingCard";
 
 function App() {
   return (
     <div className="App">
       <Layout />
-      {/* <StackingCard /> */}
       <Switch>
-        {/* <Route exact path='/' component={Farming} exact />
-        <Route path='/staking' component={Staking} /> */}
+        <Route exact path="/" exact component={FarmingCard} />
+        <Route exact path="/staking" exact component={StackingCard} />
       </Switch>
     </div>
   );

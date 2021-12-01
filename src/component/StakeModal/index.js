@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Modal, ModalHeader, ModalBody, Container, Input, Button } from "reactstrap";
-import styles from "../Model/Model.module.css";
+import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
+import styles from "../StakeModal/Model.module.css";
 import Buttons from "../Button";
+
 const pills = ["1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
-const PopupModal = () => {
-  const [modal, setModal] = useState(false);
-  const openModal = () => setModal(!modal);
+
+const StakeModal = ({ isOpen, toggle }) => {
+  // const [modal, setModal] = useState(false);
+  // const openModal = () => setModal(!modal);
   const [chips, setChips] = useState();
   const PillChange = (e, value) => {
     setChips(e.target.value);
@@ -14,9 +16,9 @@ const PopupModal = () => {
   return (
     <>
       <Container>
-        <Button onClick={openModal}> Click Me</Button>
-        <Modal isOpen={modal} toggle={modal} className={styles.ModalStyle}>
-          <ModalHeader toggle={openModal}>Stake YFDAI</ModalHeader>
+        {/* <Button onClick={openModal}> Click Me</Button> */}
+        <Modal isOpen={isOpen} toggle={toggle} className={styles.ModalStyle}>
+          <ModalHeader toggle={toggle}>Stake YFDAI</ModalHeader>
           <ModalBody>
             <div class={styles.text}>
               <p>Balance in Wallet : 0</p>
@@ -49,4 +51,4 @@ const PopupModal = () => {
     </>
   );
 };
-export default PopupModal;
+export default StakeModal;
