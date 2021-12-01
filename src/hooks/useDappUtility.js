@@ -58,7 +58,7 @@ export const useContractValueTrasnformation = (properties, config) => {
       newState[key] = config[key] ? config[key](properties[key]) : properties[key];
     });
     setDisplayState(newState);
-  }, [properties]);
+  }, []);
 
   return displayState;
 };

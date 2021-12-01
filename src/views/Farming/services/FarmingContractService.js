@@ -15,7 +15,7 @@ export const poolLength = (contractAddress, abi) => ({
 export const poolInfo = (contractAddress, abi, poolId) => ({
     abi: new utils.Interface(abi),
     address: contractAddress,
-    method: 'poolLength',
+    method: 'poolInfo',
     args: [poolId]
 })
 
@@ -23,7 +23,7 @@ export const userInfo = (contractAddress, abi, poolId, userAddress) => ({
     abi: new utils.Interface(abi),
     address: contractAddress,
     method: 'userInfo',
-    args: [poolId, userAddress]
+    args: [poolId, userAddress] 
 })
 
 export const pendingReward = (contractAddress, abi, poolId, userAddress) => ({

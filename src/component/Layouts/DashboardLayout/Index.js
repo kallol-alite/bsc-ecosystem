@@ -4,7 +4,7 @@ import Navbar from "./Navbar/Index";
 import Sidebar from "./Sidebar/Index";
 import { useSelector } from "react-redux";
 import "./../DashboardLayout/style.css";
-export default function Index() {
+export default function Index(props) {
   const { isSidebarOpen: sidebar } = useSelector((state) => state.masterReducer);
   return (
     <Container fluid className="p-0 m-0" >
@@ -12,7 +12,7 @@ export default function Index() {
       <div className="bodyContainer">
       <Sidebar />
         <div className={`${ sidebar ? "sidebarOpenView" : "sidebarCloseView"  }`}>
-          fgfghfgh       
+                {props.children}
         </div>
       </div>      
     </Container>

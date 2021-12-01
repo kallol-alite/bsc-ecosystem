@@ -9,7 +9,7 @@ export default function Index() {
       <div className="sListDiv">
         <ul className=" sidebarList">
           <li className="sideLi">
-            <NavLink exact activeClassName="active_class" to='/'>              
+            <NavLink exact activeClassName="active_class" to='/farming'>              
               Farming
               <i class="bi bi-bar-chart-fill"></i>
             </NavLink>
