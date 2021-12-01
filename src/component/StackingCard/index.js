@@ -3,8 +3,8 @@ import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 import { CardDetais } from "../../utils/Carddetails";
 import Buttons from "../Button";
 import styles from "../StackingCard/Card.module.css";
-import MaterialInput from "../MaterialInput";
-import PopupModal from "../Model";
+// import MaterialInput from "../MaterialInput";
+// import PopupModal from "../Model";
 const Cards = () => {
   return (
     <>
@@ -14,7 +14,7 @@ const Cards = () => {
             return (
               <Card className={styles.card}>
                 <CardBody>
-                  <CardTitle tag="h3" className={(styles.cardHeader, "text-center")}>
+                  <CardTitle tag="h3" className={(styles.cardHeader, "text-start")}>
                     {details.title}
                   </CardTitle>
                   <div className={styles.divider}></div>
@@ -35,8 +35,8 @@ const Cards = () => {
                     </div>
                   </div>
                   <div className={styles.divider}></div>
-                  <div className={styles.ssgt}>
-                    <div>
+                  <div className={styles.stakeDiv}>
+                    <div className={styles.ssgtValues}>
                       <CardText>{details.ssgtStack}</CardText>
                       <CardText tag="h3" className={styles.zero}>
                         {details.zero}
@@ -44,8 +44,12 @@ const Cards = () => {
                       <CardText>{details.USD}</CardText>
                     </div>
                     <div className={styles.stakeButtons}>
-                      <Buttons buttonStyle="btnStyle">Unstake &#45;</Buttons>
-                      <Buttons buttonStyle="btnStyle6">Stake &#43; </Buttons>
+                      <div style={{ margin: 5 }}>
+                        <Buttons buttonStyle="btnStyle">Unstake &#45;</Buttons>
+                      </div>
+                      <div style={{ margin: 5 }}>
+                        <Buttons buttonStyle="btnStyle6">Stake &#43; </Buttons>
+                      </div>
                     </div>
                   </div>
                   <div className={styles.divider}></div>
@@ -79,11 +83,11 @@ const Cards = () => {
             );
           })}
       </div>
-      <PopupModal />
+      {/* <PopupModal /> */}
       {/* <InputBox /> */}
-      <MaterialInput placeholder="" label="label" />
+      {/* <MaterialInput placeholder="" label="label" />
       <MaterialInput placeholder="" label="label2" inputStyle="input2" />
-      <MaterialInput placeholder="disabled" inputStyle="input3" />
+      <MaterialInput placeholder="disabled" inputStyle="input3" /> */}
     </>
   );
 };

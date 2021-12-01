@@ -8,7 +8,7 @@ const Buttons = ({ children, onClick, buttonStyle }) => {
   const setButtonStyle = STYLES.includes(buttonStyle) ? buttonStyle : STYLES[0];
   return (
     <>
-      <Button onClick={onClick} className={`btn ${setButtonStyle}`}>
+      <Button onClick={onClick} className={`btn1 ${setButtonStyle}`}>
         {children}
       </Button>
     </>
