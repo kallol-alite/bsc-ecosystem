@@ -7,17 +7,16 @@
   --buttonFontWeight: 600;
   --gradientbutton: linear-gradient(90deg, #04e762, #89fc00);
 }
-
 .btn1 {
   font-family: "DM Sans", sans-serif;
   cursor: pointer;
 }
-.btnStyle {
-  color: black !important;
-  background: transparent !important;
-  border: 1px solid #05e2b7 !important;
-  border-radius: 0.8rem !important;
-  font-weight: var(--buttonFontWeight) !important;
+button.btnStyle {
+  color: black;
+  background: transparent;
+  border: 1px solid #05e2b7;
+  border-radius: 0.8rem;
+  font-weight: var(--buttonFontWeight);
 }
 .btnStyle:hover {
   background: #05e2b7 !important;
