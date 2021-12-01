@@ -1,22 +1,20 @@
 import React from "react";
-import { Col, Container, Row } from "reactstrap";
+import { Container } from "reactstrap";
 import Navbar from "./Navbar/Index";
-import Sidebar from './Sidebar/Index';
+import Sidebar from "./Sidebar/Index";
+import { useSelector } from "react-redux";
+import "./../DashboardLayout/style.css";
 export default function Index() {
+  const { isSidebarOpen: sidebar } = useSelector((state) => state.masterReducer);
   return (
-    <div>
-      
-        <Row>          
-          <Col md="12" xs="12" className="px-0">            
-            <Navbar />
-          </Col>         
-        </Row>
-        <Row>
-        <Col md="2" xs="3" className="px-0">
-            <Sidebar />
-          </Col>
-        </Row>
-     
-    </div>
+    <Container fluid className="p-0 m-0" >
+      <Navbar />
+      <div className="bodyContainer">
+      <Sidebar />
+        <div className={`${ sidebar ? "sidebarOpenView" : "sidebarCloseView"  }`}>
+          fgfghfgh       
+        </div>
+      </div>      
+    </Container>
   );
 }
