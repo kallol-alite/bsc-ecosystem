@@ -20,50 +20,50 @@
   transition: 0.1s ease-out;
   transform-origin: left top;
 }
-.input {
+input.input {
   font-size: 1rem;
   outline: none;
-  border: 1px solid grey !important;
+  border: 1px solid grey;
   border-radius: 5px;
   padding: 1rem 0.7rem;
-  color: gray !important;
+  color: gray;
   transition: 0.1s ease-out;
 }
-.input2 {
-  color: red !important;
+input.input2 {
+  color: red;
   transition: 0.1s ease-out;
-  border: 1px solid red !important;
+  border: 1px solid red;
   border-radius: 5px;
   padding: 1rem 0.7rem;
 }
-.input3 {
-  background-color: #ebebe4 !important;
-  opacity: 0.38 !important;
+input.input3 {
+  background-color: #ebebe4;
+  opacity: 0.38;
   pointer-events: none;
 }
 
-.input:focus {
-  border-color: #05e2b7 !important;
+input.input:focus {
+  border-color: #05e2b7;
 }
-.input:focus + .label {
-  color: #05e2b7 !important;
+input.input:focus + .label {
+  color: #05e2b7;
   top: 0;
   transform: translateY(-50%) scale(0.9);
 }
-.input:not(:placeholder-shown) + .label {
+input.input:not(:placeholder-shown) + .label {
   top: 0;
   transform: translateY(-50%) scale(0.9);
 }
 
-.input2:focus {
-  border-color: red !important;
+input.input2:focus {
+  border-color: red;
 }
-.input2:focus + .label {
-  color: red !important;
+input.input2:focus + .label {
+  color: red;
   top: 0;
   transform: translateY(-50%) scale(0.9);
 }
-.input2:not(:placeholder-shown) + .label {
+input.input2:not(:placeholder-shown) + .label {
   top: 0;
   transform: translateY(-50%) scale(0.9);
 }

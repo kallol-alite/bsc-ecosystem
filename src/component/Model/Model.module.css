@@ -1,10 +1,10 @@
-.ModalStyle {
+div.ModalStyle {
   min-width: 15.625rem;
   max-width: 31.25rem;
   min-height: 6.25rem;
-  box-shadow: 0 5px 20px rgb(13 56 199 / 10%) !important;
+  box-shadow: 0 5px 20px rgb(13 56 199 / 10%);
   padding: 1.25rem 2.5rem;
-  border-radius: 1rem !important;
+  border-radius: 1rem;
 }
 .addBalance {
   display: flex;
@@ -18,32 +18,25 @@
   display: flex;
   justify-content: space-between;
 }
-/* .pills {
-  margin-top: 1rem !important;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-} */
 .pills {
   margin-top: 1rem;
 }
-.pills ul {
+div.pills ul {
   list-style: none;
-  /* height: 2.5rem; */
-  display: flex !important;
+  display: flex;
   flex-wrap: wrap;
-  padding: 0 !important;
-  margin: 0 !important;
+  padding: 0;
+  margin: 0;
 }
-.pills .tab li {
+div.pills div.tab li {
   width: 5rem;
-  flex-basis: 20% !important;
-  justify-content: center !important;
+  flex-basis: 20%;
+  justify-content: center;
 }
-.pills .tab button {
-  color: #03031999 !important;
-  background: #fff !important;
-  border: 1px solid #aaa !important;
+div.pills .tab button {
+  color: #03031999;
+  background: #fff;
+  border: 1px solid #aaa;
   display: flex;
   position: relative;
   top: 10px;
@@ -52,13 +45,13 @@
   width: 2.3rem;
   justify-content: center;
   text-decoration: none;
-  margin: 5px !important;
+  margin: 5px;
 }
-.pills .tab button:focus {
-  border: 1px solid #007bff !important;
-  color: black !important;
+div.pills .tab button:focus {
+  border: 1px solid #007bff;
+  color: black;
 }
-.percentage {
-  color: #007bff !important;
+div.pills .percentage {
+  color: #007bff;
   margin-left: 1rem;
 }

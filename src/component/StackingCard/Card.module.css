@@ -20,11 +20,11 @@
   font-size: calc(0.6875rem + (1.125 - 0.6875) * ((100vw - 450px) / (1600 - 450)));
   /* font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width]))); */
 }
-.card {
-  width: 26.25rem;
+div.card {
+  width: 30rem;
   border-radius: 0.8rem;
   box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
-  border: 1px double #05e2b7 !important;
+  border: 1px double #05e2b7;
   background-image: linear-gradient(#fff, #fff), radial-gradient(circle at top left, #1866ed 4.02%, #c1d7fc 97.87%);
 }
 .divider {

@@ -18,40 +18,38 @@ button.btnStyle {
   border-radius: 0.8rem;
   font-weight: var(--buttonFontWeight);
 }
-.btnStyle:hover {
-  background: #05e2b7 !important;
+button.btnStyle:hover {
+  background: #05e2b7;
 }
-.btnStyle2 {
-  background: var(--gradientbutton) !important;
-  opacity: 0.5;
-  font-weight: var(--buttonFontWeight) !important;
-  border: 1px solid transparent !important;
-  border-radius: 1.2rem !important;
-  width: 6rem !important;
-  height: 3rem !important;
+button.btnStyle2 {
+  background: var(--gradientbutton);
+  font-weight: var(--buttonFontWeight);
+  border: 1px solid transparent;
+  border-radius: 1.2rem;
+  width: 6rem;
+  height: 3rem;
 }
-.btnStyle3 {
-  background: rgba(23, 199, 167, 0.1) !important;
-  color: #17c7a7 !important;
-  border: 1px solid #17c7a7 !important;
-  font-weight: 700 !important;
-  border-radius: 0.3125rem !important;
-  margin-left: 0.8rem !important;
+button.btnStyle3 {
+  background: rgba(23, 199, 167, 0.1);
+  color: #17c7a7;
+  border: 1px solid #17c7a7;
+  font-weight: 700;
+  border-radius: 0.3125rem;
+  margin-left: 0.8rem;
 }
 
-.btnStyle4 {
-  background: var(--gradientbutton) !important;
-  opacity: 0.5;
-  font-weight: var(--buttonFontWeight) !important;
-  border: 1px solid transparent !important;
-  border-radius: 1.2rem !important;
+button.btnStyle4 {
+  background: var(--gradientbutton);
+  font-weight: var(--buttonFontWeight);
+  border: 1px solid transparent;
+  border-radius: 1.2rem;
   width: 100%;
   margin-top: 0.8rem;
 }
-.btnStyle5 {
-  background: #efefef !important;
-  color: black !important;
-  border: 1px solid transparent !important;
-  border-radius: 1.2rem !important;
+button.btnStyle5 {
+  background: #efefef;
+  color: black;
+  border: 1px solid transparent;
+  border-radius: 1.2rem;
   width: 100%;
 }
