@@ -50,17 +50,12 @@ export const useUtilContractFunction = (args) => {
 
 //The hook can be used to derive a state from contract values. Omits need to manage state only for display purposes.
 export const useContractValueTrasnformation = (properties, config) => {
-  const [displayState, setDisplayState] = useState(null);
+  let newState = {};
+  Object.keys(properties).map((key) => {
+    newState[key] = config[key] ? config[key](properties[key]) : properties[key];
+  });
 
-  useEffect(() => {
-    let newState = {};
-    Object.keys(properties).map((key) => {
-      newState[key] = config[key] ? config[key](properties[key]) : properties[key];
-    });
-    setDisplayState(newState);
-  }, []);
-
-  return displayState;
+  return newState;
 };
 
 //Returns error queue from redux
