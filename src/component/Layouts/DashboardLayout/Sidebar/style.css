@@ -1,0 +1,54 @@
+body {
+  font-size: 16px;
+}
+.sidebarContainer {
+  position: fixed;
+  width: 240px;
+  height: calc(100vh - 70px);
+  background-color: #f3f5f6;
+  transition: 1.2s;
+  left: 0px;
+  box-shadow: 10px 10px 32px -9px rgba(0, 0, 0, 0.20);
+  -webkit-box-shadow: 10px 10px 32px -9px rgba(0, 0, 0, 0.20);
+  -moz-box-shadow: 10px 10px 32px -9px rgba(0, 0, 0, 0.20);
+}
+.sidebarContainer-close {
+  position: fixed;
+  width: 240px;
+  height: calc(100vh - 70px);
+  background-color: #f3f5f6;
+  transition: 1.2s;
+  left: -240px;
+}
+.sideLi {
+  padding: 10px;
+  color: black;
+}
+.sideLi a {
+  text-decoration: none;
+  color: black;
+}
+.sideLi:hover {
+  text-decoration: none;
+  background-color: white;
+  transition: 0.5s;
+}
+.sideLi a:hover {
+  color: #8c7dfb;
+  transition: 0.5s;
+}
+.sidebarList {
+  flex-direction: column !important;
+  list-style: none;
+  margin-top: 20px;
+  padding-left: 0px;
+  text-align: Left;
+}
+.sideLi a i {
+  padding: 10px;
+}
+.sideLi a.active_class
+{  
+  border-left: 1px solid #8c7dfb;
+  color: #8c7dfb;
+}

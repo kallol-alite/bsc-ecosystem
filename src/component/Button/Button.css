@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
+:root {
+  --warning: #ebebeb;
+  --fontcolor: #1866ed;
+  --backGroundImage: linear-gradient(#f2f5fa, #f2f5fa), radial-gradient(circle at top right, #1866ed 4.02%, #c1d7fc 97.87%);
+  --buttonBorder: 1px double var(--fontcolor);
+  --buttonFontWeight: 600;
+  --gradientbutton: linear-gradient(90deg, #04e762, #89fc00);
+}
+.btn1 {
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+}
+button.btnStyle {
+  color: black;
+  background: transparent;
+  border: 1px solid #05e2b7;
+  border-radius: 0.8rem;
+  font-weight: var(--buttonFontWeight);
+}
+button.btnStyle:hover {
+  background: #05e2b7;
+}
+button.btnStyle2 {
+  background: var(--gradientbutton);
+  font-weight: var(--buttonFontWeight);
+  border: 1px solid transparent;
+  border-radius: 1.2rem;
+  width: 6rem;
+  height: 3rem;
+}
+button.btnStyle3 {
+  background: rgba(23, 199, 167, 0.1);
+  color: #17c7a7;
+  border: 1px solid #17c7a7;
+  font-weight: 700;
+  border-radius: 0.3125rem;
+  margin-left: 0.8rem;
+}
+
+button.btnStyle4 {
+  background: var(--gradientbutton);
+  font-weight: var(--buttonFontWeight);
+  border: 1px solid transparent;
+  border-radius: 1.2rem;
+  width: 100%;
+  margin-top: 0.8rem;
+}
+button.btnStyle5 {
+  background: #efefef;
+  color: black;
+  border: 1px solid transparent;
+  border-radius: 1.2rem;
+  width: 100%;
+}
