@@ -1,11 +1,10 @@
 import React from "react";
-import { Button } from "reactstrap";
 import { useEthers } from "@usedapp/core";
 import { useDispatch } from "react-redux";
 
 import MakeQuerablePromise from "../../utils/querable-promise";
-
 import { setIsWalletConnected } from "../../actions/master-actions";
+import Button from '../Button';
 
 const WalletModal = () => {
   const { account, activateBrowserWallet, deactivate } = useEthers();
@@ -30,7 +29,7 @@ const WalletModal = () => {
     }
   };
 
-  return <Button onClick={() => connectWallet()}>{!account ? "Connect Wallet" : "Disconnect Wallet"}</Button>;
+  return <Button onClick={() => connectWallet()} buttonStyle="btnStyle5">{!account ? "Connect Wallet" : "Disconnect Wallet"}</Button>;
 };
 
 export default WalletModal;
