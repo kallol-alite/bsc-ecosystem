@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Switch from "../../../NetworkSwitch/index";
 import { setSidebarView } from "../../../../actions/master-actions";
 import "./style.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import WalletModal from "../../../WalletModal";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Index() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -24,12 +25,13 @@ export default function Index() {
       <div className="listDiv">
         <ul className=" navbarList">
           <li className="navLi">
-            <a className="" aria-current="page" href="#">
+            <WalletModal />
+            {/* <a className="" aria-current="page" href="#">
               Wallet
             </a>
             <a className="iconS">
               <i className="bi bi-wallet2 "></i>
-            </a>
+            </a> */}
           </li>
           <li className="navLi">
             <a className="" aria-current="page" href="#">
