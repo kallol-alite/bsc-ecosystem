@@ -1,8 +1,66 @@
-body
-{
-    font-size: 16px;
+body {
+  font-size: 16px;
 }
-.navBar
+.navBarContainer {
+  background-color: #8c7dfb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  height: 70px;
+}
+.logoDiv {
+  height: 50px;
+  width: 143px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logoDiv img {
+  height: 100%;
+  padding: 10px;
+}
+.listDiv {
+  height: 50px;
+  width: 402px;
+}
+.navbarList {
+  flex-direction: row !important;
+  list-style: none;
+  padding-left: 17px;
+}
+.navLi {
+  display: inline-block;
+  padding: 10px;
+}
+.navLi a {
+  text-decoration: none;
+  color: white;
+}
+.navLi a:hover {
+  text-decoration: none;
+  color: white;
+}
+.iconS {
+  display: none;
+}
+.burgerIconDiv
 {
-    background-color: #8c7dfb;
+  padding-left: 50px;
+  flex-grow: 1;
+}
+@media only screen and (max-width: 554px) {
+  .navLi a {
+    display: none;
+  }
+  .navLi :nth-of-type(2) {
+    display: block;
+  }
+  .listDiv {
+    width: 290px;
+  } 
+  .burgerIconDiv
+  {
+    padding-left: 0px;
+  }
 }

@@ -1,4 +1,4 @@
-import { SET_LOADER_VISIBILITY, SET_IS_WALLET_CONNECTED, SET_DAPP_TXN_ERROR_QUEUE, SET_DAPP_TXN_SUCCESS_QUEUE } from "./actionTypes";
+import { SET_LOADER_VISIBILITY,SET_SIDEBAR_VISIBILITY, SET_IS_WALLET_CONNECTED, SET_DAPP_TXN_ERROR_QUEUE, SET_DAPP_TXN_SUCCESS_QUEUE } from "./actionTypes";
 
 export function setLoaderVisibility(isOpen) {
   return {
@@ -6,7 +6,12 @@ export function setLoaderVisibility(isOpen) {
     status: isOpen,
   };
 }
-
+export function setSidebarView(status) {
+  return {    
+    type: SET_SIDEBAR_VISIBILITY,
+    status    
+  };
+}
 export function setIsWalletConnected(value) {
   return {
     type: SET_IS_WALLET_CONNECTED,
