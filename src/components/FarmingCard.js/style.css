@@ -1,0 +1,60 @@
+.farming-card {
+  margin: 5px;
+  padding: 1px;
+  background: #ffffff;
+  box-shadow: 0px 5px 20px rgba(13, 56, 199, 0.102);
+  border: double 1px transparent;
+  border-radius: 9px;
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #1866ed 4.02%, #c1d7fc 97.87%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  max-width: 350px;
+  min-height: 500px;
+}
+
+.farming-card > div {
+  background-color: #fff;
+  border-radius: 9px;
+}
+
+.info-grid {
+  border: 1px solid #bbbbbb;
+  border-left: none;
+  border-right: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.info-grid > div {
+  padding: 8px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  flex-basis: 33%;
+  text-align: center;
+  font-size: 12px;
+  color: #666666;
+}
+
+.info-grid > div:nth-child(2) {
+  border: 1px solid #bbbbbb;
+  border-top: none;
+  border-bottom: none;
+}
+
+@media screen and (max-width: 500px) {
+  .info-grid{
+    flex-wrap: wrap;
+  }
+  .info-grid > div:nth-child(2){
+    flex-basis: 100%;
+    border: 1px solid #bbbbbb;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+.info-value{
+  font-weight: bold;
+  font-size: 14px;
+}
