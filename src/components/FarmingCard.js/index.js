@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Col, Container, Row } from "reactstrap";
 import Button from "../../component/Button/index";
 import "./style.css";
@@ -7,8 +7,15 @@ import TokenPairIcon from "../common/TokenPairIcon";
 
 import icon1 from "../../assets/torus.png";
 import icon2 from "../../assets/torus.png";
+import FarmingModal from "../modals/FarmingStakeModal/index";
+import StakeModal from "../../component/StakeModal";
+import FarmingUnstakeModal from "../../component/FarmingUnstakeModal";
 
 const FarmingCard = () => {
+  const [modal, setModal] = useState(false);
+  const openModal = () => setModal(!modal);
+  const [modal1, setModal1] = useState(false);
+  const openModal1 = () => setModal1(!modal1);
   return (
     <>
       <Card className="farming-card">
@@ -49,10 +56,12 @@ const FarmingCard = () => {
                 </div>
                 <div className="buttons">
                   <div style={{ margin: 5 }}>
-                    <Button>Unstake &#45;</Button>
+                    <Button onClick={openModal1}>Unstake &#45;</Button>
+                    <FarmingUnstakeModal toggle1={openModal1} isOpen1={modal1} />
                   </div>
                   <div style={{ margin: 5 }}>
-                    <Button>Stake &#43;</Button>
+                    <Button onClick={openModal}>Stake &#43;</Button>
+                    <FarmingModal toggle={openModal} isOpen={modal} />
                   </div>
                   {/* <span>Stake Fee 1.5%</span> */}
                 </div>

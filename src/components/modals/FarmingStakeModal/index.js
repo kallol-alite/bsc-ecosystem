@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
-import styles from "../FarmingUnstakeModal/UnstakeModal.module.css";
-import Button from "../Button";
-const FarmingUnstakeModal = ({ isOpen1, toggle1 }) => {
+import styles from "../FarmingStakeModal/FarmingModal.module.css";
+import Button from "../../../component/Button";
+
+const pills = ["1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
+
+const FarmingModal = ({ isOpen, toggle }) => {
   // const [modal, setModal] = useState(false);
   // const openModal = () => setModal(!modal);
+  const [chips, setChips] = useState();
+  const PillChange = (e, value) => {
+    setChips(e.target.value);
+  };
+  console.log("Chips:-", chips);
   return (
     <>
       <Container>
         {/* <Button onClick={openModal}> Click Me</Button> */}
-        <Modal isOpen={isOpen1} toggle={toggle1} className={styles.ModalStyle}>
-          <ModalHeader toggle={toggle1}>Unstake YFDAI</ModalHeader>
+        <Modal isOpen={isOpen} toggle={toggle} className={styles.ModalStyle}>
+          <ModalHeader toggle={toggle}>Stake YFDAI</ModalHeader>
           <ModalBody>
             <div class={styles.text}>
               <p>Balance in Wallet : 0</p>
@@ -22,7 +30,7 @@ const FarmingUnstakeModal = ({ isOpen1, toggle1 }) => {
             </div>
             <div className={styles.btnStake}>
               <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
-                Unstake
+                Stake
               </Button>
               <p>Stake Fee 1.5 %</p>
               <Button buttonStyle="btnStyle3">Buy YFDAI</Button>
@@ -33,4 +41,4 @@ const FarmingUnstakeModal = ({ isOpen1, toggle1 }) => {
     </>
   );
 };
-export default FarmingUnstakeModal;
+export default FarmingModal;
