@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 import { CardDetais } from "../../utils/Carddetails";
-import Buttons from "../Button";
+import Button from "../Button";
 import styles from "../StackingCard/Card.module.css";
 import StakeModal from "../../component/StakeModal/index";
 import FarmingUnstakeModal from "../FarmingUnstakeModal";
@@ -51,15 +51,15 @@ const StackingCard = () => {
                     </div>
                     <div className={styles.stakeButtons}>
                       <div style={{ margin: 5 }}>
-                        <Buttons buttonStyle="btnStyle" onClick={openModal1}>
+                        <Button buttonStyle="btnStyle" onClick={openModal1}>
                           Unstake &#45;
-                        </Buttons>
+                        </Button>
                         <FarmingUnstakeModal toggle1={openModal1} isOpen1={modal1} />
                       </div>
                       <div style={{ margin: 5 }}>
-                        <Buttons buttonStyle="btnStyle6" onClick={openModal}>
+                        <Button buttonStyle="btnStyle6" onClick={openModal}>
                           Stake &#43;{" "}
-                        </Buttons>
+                        </Button>
                         <StakeModal toggle={openModal} isOpen={modal} />
                       </div>
                     </div>
@@ -75,7 +75,7 @@ const StackingCard = () => {
                         <div>{details.USD}</div>
                       </div>
                       <div>
-                        <Buttons buttonStyle="btnStyle2">Harvest</Buttons>
+                        <Button buttonStyle="btnStyle2">Harvest</Button>
                       </div>
                     </div>
                     <div className={styles.values}>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Col, Container, Row } from "reactstrap";
-import Buttons from "../../component/Button/index";
+import Button from "../../component/Button/index";
 import "./style.css";
 
 import TokenPairIcon from "../common/TokenPairIcon";
@@ -41,34 +41,42 @@ const FarmingCard = () => {
           </Row>
           <Row>
             <Col>
-              <div>
-                <div>
+              <div className="stack-div">
+                <div className="buttons-div">
                   <div>
                     <div>USDT SSGTx</div>
                     <div>LP STAKED</div>
                   </div>
-                  <div>
-                    <Buttons>Unstake &#45;</Buttons>
-                    <Buttons>Stake &#43;</Buttons>
+                  <div className="buttons">
+                    <div style={{ margin: 5 }}>
+                      <Button>Unstake &#45;</Button>
+                    </div>
+                    <div style={{ margin: 5 }}>
+                      <Button>Stake &#43;</Button>
+                    </div>
                     {/* <span>Stake Fee 1.5%</span> */}
                   </div>
                 </div>
-                <div style={{ fontWeight: 900 }}>0.0000</div>
+                <div className="zero" id="zero1">
+                  0.0000
+                </div>
               </div>
             </Col>
           </Row>
           <Row>
             <Col>
-              <div>
+              <div className="pending">
                 <div>SSGTx PENDING</div>
-                <div style={{ fontWeight: 900 }}>0.0000</div>
+                <div className="zero">0.0000</div>
                 <div>~ 0.0 USD</div>
               </div>
             </Col>
           </Row>
           <Row>
             <Col>
-              <Buttons buttonStyle="btnStyle4">Harvest</Buttons>
+              <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
+                Harvest
+              </Button>
             </Col>
           </Row>
         </Container>
