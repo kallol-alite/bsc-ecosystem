@@ -162,7 +162,7 @@ const FarmingCard = ({
           </Row>
           <Row>
             <Col>
-              <Buttons buttonStyle="btnStyle4">Harvest</Buttons>
+              <Button buttonStyle="btnStyle4">Harvest</Button>
             </Col>
           </Row>
         </Container>
