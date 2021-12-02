@@ -18,7 +18,7 @@ const StakingModal = ({}) => {
   return (
     <>
       <Button
-        buttonStyle="btnStyle4"
+        buttonStyle="btnStyle"
         onClick={() => {
           setIsOpen(true);
         }}
