@@ -7,10 +7,10 @@ import TokenPairIcon from "../common/TokenPairIcon";
 
 import icon1 from "../../assets/torus.png";
 import icon2 from "../../assets/torus.png";
-import FarmingModal from "../modals/FarmingStakeModal/index";
-import StakeModal from "../../component/StakeModal";
-import FarmingUnstakeModal from "../../component/FarmingUnstakeModal";
-
+import FarmingModal from "../modals/FarmingUnstakeModal";
+// import StakeModal from "../modals/StakingModal";
+import StakeModal from "../../component/StakeModal/index";
+import FarmingStakeModal from "../../component/FarmingStakeModal";
 const FarmingCard = () => {
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
@@ -57,11 +57,11 @@ const FarmingCard = () => {
                 <div className="buttons">
                   <div style={{ margin: 5 }}>
                     <Button onClick={openModal1}>Unstake &#45;</Button>
-                    <FarmingUnstakeModal toggle1={openModal1} isOpen1={modal1} />
+                    <FarmingModal toggle={openModal1} isOpen={modal1} />
                   </div>
                   <div style={{ margin: 5 }}>
                     <Button onClick={openModal}>Stake &#43;</Button>
-                    <FarmingModal toggle={openModal} isOpen={modal} />
+                    <FarmingStakeModal toggle={openModal} isOpen={modal} />
                   </div>
                   {/* <span>Stake Fee 1.5%</span> */}
                 </div>
