@@ -2,13 +2,11 @@
   display: flex;
   margin-top: 70px;
 }
-
 .sidebarOpenView {
   margin-left: 240px;
   width: calc(100vw - 240px);
   transition: all 1.2s;
 }
-
 .sidebarCloseView {
   transition: all 1.2s;
 }

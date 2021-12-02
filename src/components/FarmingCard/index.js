@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "reactstrap";
 import { useContractFunction } from "@usedapp/core";
-import Buttons from "../../component/Button/index";
+import Button from "../../component/Button";
 import "./style.css";
 
 import { calculateLiquidity, calculateApr } from "../../views/Farming/utils/farmUtils";
@@ -9,10 +9,11 @@ import { depositFarmingFunction, withdrawFarmingFunction } from "../../views/Far
 import { approveAllowanceFunction } from "../../views/Farming/services/TokenContractService";
 
 import TokenPairIcon from "../common/TokenPairIcon";
-
-import icon1 from "../../assets/torus.png";
-import icon2 from "../../assets/torus.png";
 import notFound from "../../assets/oval.png";
+
+import FarmingModal from "../modals/FarmingStakeModal/index";
+import StakeModal from "../../component/StakeModal";
+import FarmingUnstakeModal from "../../component/FarmingUnstakeModal";
 
 const FarmingCard = ({
   key,
@@ -47,6 +48,11 @@ const FarmingCard = ({
   const [farmApr, steFarmApr] = useState(0);
   const [img0, setImg0] = useState(notFound);
   const [img1, setImg1] = useState(notFound);
+
+  const [modal, setModal] = useState(false);
+  const openModal = () => setModal(!modal);
+  const [modal1, setModal1] = useState(false);
+  const openModal1 = () => setModal1(!modal1);
 
   const { state: approveAllowanceState, send: approveFunction } = useContractFunction(lpContract, approveAllowanceFunction);
   const { state: depositState, send: depositFunction } = useContractFunction(farmingContract, depositFarmingFunction);
@@ -136,8 +142,8 @@ const FarmingCard = ({
                     <div>LP STAKED</div>
                   </div>
                   <div>
-                    <Buttons>Unstake &#45;</Buttons>
-                    <Buttons>Stake &#43;</Buttons>
+                    <Button>Unstake &#45;</Button>
+                    <Button>Stake &#43;</Button>
                     {/* <span>Stake Fee 1.5%</span> */}
                   </div>
                 </div>

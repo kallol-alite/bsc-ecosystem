@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
 import styles from "../FarmingUnstakeModal/UnstakeModal.module.css";
-import Button from "../Button";
+import Buttons from "../Button";
 const FarmingUnstakeModal = ({ isOpen1, toggle1 }) => {
   // const [modal, setModal] = useState(false);
   // const openModal = () => setModal(!modal);
@@ -18,14 +18,12 @@ const FarmingUnstakeModal = ({ isOpen1, toggle1 }) => {
             </div>
             <div className={styles.addBalance}>
               <Input type="text" placeholder="Enter YFDAI Amount" />
-              <Button buttonStyle="btnStyle4">Max</Button>
+              <Buttons buttonStyle="btnStyle3">Max</Buttons>
             </div>
             <div className={styles.btnStake}>
-              <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
-                Unstake
-              </Button>
+              <Buttons buttonStyle="btnStyle4">Stake</Buttons>
               <p>Stake Fee 1.5 %</p>
-              <Button buttonStyle="btnStyle3">Buy YFDAI</Button>
+              <Buttons buttonStyle="btnStyle5">Buy YFDAI</Buttons>
             </div>
           </ModalBody>
         </Modal>

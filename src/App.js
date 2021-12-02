@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import FarmingView from "./views/Farming";
 
 import DashboardLayout from "./component/Layouts/DashboardLayout";
+import StackingCard from "./component/StackingCard/index";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
             Dashboard
           </Route>
           <Route exact path="/staking">
-            Staking
+            <StackingCard />
           </Route>
           <Route exact path="/farming" component={FarmingView} />
         </DashboardLayout>

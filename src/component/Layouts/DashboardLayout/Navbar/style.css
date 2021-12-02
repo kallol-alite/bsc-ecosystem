@@ -12,6 +12,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 100;
 }
 .logoDiv {
   height: 50px;
@@ -27,7 +28,7 @@ body {
 }
 .listDiv {
   height: 50px;
-  width: 402px;
+  width: 420px;
 }
 .navbarList {
   flex-direction: row !important;

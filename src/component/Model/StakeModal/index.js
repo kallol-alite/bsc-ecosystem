@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
 import styles from "../StakeModal/Model.module.css";
-import Button from "../Button";
+import Button from "../../Button";
 
 const pills = ["1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
 
@@ -25,7 +25,7 @@ const StakeModal = ({ isOpen, toggle }) => {
             </div>
             <div className={styles.addBalance}>
               <Input type="text" placeholder="Enter YFDAI Amount" />
-              <Button buttonStyle="btnStyle4">Max</Button>
+              <Button buttonStyle="btnStyle">Max</Button>
             </div>
             <div className={styles.pills}>
               <p>
