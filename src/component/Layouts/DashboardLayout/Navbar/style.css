@@ -10,8 +10,8 @@ body {
   height: 70px;
   position: fixed;
   top: 0;
-  width: 100%;
-  z-index: 1;
+  left: 0;
+  right: 0;
 }
 .logoDiv {
   height: 50px;
@@ -19,10 +19,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-grow: 1;
 }
 .logoDiv img {
   height: 100%;
-  padding: 10px;
+  padding: 5px 15px;
 }
 .listDiv {
   height: 50px;
@@ -39,18 +40,18 @@ body {
 }
 .navLi a {
   text-decoration: none;
-  color: white;
+  color: #ffffff;
 }
 .navLi a:hover {
   text-decoration: none;
-  color: white;
+  color: #ffffff;
 }
 .iconS {
   display: none;
 }
 .burgerIconDiv {
-  padding-left: 50px;
-  flex-grow: 1;
+  /* padding-left: 50px; */
+  color: #ffffff;
 }
 @media only screen and (max-width: 554px) {
   .navLi a {
@@ -60,9 +61,10 @@ body {
     display: block;
   }
   .listDiv {
-    width: 290px;
+    /* width: 290px; */
   }
   .burgerIconDiv {
     padding-left: 0px;
+    height: 50px;
   }
 }

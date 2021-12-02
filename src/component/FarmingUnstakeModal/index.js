@@ -1,43 +1,24 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
-import styles from "../StakeModal/Model.module.css";
-import Button from "../../Button";
-
-const pills = ["1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
-
-const StakeModal = ({ isOpen, toggle }) => {
+import styles from "../FarmingUnstakeModal/UnstakeModal.module.css";
+import Button from "../Button";
+const FarmingUnstakeModal = ({ isOpen1, toggle1 }) => {
   // const [modal, setModal] = useState(false);
   // const openModal = () => setModal(!modal);
-  const [chips, setChips] = useState();
-  const PillChange = (e, value) => {
-    setChips(e.target.value);
-  };
-  // console.log("Chips:-", chips);
   return (
     <>
       <Container>
         {/* <Button onClick={openModal}> Click Me</Button> */}
-        <Modal isOpen={isOpen} toggle={toggle} className={styles.ModalStyle}>
-          <ModalHeader toggle={toggle}>Stake YFDAI</ModalHeader>
+        <Modal isOpen={isOpen1} toggle={toggle1} className={styles.ModalStyle}>
+          <ModalHeader toggle={toggle1}>Unstake YFDAI</ModalHeader>
           <ModalBody>
             <div class={styles.text}>
               <p>Balance in Wallet : 0</p>
+              <p>Max Per Tx : 500000</p>
             </div>
             <div className={styles.addBalance}>
               <Input type="text" placeholder="Enter YFDAI Amount" />
               <Button buttonStyle="btnStyle">Max</Button>
-            </div>
-            <div className={styles.pills}>
-              <p>
-                Estimated APR <span className={styles.percentage}>00 %</span>
-              </p>
-              <ul className={styles.tab}>
-                {pills.map((option) => (
-                  <button key={option} value={option} onClick={PillChange}>
-                    {option}
-                  </button>
-                ))}
-              </ul>
             </div>
             <div className={styles.btnStake}>
               <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
@@ -52,4 +33,4 @@ const StakeModal = ({ isOpen, toggle }) => {
     </>
   );
 };
-export default StakeModal;
+export default FarmingUnstakeModal;

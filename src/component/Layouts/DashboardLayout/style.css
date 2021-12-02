@@ -10,6 +10,7 @@
 .sidebarCloseView {
   transition: all 1.2s;
 }
+
 @media only screen and (max-width: 515px) {
   .sidebarOpenView {
     margin-left: 0px;

@@ -3,6 +3,7 @@ import { useEthers, useContractCall, useContractFunction, useTokenBalance, useCo
 import { CONTRACT_ADDRESS, ALLOWED_NETWORKS } from "./../../App.Config";
 import { useDispatch } from "react-redux";
 import { utils } from "ethers";
+import { BigNumber } from "@ethersproject/bignumber";
 import StakingBSC from "./abi/StakingBSC.json";
 import TokenABI from "./abi/Token.json";
 import Stakingcard from "../../component/StackingCard/index";
@@ -38,7 +39,7 @@ const Staking = () => {
   const [walletBalance, setWalletBalance] = useState(0);
   const [walletAmount, setWalletAmount] = useState("");
 
-  buyUrl = "https://quickswap.exchange/#/swap?outputCurrency=0x914034f0ff781c430aa9594851cc95806fd19dc6";
+  // const buyUrl = "https://quickswap.exchange/#/swap?outputCurrency=0x914034f0ff781c430aa9594851cc95806fd19dc6";
 
   const [totalStakersCount, userInfo, Pending] = useContractCalls([
     totalStakersContractCall(currentNetworkContract, StakingBSC),
@@ -66,7 +67,7 @@ const Staking = () => {
       if (parseFloat(allowance) > 0 && parseFloat(allowance) > walletAmount) {
       } else {
         // Else call approve allowance
-        sendApproveAllowance(CONTRACT_ADDRESS.SSGT.STAKING, BigNumber.from(2).pow(256).sub(1));
+        // sendApproveAllowance(CONTRACT_ADDRESS.SSGT.STAKING, BigNumber.from(2).pow(256).sub(1));
       }
     } else {
       // Show error to user

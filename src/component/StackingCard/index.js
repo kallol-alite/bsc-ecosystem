@@ -6,10 +6,10 @@ import StakeModal from "../Model/StakeModal/index";
 // import MaterialInput from "../MaterialInput";
 // import PopupModal from "../Model";
 import Buttons from "../Button";
-const Cards = (props) => {
+const StackingCard = (props) => {
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
-  // console.log(props);
+  console.log(props);
   return (
     <>
       <div className={styles.container}>
@@ -78,10 +78,6 @@ const Cards = (props) => {
                 <CardText>$</CardText>
               </div>
             </div>
-            {/* <div className={styles.nftCard}>
-                    <CardTitle tag="h3">{details.paraHeading}</CardTitle>
-                    <CardText>{details.paragraph}</CardText>
-                  </div> */}
           </CardBody>
         </Card>
       </div>
@@ -95,4 +91,4 @@ const Cards = (props) => {
   );
 };
 
-export default Cards;
+export default StackingCard;

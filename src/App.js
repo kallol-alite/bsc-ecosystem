@@ -1,17 +1,38 @@
-import Layout from "./component/Layouts/DashboardLayout/Index";
-// import Farming from './component/Farming';
-// import Staking from './component/Staking';
-import Staking from "./views/Staking";
 import { Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+import DashboardLayout from "./component/Layouts/DashboardLayout";
+import StackingCard from "./component/StackingCard/index";
+import FarmingCard from "./components/FarmingCard.js";
+
 function App() {
   return (
-    <div className="App">
-      <Layout />
+    <>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Switch>
-        {/* <Route exact path='/' component={Farming} exact /> */}
-        <Route path="/staking" component={Staking} />
+        <DashboardLayout>
+          <Route exact path="/">
+            Dashboard
+          </Route>
+          <Route exact path="/staking">
+            <StackingCard />
+          </Route>
+          <Route exact path="/farming">
+            <FarmingCard />
+          </Route>
+        </DashboardLayout>
       </Switch>
-    </div>
+    </>
   );
 }
 
