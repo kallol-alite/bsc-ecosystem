@@ -5,6 +5,8 @@ import DashboardLayout from "./component/Layouts/DashboardLayout";
 import StackingCard from "./component/StackingCard/index";
 import FarmingCard from "./components/FarmingCard.js";
 
+// import StakingModal from './components/modals/StakingModal'
+
 function App() {
   return (
     <>
@@ -19,6 +21,7 @@ function App() {
         draggable
         pauseOnHover
       />
+      {/* <StakingModal/> */}
       <Switch>
         <DashboardLayout>
           <Route exact path="/">

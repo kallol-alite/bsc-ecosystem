@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, Input } from "reactstrap";
 
-import styles from "./StakeModal.module.css";
+import styles from "./StakingModal.module.css";
 
 import Button from "../../../component/Button";
 
 const pills = ["1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
 
-const StakeModal = ({}) => {
+const StakingModal = ({}) => {
   const [chips, setChips] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,16 +32,8 @@ const StakeModal = ({}) => {
           console.log("asd");
           setIsOpen(false);
         }}
-        className={styles.ModalStyle}
       >
-        <ModalHeader
-          toggle={() => {
-            console.log("asd");
-            setIsOpen(false);
-          }}
-        >
-          Stake YFDAI
-        </ModalHeader>
+        <ModalHeader toggle={() => setIsOpen(false)}>Stake YFDAI</ModalHeader>
         <ModalBody>
           <div class={styles.text}>
             <p>Balance in Wallet : 0</p>
@@ -75,4 +67,5 @@ const StakeModal = ({}) => {
     </>
   );
 };
-export default StakeModal;
+
+export default StakingModal;
