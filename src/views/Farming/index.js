@@ -27,10 +27,14 @@ import {
 } from "./services/LpContractService";
 import { fetchLpTokenBalance } from "./services/TokenContractService";
 
-import { CONTRACT_ADDRESS, ALLOWED_NETWORKS } from "../../App.Config";
+import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, ICON_END_POINT, COINGECKO_PRICE_END_POINT } from "../../App.Config";
 import FarmingAbi from "./abi/FarmingBsc.json";
 import TokenAbi from "./abi/Token.json";
 import LpTokenAbi from "./abi/LPToken.json";
+
+import notFound from "../../assets/oval.png";
+
+import { getCoingeckoUrls } from "../../actions/farming-actions";
 
 const Farming = (props) => {
   const { chainId, account } = useEthers();
@@ -39,6 +43,8 @@ const Farming = (props) => {
   const [currentNetworkContract, setCurrentNetworkContract] = useState("");
   const [totalPoolLengthState, setTotalPoolLengthState] = useState(0);
   const [allFarmInfoState, setAllFarmInfoState] = useState([]);
+  const [img0, setImg0] = useState(notFound);
+  const [img1, setImg1] = useState(notFound);
 
   const contractOwnerAddress = useContractCalls(currentNetworkContract ? [contractOwner(currentNetworkContract, FarmingAbi)] : []);
   const [totalPoolLength] = useContractCalls(currentNetworkContract ? [poolLength(currentNetworkContract, FarmingAbi)] : []);
@@ -179,6 +185,45 @@ const Farming = (props) => {
   const token0Liquidity = useContractCalls(argsForLiquidity(totalPoolLengthState, currentNetworkContract, LpTokenAbi, listOfToken0));
   const token1Liquidity = useContractCalls(argsForLiquidity(totalPoolLengthState, currentNetworkContract, LpTokenAbi, listOfToken1));
 
+  const totalAllocPointValue = useContractCalls(currentNetworkContract ? [totalAllocPoint(currentNetworkContract, currentNetworkAbi)] : []);
+
+  const fetchImage0 = async (symbol) => {
+    if (symbol) {
+      const url = process.env.REACT_APP_COIN_ICON_URL;
+      const name = symbol.toString().toLowerCase();
+      const response = await fetch(url + name + ".png").catch((e) => {});
+      if (response.status == 404) {
+        setImg0(notFound);
+      } else if (response.status == 200) {
+        setImg0(response.url.toString());
+      }
+    }
+  };
+
+  const fetchImage1 = async (symbol) => {
+    if (symbol) {
+      const url = process.env.REACT_APP_COIN_ICON_URL;
+      const name = symbol.toString().toLowerCase();
+      const response = await fetch(url + name + ".png").catch((e) => {});
+      if (response.status == 404) {
+        setImg1(notFound);
+      } else if (response.status == 200) {
+        setImg1(response.url.toString());
+      }
+    }
+  };
+
+  const createFarms = () => {
+    let newFarms = [];
+    for (let i = 0; i < totalPoolLengthState; i++) {
+      newFarms.push({
+        id: i,
+        earned: pendingRewardsValue[i] && pendingRewardsValue[i][0] && parseFloat(utils.formatUnits(pendingRewardsValue[i][0]._hex)).toFixed(3),
+      });
+    }
+    return newFarms;
+  };
+
   useEffect(() => {
     if (totalPoolLengthResolved) {
       setTotalPoolLengthState(totalPoolLengthResolved.totalPoolLength);
@@ -194,6 +239,10 @@ const Farming = (props) => {
       setCurrentNetworkAbi([]);
     }
   }, [chainId]);
+
+  useEffect(() => {
+    dispatch(getCoingeckoUrls());
+  }, []);
 
   return (
     <>
