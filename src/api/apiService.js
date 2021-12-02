@@ -1,4 +1,4 @@
-import request from "../utils/api-service";
+import { request } from "../utils/apiService";
 import { COINGECKO_PRICE_END_POINT } from "../App.Config";
 
 export function getCoingeckoUrl() {

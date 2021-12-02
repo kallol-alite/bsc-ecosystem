@@ -77,6 +77,6 @@ export const calculateLiquidity = async (token0, token1, coingeckoData, liquidit
   else {
     usdRateForToken1 = 0;
   }
-  return usdRateForToken0, usdRateForToken1;
+  return { token0: usdRateForToken0, token1: usdRateForToken1 };
   // setLiquidityValue((parseFloat(usdRateForToken0) + parseFloat(usdRateForToken1)))
 };

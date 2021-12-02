@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useEthers, useContractCall, useContractCalls, useContractFunction } from "@usedapp/core";
-import { utils } from "ethers";
-import { useDispatch } from "react-redux";
+import { Contract, utils } from "ethers";
+import { useDispatch, useSelector } from "react-redux";
 import { useUtilContractFunction, useContractValueTrasnformation, useErrorQueue, useSuccessQueue } from "../../hooks/useDappUtility";
 
 import {
@@ -27,7 +27,15 @@ import {
 } from "./services/LpContractService";
 import { fetchLpTokenBalance } from "./services/TokenContractService";
 
-import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, ICON_END_POINT, COINGECKO_PRICE_END_POINT } from "../../App.Config";
+import {
+  CONTRACT_ADDRESS,
+  ALLOWED_NETWORKS,
+  ICON_END_POINT,
+  COINGECKO_PRICE_END_POINT,
+  FORWARD_TOKEN_COINGECKO_PRICE_BSC,
+  FORWARD_TOKEN_CSV_NAME,
+  BSC_BLOCK_TIME,
+} from "../../App.Config";
 import FarmingAbi from "./abi/FarmingBsc.json";
 import TokenAbi from "./abi/Token.json";
 import LpTokenAbi from "./abi/LPToken.json";
@@ -36,6 +44,8 @@ import notFound from "../../assets/oval.png";
 
 import { getCoingeckoUrls } from "../../actions/farming-actions";
 
+import FarmingCard from "../../components/FarmingCard";
+
 const Farming = (props) => {
   const { chainId, account } = useEthers();
   const dispatch = useDispatch();
@@ -43,8 +53,9 @@ const Farming = (props) => {
   const [currentNetworkContract, setCurrentNetworkContract] = useState("");
   const [totalPoolLengthState, setTotalPoolLengthState] = useState(0);
   const [allFarmInfoState, setAllFarmInfoState] = useState([]);
-  const [img0, setImg0] = useState(notFound);
-  const [img1, setImg1] = useState(notFound);
+  const [currentBlocktime, setCurrentBlockTime] = useState(0);
+
+  const coingeckoUrlData = useSelector((state) => state.farmingReducer.coingeckoUrls);
 
   const contractOwnerAddress = useContractCalls(currentNetworkContract ? [contractOwner(currentNetworkContract, FarmingAbi)] : []);
   const [totalPoolLength] = useContractCalls(currentNetworkContract ? [poolLength(currentNetworkContract, FarmingAbi)] : []);
@@ -187,38 +198,30 @@ const Farming = (props) => {
 
   const totalAllocPointValue = useContractCalls(currentNetworkContract ? [totalAllocPoint(currentNetworkContract, currentNetworkAbi)] : []);
 
-  const fetchImage0 = async (symbol) => {
-    if (symbol) {
-      const url = process.env.REACT_APP_COIN_ICON_URL;
-      const name = symbol.toString().toLowerCase();
-      const response = await fetch(url + name + ".png").catch((e) => {});
-      if (response.status == 404) {
-        setImg0(notFound);
-      } else if (response.status == 200) {
-        setImg0(response.url.toString());
-      }
-    }
-  };
-
-  const fetchImage1 = async (symbol) => {
-    if (symbol) {
-      const url = process.env.REACT_APP_COIN_ICON_URL;
-      const name = symbol.toString().toLowerCase();
-      const response = await fetch(url + name + ".png").catch((e) => {});
-      if (response.status == 404) {
-        setImg1(notFound);
-      } else if (response.status == 200) {
-        setImg1(response.url.toString());
-      }
-    }
-  };
-
   const createFarms = () => {
     let newFarms = [];
     for (let i = 0; i < totalPoolLengthState; i++) {
       newFarms.push({
         id: i,
         earned: pendingRewardsValue[i] && pendingRewardsValue[i][0] && parseFloat(utils.formatUnits(pendingRewardsValue[i][0]._hex)).toFixed(3),
+        mulitplier: allFarmInfo[i] && allFarmInfo[i].allocPoint && parseFloat(allFarmInfo[i].allocPoint) / 100,
+        farmName: deployedFarmName && deployedFarmName.length > 0 && deployedFarmName[i] && deployedFarmName[i],
+        walletBalance: walletBalanceValue && walletBalanceValue[i] && utils.formatUnits(walletBalanceValue[i].toString()),
+        stakedValue: userInfoValue && userInfoValue[i] && userInfoValue[i].amount && utils.formatUnits(userInfoValue[i].amount.toString()),
+        token0: listOfToken0 && listOfToken0[i] ? listOfToken0[i] : "",
+        token1: listOfToken1 && listOfToken1[i] ? listOfToken1[i] : "",
+        token0Name: token0Symbol && token0Symbol[i] && token0Symbol[i][0],
+        token1Name: token1Symbol && token1Symbol[i] && token1Symbol[i][0],
+        allowedAllowance: allowanceValue && allowanceValue.length > 0 && allowanceValue[i] && allowanceValue[i],
+        stakeFee: allFarmInfo[i] && allFarmInfo[i] && parseFloat(allFarmInfo[i].depositFeeBP) / 100,
+        lpTokenAddress: allFarmInfo[i] && allFarmInfo[i] && allFarmInfo[i].lpToken,
+        allocPoint: allFarmInfo[i] && allFarmInfo[i] && [allFarmInfo[i].allocPoint],
+        farmingContract: new Contract(currentNetworkContract, currentNetworkAbi),
+        farmingAddress: currentNetworkContract,
+        lpContract: allFarmInfo[i] && allFarmInfo[i] && allFarmInfo[i].lpToken && new Contract(allFarmInfo[i].lpToken, LpTokenAbi),
+        totalAllocPoint: totalAllocPointValue,
+        token0Liquidity: token0Liquidity && token0Liquidity[i],
+        token1Liquidity: token1Liquidity && token1Liquidity[i],
       });
     }
     return newFarms;
@@ -234,6 +237,7 @@ const Farming = (props) => {
     if (Number(chainId) === Number(ALLOWED_NETWORKS.FARMING.BSC)) {
       setCurrentNetworkContract(CONTRACT_ADDRESS.FARMING.BSC);
       setCurrentNetworkAbi(FarmingAbi);
+      setCurrentBlockTime(BSC_BLOCK_TIME);
     } else {
       setCurrentNetworkContract("");
       setCurrentNetworkAbi([]);
@@ -242,12 +246,29 @@ const Farming = (props) => {
 
   useEffect(() => {
     dispatch(getCoingeckoUrls());
+    createFarms();
   }, []);
 
   return (
     <>
       <h3>FARMING</h3>
       <h4>TotalPool: {totalPoolLengthState}</h4>
+
+      {totalPoolLengthState &&
+        totalPoolLengthState > 0 &&
+        createFarms().map((pool) => {
+          return (
+            <FarmingCard
+              key={pool.id}
+              pool={pool}
+              coingeckoUrlData={coingeckoUrlData}
+              forwardTokenCoingeckoEndPoint={FORWARD_TOKEN_COINGECKO_PRICE_BSC}
+              forwardTokenCsv={FORWARD_TOKEN_CSV_NAME}
+              currentBlockTime={currentBlocktime}
+              iconEndPoint={ICON_END_POINT}
+            />
+          );
+        })}
     </>
   );
 };
