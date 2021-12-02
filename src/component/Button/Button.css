@@ -17,6 +17,7 @@ button.btnStyle {
   border: 1px solid #05e2b7;
   border-radius: 0.8rem;
   font-weight: var(--buttonFontWeight);
+  min-width: 6rem;
 }
 button.btnStyle:hover {
   background-color: #55ac57;
@@ -28,6 +29,10 @@ button.btnStyle2 {
   font-weight: var(--buttonFontWeight);
   border: 1px solid transparent;
   border-radius: 1.2rem;
+}
+button.btnStyle2:hover {
+  opacity: 1;
+  border-color: var(--gradientbutton);
 }
 button.btnStyle2:hover {
   opacity: 1;
@@ -54,4 +59,9 @@ button.btnStyle3:hover {
 }
 .largeBtn {
   width: 100%;
+}
+button.btnStyle5:hover {
+  opacity: 0.3;
+  background: #efefef;
+  color: black;
 }

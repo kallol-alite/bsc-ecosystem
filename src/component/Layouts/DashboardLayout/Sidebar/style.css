@@ -19,6 +19,7 @@ body {
   background-color: #f3f5f6;
   transition: 1.2s;
   left: -240px;
+  z-index: 200;
 }
 .sideLi {
   padding: 10px;
@@ -27,14 +28,14 @@ body {
 .sideLi a {
   text-decoration: none;
   color: black;
-  width: 100%
+  width: 100%;
 }
 .sideLi:hover {
   text-decoration: none;
   background-color: white;
   transition: 0.5s;
 }
-a{
+a {
   text-decoration: none;
 }
 a:hover {
@@ -52,7 +53,7 @@ a:hover {
 a i {
   padding: 10px;
 }
-a.active_class .sideLi{
+a.active_class .sideLi {
   border-left: 1px solid #8c7dfb;
   color: #8c7dfb;
   cursor: default;
