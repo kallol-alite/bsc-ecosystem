@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
-import styles from "../FarmingStakeModal/FarmingModal.module.css";
-import Button from "../../../component/Button";
+import styles from "./FarmingStakeModal.module.css";
+import Button from "../Button";
 
 const pills = ["1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
 
-const FarmingModal = ({ isOpen, toggle }) => {
+const FarmingStakeModal = ({ isOpen, toggle }) => {
   // const [modal, setModal] = useState(false);
   // const openModal = () => setModal(!modal);
   const [chips, setChips] = useState();
   const PillChange = (e, value) => {
     setChips(e.target.value);
   };
-  console.log("Chips:-", chips);
+  // console.log("Chips:-", chips);
   return (
     <>
       <Container>
@@ -22,7 +22,6 @@ const FarmingModal = ({ isOpen, toggle }) => {
           <ModalBody>
             <div class={styles.text}>
               <p>Balance in Wallet : 0</p>
-              <p>Max Per Tx : 500000</p>
             </div>
             <div className={styles.addBalance}>
               <Input type="text" placeholder="Enter YFDAI Amount" />
@@ -41,4 +40,4 @@ const FarmingModal = ({ isOpen, toggle }) => {
     </>
   );
 };
-export default FarmingModal;
+export default FarmingStakeModal;
