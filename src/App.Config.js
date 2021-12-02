@@ -23,3 +23,13 @@ export const ALLOWED_NETWORKS = {
     BSC: 137, //DEVLOPMENR
   },
 };
+
+export const API_COINGECO = {
+  TEST: "https://api.coingecko.com/api/v3/simple/price?ids=safeswap&vs_currencies=USD", //FOR DEVLOPMENT PERPOSE ONLY
+};
+
+export const CSV = {
+  TEST_FORWARD: "safeswap", ////this is ONLY FOR TEST
+};
+
+export const BSC_TEST_BLOCKTIME = 2; //FOR TEST ONLY

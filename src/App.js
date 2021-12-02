@@ -2,7 +2,7 @@ import { Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import DashboardLayout from "./component/Layouts/DashboardLayout";
-import StackingCard from "./component/StackingCard/index";
+import StackingCard from "./views/Staking";
 import FarmingCard from "./components/FarmingCard.js";
 
 function App() {

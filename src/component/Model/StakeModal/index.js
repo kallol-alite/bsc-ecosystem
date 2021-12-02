@@ -2,15 +2,25 @@ import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
 import styles from "../StakeModal/Model.module.css";
 import Button from "../../Button";
+import { utils } from "ethers";
 
 const pills = ["1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
 
-const StakeModal = ({ isOpen, toggle }) => {
+const StakeModal = ({ isOpen, toggle, buyUrl, walletBalance }) => {
   // const [modal, setModal] = useState(false);
   // const openModal = () => setModal(!modal);
   const [chips, setChips] = useState();
   const PillChange = (e, value) => {
     setChips(e.target.value);
+  };
+
+  const openInNewWindow = (url) => {
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+  };
+
+  const toMax4Decimals = (x) => {
+    return +x.toFixed(4);
   };
   // console.log("Chips:-", chips);
   return (
@@ -21,7 +31,7 @@ const StakeModal = ({ isOpen, toggle }) => {
           <ModalHeader toggle={toggle}>Stake YFDAI</ModalHeader>
           <ModalBody>
             <div class={styles.text}>
-              <p>Balance in Wallet : 0</p>
+              <p>Balance in Wallet : {utils.commify(toMax4Decimals(parseFloat(walletBalance)))}</p>
             </div>
             <div className={styles.addBalance}>
               <Input type="text" placeholder="Enter YFDAI Amount" />
@@ -43,8 +53,14 @@ const StakeModal = ({ isOpen, toggle }) => {
               <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
                 Stake
               </Button>
-              <p>Stake Fee 1.5 %</p>
-              <Button buttonStyle="btnStyle3">Buy YFDAI</Button>
+              <Button
+                buttonStyle="btnStyle3"
+                onClick={() => {
+                  openInNewWindow(buyUrl);
+                }}
+              >
+                Buy Token
+              </Button>
             </div>
           </ModalBody>
         </Modal>

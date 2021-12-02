@@ -9,6 +9,7 @@ import Buttons from "../Button";
 const StackingCard = (props) => {
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
+
   console.log(props);
   return (
     <>
@@ -52,7 +53,7 @@ const StackingCard = (props) => {
                   <Buttons buttonStyle="btnStyle6" onClick={openModal}>
                     Stake &#43;{" "}
                   </Buttons>
-                  <StakeModal toggle={openModal} isOpen={modal} />
+                  <StakeModal buyUrl={props.buyUrl} walletBalance={props.walletBalance} toggle={openModal} isOpen={modal} />
                 </div>
               </div>
             </div>
