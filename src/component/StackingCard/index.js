@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 import { CardDetais } from "../../utils/Carddetails";
-import Button from "../Button";
 import styles from "../StackingCard/Card.module.css";
 import StakeModal from "../../component/StakeModal/index";
 import FarmingUnstakeModal from "../FarmingUnstakeModal";
 import TokenIcon from "../../components/common/TokenIcon";
+import Button from "../Button";
 
 import Icon from "../../assets/torus.png";
 
