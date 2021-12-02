@@ -5,13 +5,16 @@ import Button from "../Button";
 import styles from "../StackingCard/Card.module.css";
 import StakeModal from "../../component/StakeModal/index";
 import FarmingUnstakeModal from "../FarmingUnstakeModal";
+import TokenIcon from "../../components/common/TokenIcon";
 
-// import MaterialInput from "../MaterialInput";
+import Icon from "../../assets/torus.png";
+
 const StackingCard = () => {
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
   const [modal1, setModal1] = useState(false);
   const openModal1 = () => setModal1(!modal1);
+
   return (
     <>
       <div className={styles.container}>
@@ -20,6 +23,7 @@ const StackingCard = () => {
             return (
               <Card className={styles.card}>
                 <CardBody>
+                  <TokenIcon image={Icon} />
                   <CardTitle tag="h3" className={(styles.cardHeader, "text-start")}>
                     {details.title}
                   </CardTitle>
@@ -86,20 +90,11 @@ const StackingCard = () => {
                       <div>{details.USD}</div>
                     </div>
                   </div>
-                  {/* <div className={styles.nftCard}>
-                    <CardTitle tag="h3">{details.paraHeading}</CardTitle>
-                    <CardText>{details.paragraph}</CardText>
-                  </div> */}
                 </CardBody>
               </Card>
             );
           })}
       </div>
-      {/* <PopupModal /> */}
-      {/* <InputBox /> */}
-      {/* <MaterialInput placeholder="" label="label" />
-      <MaterialInput placeholder="" label="label2" inputStyle="input2" />
-      <MaterialInput placeholder="disabled" inputStyle="input3" /> */}
     </>
   );
 };

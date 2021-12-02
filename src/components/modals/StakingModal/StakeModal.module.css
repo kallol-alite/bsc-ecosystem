@@ -1,0 +1,49 @@
+.addBalance {
+  display: flex;
+  align-items: center;
+  min-width: 12.5rem;
+}
+.btnStake {
+  text-align: center;
+}
+.text {
+  display: flex;
+  justify-content: space-between;
+}
+.pills {
+  margin-top: 1rem;
+}
+div.pills ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+}
+div.pills div.tab li {
+  width: 5rem;
+  flex-basis: 20%;
+  justify-content: center;
+}
+div.pills .tab button {
+  color: #03031999;
+  background: #fff;
+  border: 1px solid #aaa;
+  display: flex;
+  position: relative;
+  top: 10px;
+  align-items: center;
+  border-radius: 3rem;
+  width: 2.3rem;
+  justify-content: center;
+  text-decoration: none;
+  margin: 5px;
+}
+div.pills .tab button:focus {
+  border: 1px solid #007bff;
+  color: black;
+}
+div.pills .percentage {
+  color: #007bff;
+  margin-left: 1rem;
+}
