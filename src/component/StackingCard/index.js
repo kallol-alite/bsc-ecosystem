@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 import { CardDetais } from "../../utils/Carddetails";
 import styles from "../StackingCard/Card.module.css";
-import StakeModal from "../Model/StakeModal/index";
-// import MaterialInput from "../MaterialInput";
-// import PopupModal from "../Model";
-import Buttons from "../Button";
+import StakeModal from "../../component/Model/StakeModal";
+import FarmingUnstakeModal from "../FarmingUnstakeModal";
+import TokenIcon from "../../components/common/TokenIcon";
+import Button from "../Button";
+
+import Icon from "../../assets/torus.png";
+
 const StackingCard = (props) => {
   const [modal, setModal] = useState(false);
   const openModal = () => setModal(!modal);
@@ -45,14 +48,14 @@ const StackingCard = (props) => {
                 </CardText>
                 <CardText></CardText>
               </div>
-              <div className={styles.stakeButtons}>
+              <div className={styles.stakeButton}>
                 <div style={{ margin: 5 }}>
-                  <Buttons buttonStyle="btnStyle">Unstake &#45;</Buttons>
+                  <Button Buttontyle="btnStyle">Unstake &#45;</Button>
                 </div>
                 <div style={{ margin: 5 }}>
-                  <Buttons buttonStyle="btnStyle6" onClick={openModal}>
+                  <Button Buttontyle="btnStyle6" onClick={openModal}>
                     Stake &#43;{" "}
-                  </Buttons>
+                  </Button>
                   <StakeModal buyUrl={props.buyUrl} walletBalance={props.walletBalance} toggle={openModal} isOpen={modal} />
                 </div>
               </div>
@@ -68,7 +71,7 @@ const StackingCard = (props) => {
                   <CardText>$</CardText>
                 </div>
                 <div>
-                  <Buttons buttonStyle="btnStyle2">Harvest</Buttons>
+                  <Button Buttontyle="btnStyle2">Harvest</Button>
                 </div>
               </div>
               <div className={styles.values}>
@@ -82,12 +85,6 @@ const StackingCard = (props) => {
           </CardBody>
         </Card>
       </div>
-      {/* {true && <Stakemodal />} */}
-      {/* <PopupModal /> */}
-      {/* <InputBox /> */}
-      {/* <MaterialInput placeholder="" label="label" />
-      <MaterialInput placeholder="" label="label2" inputStyle="input2" />
-      <MaterialInput placeholder="disabled" inputStyle="input3" /> */}
     </>
   );
 };

@@ -11,7 +11,9 @@ body {
   box-shadow: 5px 5px 20px -9px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 5px 5px 20px -9px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 5px 5px 20px -9px rgba(0, 0, 0, 0.2);
+  z-index: 100;
 }
+
 .sidebarContainer-close {
   position: fixed;
   width: 240px;
@@ -19,7 +21,7 @@ body {
   background-color: #f3f5f6;
   transition: 1.2s;
   left: -240px;
-  z-index: 200;
+  z-index: 100;
 }
 .sideLi {
   padding: 10px;
