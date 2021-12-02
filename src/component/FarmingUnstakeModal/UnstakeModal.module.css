@@ -1,25 +1,26 @@
 div.ModalStyle {
-  min-width: 15.625rem;
-  max-width: 31.25rem;
-  min-height: 6.25rem;
+  min-width: 250px;
+  max-width: 500px;
+  min-height: 100px;
   box-shadow: 0 5px 20px rgb(13 56 199 / 10%);
-  padding: 1.25rem 2.5rem;
-  border-radius: 1rem;
+  padding: 20px 40px;
+  border-radius: 16px;
 }
-.addBalance {
+div.addBalance {
   display: flex;
   align-items: center;
-  min-width: 12.5rem;
+  min-width: 200px;
 }
-.btnStake {
+div.btnStake {
+  margin-top: 16px;
   text-align: center;
 }
-.text {
+div.text {
   display: flex;
   justify-content: space-between;
 }
 .pills {
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 div.pills ul {
   list-style: none;
@@ -29,7 +30,7 @@ div.pills ul {
   margin: 0;
 }
 div.pills div.tab li {
-  width: 5rem;
+  width: 80px;
   flex-basis: 20%;
   justify-content: center;
 }
@@ -41,8 +42,8 @@ div.pills .tab button {
   position: relative;
   top: 10px;
   align-items: center;
-  border-radius: 3rem;
-  width: 2.3rem;
+  border-radius: 48px;
+  width: 36px;
   justify-content: center;
   text-decoration: none;
   margin: 5px;
@@ -53,5 +54,5 @@ div.pills .tab button:focus {
 }
 div.pills .percentage {
   color: #007bff;
-  margin-left: 1rem;
+  margin-left: 16px;
 }

@@ -9,14 +9,14 @@ div.material {
 }
 label.label {
   position: absolute;
-  font-size: 1rem;
+  font-size: 16px;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
   background-color: white;
   color: grey;
-  padding: 0 0.3rem;
-  margin: 0 0.5rem;
+  padding: 0 5px;
+  margin: 0 8px;
   transition: 0.1s ease-out;
   transform-origin: left top;
 }

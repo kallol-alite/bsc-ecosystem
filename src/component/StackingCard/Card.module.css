@@ -78,11 +78,6 @@ div.card {
   color: #768193;
   font-weight: 600;
 }
-/* .nftCard {
-  background-color: #f2f5fa;
-  padding: 30 !important;
-  width: 100% !important;
-} */
 .values {
   color: #768193;
   font-weight: 600;
@@ -91,13 +86,16 @@ div.card {
   opacity: 0.5;
   pointer-events: none;
 }
+.buttonGap {
+  margin: 5px;
+}
 @media screen and (max-width: 900px) {
-  .card {
+  div.card {
     width: 100%;
   }
 }
 @media screen and (max-width: 450px) {
-  .card {
+  div.card {
     width: 15rem;
     margin-top: 1rem;
   }

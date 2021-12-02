@@ -50,14 +50,14 @@ const StackingCard = () => {
                       <div>{details.USD}</div>
                     </div>
                     <div className={styles.stakeButtons}>
-                      <div style={{ margin: 5 }}>
-                        <Button buttonStyle="btnStyle" onClick={openModal1}>
+                      <div className={styles.buttonGap}>
+                        <Button buttonStyle="btnStyle" buttonSize="normalBtn" onClick={openModal1}>
                           Unstake &#45;
                         </Button>
                         <FarmingUnstakeModal toggle1={openModal1} isOpen1={modal1} />
                       </div>
-                      <div style={{ margin: 5 }}>
-                        <Button buttonStyle="btnStyle6" onClick={openModal}>
+                      <div className={styles.buttonGap}>
+                        <Button buttonStyle="btnStyle" buttonSize="normalBtn" onClick={openModal}>
                           Stake &#43;{" "}
                         </Button>
                         <StakeModal toggle={openModal} isOpen={modal} />

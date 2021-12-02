@@ -26,7 +26,7 @@ const StakeModal = ({ isOpen, toggle }) => {
             </div>
             <div className={styles.addBalance}>
               <Input type="text" placeholder="Enter YFDAI Amount" />
-              <Button buttonStyle="btnStyle">Max</Button>
+              <Button buttonStyle="btnStyle4">Max</Button>
             </div>
             <div className={styles.pills}>
               <p>

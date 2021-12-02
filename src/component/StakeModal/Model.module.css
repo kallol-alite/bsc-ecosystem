@@ -6,20 +6,21 @@ div.ModalStyle {
   padding: 1.25rem 2.5rem;
   border-radius: 1rem;
 }
-.addBalance {
+div.addBalance {
   display: flex;
   align-items: center;
   min-width: 12.5rem;
 }
-.btnStake {
+div.btnStake {
   text-align: center;
 }
-.text {
+div.text {
   display: flex;
   justify-content: space-between;
 }
-.pills {
+div.pills {
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 div.pills ul {
   list-style: none;

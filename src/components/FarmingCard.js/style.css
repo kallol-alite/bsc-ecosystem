@@ -1,7 +1,7 @@
 .farming-card {
   margin: 5px;
   padding: 1px;
-  background: #ffffff;
+  /* background: #ffffff; */
   background-origin: border-box;
   background-clip: content-box, border-box;
   max-width: 400px;
@@ -10,12 +10,13 @@
   box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
   border: 1px double #05e2b7;
   font-size: calc(0.6875rem + (1.125 - 0.6875) * ((100vw - 450px) / (1600 - 450)));
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .farming-card > div {
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 9px;
+  padding: 1rem;
 }
 
 .info-grid {
@@ -66,12 +67,15 @@
   margin-left: 1rem;
 }
 .pending {
-  margin: 1rem;
+  margin: -1.5rem 0 0 1rem;
   color: #768193;
   font-weight: 600;
 }
 
 @media screen and (max-width: 500px) {
+  .farming-card {
+    width: 300px;
+  }
   .info-grid {
     flex-wrap: wrap;
   }

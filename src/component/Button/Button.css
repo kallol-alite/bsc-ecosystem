@@ -15,7 +15,7 @@ button.btnStyle {
   color: black;
   background: transparent;
   border: 1px solid #05e2b7;
-  border-radius: 0.8rem;
+  border-radius: 10px;
   font-weight: var(--buttonFontWeight);
 }
 button.btnStyle:hover {
@@ -27,7 +27,7 @@ button.btnStyle2 {
   background: var(--gradientbutton);
   font-weight: var(--buttonFontWeight);
   border: 1px solid transparent;
-  border-radius: 1.2rem;
+  border-radius: 19px;
 }
 button.btnStyle2:hover {
   opacity: 1;
@@ -37,7 +37,7 @@ button.btnStyle3 {
   background: #efefef;
   color: black;
   border: 1px solid transparent;
-  border-radius: 1.2rem;
+  border-radius: 19px;
   width: 100%;
 }
 button.btnStyle3:hover {
@@ -45,12 +45,20 @@ button.btnStyle3:hover {
   background: #efefef;
   color: black;
 }
+button.btnStyle4 {
+  background: rgba(23, 199, 167, 0.1);
+  color: #17c7a7;
+  border: 1px solid #17c7a7;
+  font-weight: 700;
+  border-radius: 5px;
+  margin-left: 10px;
+}
 .normalBtn {
-  min-width: 6rem;
+  min-width: 80px;
 }
 .mediumBtn {
-  width: 6rem;
-  height: 3rem;
+  width: 90px;
+  height: 48px;
 }
 .largeBtn {
   width: 100%;
