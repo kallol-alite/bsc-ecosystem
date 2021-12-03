@@ -14,7 +14,7 @@ export const allowance = (contractAddress, abi, farmingContractAddress, userAddr
     args: [userAddresss, farmingContractAddress],
 })
 
-export const fetchLpTokenBalance = (contractAddressFrm, userAddress, abi) => ({
+export const fetchLpTokenBalance = (contractAddressFrm, abi, userAddress) => ({
     abi: new utils.Interface(abi),
     address: contractAddressFrm,
     method: "balanceOf",

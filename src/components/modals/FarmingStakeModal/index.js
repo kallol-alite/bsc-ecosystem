@@ -5,43 +5,45 @@ import styles from "./FarmingStakeModal.module.css";
 
 import Button from "../../common/Button";
 
-const FarmingStakeModal = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+const FarmingStakeModal = ({ style, isOpen, toggle, enteredAmount, changeEnteredAmount, walletBalance, stake, title, max }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <Button
         buttonStyle="btnStyle"
         onClick={() => {
-          setIsOpen(true);
+          setIsModalOpen(true);
+          toggle && toggle();
         }}
-        style={props.style}
+        style={style}
       >
         Stake &#43;
       </Button>
       <Modal
-        isOpen={isOpen}
+        isOpen={isModalOpen}
         centered
         toggle={() => {
-          setIsOpen(false);
+          setIsModalOpen(false);
+          toggle && toggle();
         }}
       >
-        <ModalHeader toggle={() => setIsOpen(false)}>Stake WMATIC-USDT</ModalHeader>
+        <ModalHeader toggle={() => setIsModalOpen(false)}>Stake WMATIC-USDT</ModalHeader>
         <ModalBody>
           <div className={styles.infoText}>
-            <div>Balance in Wallet : 0</div>
+            <div>Balance in Wallet : {walletBalance && walletBalance}</div>
           </div>
           <div className={styles.inputSection}>
-            <Input type="text" placeholder="Enter Amount" />
-            <Button style={{ marginLeft: "5px" }} buttonStyle="btnStyle">
+            <Input type="text" placeholder="Enter Amount" value={enteredAmount} onChange={(e) => changeEnteredAmount(e)} />
+            <Button onClick={max} style={{ marginLeft: "5px" }} buttonStyle="btnStyle">
               Max
             </Button>
           </div>
           <div className={styles.buttonSection + " mt-3"}>
-            <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
+            <Button onClick={stake} buttonStyle="btnStyle2" buttonSize="largeBtn">
               Stake
             </Button>
-            <div className="my-2">Stake Fee 1.5 %</div>
+            <div className="my-2">{/* Stake Fee 1.5 % */}</div>
             <Button buttonStyle="btnStyle3">Buy WMATIC-USDT</Button>
           </div>
         </ModalBody>

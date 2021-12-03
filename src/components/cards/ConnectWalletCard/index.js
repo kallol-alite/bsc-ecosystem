@@ -3,7 +3,6 @@ import { Card } from "reactstrap";
 
 import styles from "./ConnectWalletCard.module.css";
 
-import Button from "../../common/Button";
 import ConnectWalletButton from "../../ConnectWalletButton";
 
 const ConnectWalletCard = () => {
