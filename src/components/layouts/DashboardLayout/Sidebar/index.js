@@ -29,7 +29,8 @@ const Sidebar = () => {
               <NavLink key={item.title} exact activeClassName={styles.activeClass} to={item.path}>
                 <li className={styles.sideLi}>
                   {item.logo}
-                  {item.title}
+                  <span className="mx-1">{item.title}</span>
+                  {/* {item.title} */}
                 </li>
               </NavLink>
             );
