@@ -1,10 +1,10 @@
 import { utils } from "ethers";
 import { Contract } from "@ethersproject/contracts";
+import { CONTRACT_ADDRESS } from "../../../App.Config";
+import TokenBSC from "../abi/Token.json";
 
-export const stakingTokenContract = (contractAddress, abi) => {
-  let abiInterface = new utils.Interface(abi);
-  return new Contract(contractAddress, abiInterface);
-};
+let abiInterface = new utils.Interface(TokenBSC);
+export const stakingTokenContract = new Contract(CONTRACT_ADDRESS.STAKING.TOKEN, abiInterface);
 
 export const totalStakedContractCall = (abi, contractAddress, stakingContractAddress) => ({
   abi: new utils.Interface(abi),
