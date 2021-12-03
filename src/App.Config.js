@@ -24,4 +24,10 @@ export const ALLOWED_NETWORKS = {
   },
 };
 
+export const ICON_END_POINT = "https://raw.githubusercontent.com/Yara1990/TokensIcons/main/cryptocurrency-icons-master/128/icon/";
+export const COINGECKO_PRICE_END_POINT = "https://raw.githubusercontent.com/yfdaifinance/SafeSwapTokenList/main/coingeckourl1.json";
+export const FORWARD_TOKEN_COINGECKO_PRICE_BSC = "https://api.coingecko.com/api/v3/simple/price?ids=yfdai-finance&vs_currencies=USD"; //PRODUCTION === forward(place it next to id where currently it is yfdai-finance)
+export const FORWARD_TOKEN_CSV_NAME = "yfdai-finance"; //PRODUCTION CHANGE TO FORWARD (forward)
+export const BSC_BLOCK_TIME = 2; //PRODUCTION CHANGE IT TO CORRECT TIME
+
 export const IS_DEVICE_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);

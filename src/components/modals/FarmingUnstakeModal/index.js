@@ -5,41 +5,42 @@ import styles from "./FarmingUnstakeModal.module.css";
 
 import Button from "../../common/Button";
 
-const FarmingUnstakeModal = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+const FarmingUnstakeModal = ({ style, isOpen, toggle, enteredAmount, changeEnteredAmount, stakedAmount, unstake, title, max }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <Button
         buttonStyle="btnStyle"
         onClick={() => {
-          setIsOpen(true);
+          setIsModalOpen(true);
+          toggle && toggle();
         }}
-        style={props.style}
+        style={style}
       >
         Unstake &#45;
       </Button>
       <Modal
-        isOpen={isOpen}
+        isOpen={isModalOpen}
         centered
         toggle={() => {
-          setIsOpen(false);
+          setIsModalOpen(false);
+          toggle && toggle();
         }}
       >
-        <ModalHeader toggle={() => setIsOpen(false)}>Unstake WMATIC-USDT</ModalHeader>
+        <ModalHeader toggle={() => setIsModalOpen(false)}>Unstake WMATIC-USDT</ModalHeader>
         <ModalBody>
           <div className={styles.infoText}>
-            <div>Balance in Wallet : 0</div>
-            <div>Max Per Tx : 500000</div>
+            <div>Total Staked : {stakedAmount && stakedAmount}</div>
           </div>
           <div className={styles.inputSection}>
-            <Input type="text" placeholder="Enter Amount" className={styles.input} />
-            <Button style={{ marginLeft: "5px" }} buttonStyle="btnStyle">
+            <Input type="text" placeholder="Enter Amount" value={enteredAmount} onChange={changeEnteredAmount}/>
+            <Button onClick={max} style={{ marginLeft: "5px" }} buttonStyle="btnStyle">
               Max
             </Button>
           </div>
           <div className={styles.buttonSection + " mt-3"}>
-            <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
+            <Button onClick={unstake} buttonStyle="btnStyle2" buttonSize="largeBtn">
               Unstake
             </Button>
           </div>
