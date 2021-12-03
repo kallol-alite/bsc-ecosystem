@@ -1,9 +1,10 @@
 import { SET_LOADER_VISIBILITY,SET_SIDEBAR_VISIBILITY, SET_IS_WALLET_CONNECTED, SET_DAPP_TXN_ERROR_QUEUE, SET_DAPP_TXN_SUCCESS_QUEUE } from "../actions/actionTypes";
+import { IS_DEVICE_MOBILE } from "../App.Config";
 
 const masterReducer = (
   state = {
     showLoader: false,
-    isSidebarOpen: true,
+    isSidebarOpen: !IS_DEVICE_MOBILE,
     isWalletConnected: false,
     transactionErrorQueue: [],
     transactionSuccessQueue: [],

@@ -23,3 +23,5 @@ export const ALLOWED_NETWORKS = {
     BSC: 137, //DEVLOPMENR
   },
 };
+
+export const IS_DEVICE_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);

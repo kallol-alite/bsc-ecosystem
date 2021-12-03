@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, Input } from "reactstrap";
 
-import styles from "./FarmingUnstakeModal.module.css";
+import styles from "./UnstakingModal.module.css";
 
 import Button from "../../common/Button";
 
-const FarmingUnstakeModal = (props) => {
+const UnstakingModal = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -26,7 +26,7 @@ const FarmingUnstakeModal = (props) => {
           setIsOpen(false);
         }}
       >
-        <ModalHeader toggle={() => setIsOpen(false)}>Unstake WMATIC-USDT</ModalHeader>
+        <ModalHeader toggle={() => setIsOpen(false)}>Unstake YFDAI</ModalHeader>
         <ModalBody>
           <div className={styles.infoText}>
             <div>Balance in Wallet : 0</div>
@@ -49,4 +49,4 @@ const FarmingUnstakeModal = (props) => {
   );
 };
 
-export default FarmingUnstakeModal;
+export default UnstakingModal;

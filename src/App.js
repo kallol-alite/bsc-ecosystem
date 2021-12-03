@@ -1,11 +1,10 @@
 import { Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import DashboardLayout from "./component/Layouts/DashboardLayout";
-import StackingCard from "./component/StackingCard/index";
-import FarmingCard from "./components/FarmingCard.js";
-
-// import StakingModal from './components/modals/StakingModal'
+import LoaderComponent from "./components/common/Loader";
+import DashboardLayout from "./components/layouts/DashboardLayout";
+import StakingCard from "./components/cards/StakingCard";
+import FarmingCard from "./components/cards/FarmingCard";
 
 function App() {
   return (
@@ -21,14 +20,14 @@ function App() {
         draggable
         pauseOnHover
       />
-      {/* <StakingModal/> */}
+      <LoaderComponent/>
       <Switch>
         <DashboardLayout>
           <Route exact path="/">
             Dashboard
           </Route>
           <Route exact path="/staking">
-            <StackingCard />
+            <StakingCard />
           </Route>
           <Route exact path="/farming">
             <FarmingCard />

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, Input } from "reactstrap";
 
-import styles from "./FarmingUnstakeModal.module.css";
+import styles from "./FarmingStakeModal.module.css";
 
 import Button from "../../common/Button";
 
-const FarmingUnstakeModal = (props) => {
+const FarmingStakeModal = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -17,7 +17,7 @@ const FarmingUnstakeModal = (props) => {
         }}
         style={props.style}
       >
-        Unstake &#45;
+        Stake &#43;
       </Button>
       <Modal
         isOpen={isOpen}
@@ -26,11 +26,10 @@ const FarmingUnstakeModal = (props) => {
           setIsOpen(false);
         }}
       >
-        <ModalHeader toggle={() => setIsOpen(false)}>Unstake WMATIC-USDT</ModalHeader>
+        <ModalHeader toggle={() => setIsOpen(false)}>Stake WMATIC-USDT</ModalHeader>
         <ModalBody>
           <div className={styles.infoText}>
             <div>Balance in Wallet : 0</div>
-            <div>Max Per Tx : 500000</div>
           </div>
           <div className={styles.inputSection}>
             <Input type="text" placeholder="Enter Amount" />
@@ -40,8 +39,10 @@ const FarmingUnstakeModal = (props) => {
           </div>
           <div className={styles.buttonSection + " mt-3"}>
             <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
-              Unstake
+              Stake
             </Button>
+            <div className="my-2">Stake Fee 1.5 %</div>
+            <Button buttonStyle="btnStyle3">Buy WMATIC-USDT</Button>
           </div>
         </ModalBody>
       </Modal>
@@ -49,4 +50,4 @@ const FarmingUnstakeModal = (props) => {
   );
 };
 
-export default FarmingUnstakeModal;
+export default FarmingStakeModal;

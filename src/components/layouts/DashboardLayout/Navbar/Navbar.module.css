@@ -1,0 +1,34 @@
+.navBarContainer {
+  background-color: #8c7dfb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+.logoDiv {
+  height: 50px;
+  width: 143px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+}
+.logoDiv img {
+  height: 100%;
+  padding: 5px 15px;
+}
+.burgerIconDiv {
+  color: #ffffff;
+}
+@media only screen and (max-width: 554px) {
+  .burgerIconDiv {
+    padding-left: 0px;
+    height: 50px;
+  }
+}
