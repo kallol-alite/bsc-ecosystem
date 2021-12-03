@@ -1,14 +1,15 @@
 import React from "react";
 import { useEthers } from "@usedapp/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import MakeQuerablePromise from "../../utils/querable-promise";
 import { setIsWalletConnected } from "../../actions/master-actions";
 import Button from "../common/Button";
 
-const ConnectWalletButton = () => {
+const ConnectWalletButton = (props) => {
   const { account, activateBrowserWallet, deactivate } = useEthers();
   const dispatch = useDispatch();
+  const { isWalletConnected } = useSelector((state) => state.masterReducer);
 
   const connectWallet = async () => {
     const activateBrowserWalletPromise = MakeQuerablePromise(activateBrowserWallet());
@@ -26,12 +27,13 @@ const ConnectWalletButton = () => {
       );
     } else if (account) {
       deactivate();
+      dispatch(setIsWalletConnected(false));
     }
   };
 
   return (
-    <Button onClick={() => connectWallet()} buttonStyle="btnStyle2">
-      {!account ? "Connect Wallet" : "Disconnect Wallet"}
+    <Button onClick={() => connectWallet()} buttonStyle="btnStyle2" {...props}>
+      {!isWalletConnected ? "Connect Wallet" : "Disconnect Wallet"}
     </Button>
   );
 };

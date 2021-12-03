@@ -6,17 +6,20 @@ import Logo from "../../../../assets/logo.svg";
 
 import { setSidebarView } from "../../../../actions/master-actions";
 import ConnectWalletButton from "../../../ConnectWalletButton";
+import { useHistory } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props, context) => {
   const dispatch = useDispatch();
   const { isSidebarOpen } = useSelector((state) => state.masterReducer);
+
+  const history = useHistory();
 
   return (
     <div className={styles.navBarContainer}>
       <div className={styles.burgerIconDiv}>
         <i className={`bi ${isSidebarOpen ? "bi-x" : "bi-list"} fs-3 p-1`} onClick={() => dispatch(setSidebarView(!isSidebarOpen))}></i>
       </div>
-      <div className={styles.logoDiv}>
+      <div className={styles.logoDiv} onClick={() => {history.push('/')}}>
         <img src={Logo} />
       </div>
       <div className="mx-2">

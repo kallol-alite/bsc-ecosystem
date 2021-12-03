@@ -2,13 +2,15 @@
   /* display: flex; */
   margin-top: 70px;
 }
+
 .sidebarOpenView {
   margin-left: 240px;
   width: calc(100vw - 240px);
-  transition: all 1.2s;
+  transition: all 0.6s;
 }
 .sidebarCloseView {
-  transition: all 1.2s;
+  transition: all 0.6s;
+  width: 100vw;
 }
 
 @media only screen and (max-width: 768px) {
