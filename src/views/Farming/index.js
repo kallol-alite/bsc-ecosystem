@@ -1,37 +1,17 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { useEthers, useContractCall, useContractCalls, useContractFunction } from "@usedapp/core";
+import React, { useState, useEffect } from "react";
+import { useEthers, useContractCalls } from "@usedapp/core";
 import { Contract, utils } from "ethers";
 import { useDispatch, useSelector } from "react-redux";
-import { useUtilContractFunction, useContractValueTrasnformation, useErrorQueue, useSuccessQueue } from "../../hooks/useDappUtility";
+import { useContractValueTrasnformation } from "../../hooks/useDappUtility";
 
-import {
-  farmingContract,
-  poolLength,
-  poolInfo,
-  userInfo,
-  pendingReward,
-  totalAllocPoint,
-  contractOwner,
-  depositFarmingFunction,
-  withdrawFarmingFunction,
-  addFarmFunction,
-} from "./services/FarmingContractService";
-import {
-  lpName,
-  token0Address,
-  token1Address,
-  fetchTokenName,
-  fetchAllowance,
-  fetchLiquidity,
-  approveAllowanceFunction,
-} from "./services/LpContractService";
+import { poolLength, poolInfo, userInfo, pendingReward, totalAllocPoint, contractOwner } from "./services/FarmingContractService";
+import { lpName, token0Address, token1Address, fetchTokenName, fetchAllowance, fetchLiquidity } from "./services/LpContractService";
 import { fetchLpTokenBalance } from "./services/TokenContractService";
 
 import {
   CONTRACT_ADDRESS,
   ALLOWED_NETWORKS,
   ICON_END_POINT,
-  COINGECKO_PRICE_END_POINT,
   FORWARD_TOKEN_COINGECKO_PRICE_BSC,
   FORWARD_TOKEN_CSV_NAME,
   BSC_BLOCK_TIME,
@@ -39,8 +19,6 @@ import {
 import FarmingAbi from "./abi/FarmingBsc.json";
 import TokenAbi from "./abi/Token.json";
 import LpTokenAbi from "./abi/LPToken.json";
-
-import notFound from "../../assets/oval.png";
 
 import { getCoingeckoUrls } from "../../actions/farming-actions";
 
@@ -52,7 +30,6 @@ const Farming = (props) => {
   const [currentNetworkAbi, setCurrentNetworkAbi] = useState([]);
   const [currentNetworkContract, setCurrentNetworkContract] = useState("");
   const [totalPoolLengthState, setTotalPoolLengthState] = useState(0);
-  const [allFarmInfoState, setAllFarmInfoState] = useState([]);
   const [currentBlocktime, setCurrentBlockTime] = useState(0);
 
   const coingeckoUrlData = useSelector((state) => state.farmingReducer.coingeckoUrls);
@@ -73,7 +50,6 @@ const Farming = (props) => {
   };
 
   const allFarmInfo = useContractCalls(argsForPoolInfo(totalPoolLengthState, currentNetworkContract, currentNetworkAbi));
-  // console.log('allFarmInfo: ', allFarmInfo);
 
   const argsForUser = (length, contractAddress, abi, userAddress) => {
     let params = [];
@@ -212,7 +188,7 @@ const Farming = (props) => {
         token1: listOfToken1 && listOfToken1[i] ? listOfToken1[i] : "",
         token0Name: token0Symbol && token0Symbol[i] && token0Symbol[i][0],
         token1Name: token1Symbol && token1Symbol[i] && token1Symbol[i][0],
-        allowedAllowance: allowanceValue && allowanceValue.length > 0 && allowanceValue[i] && allowanceValue[i],
+        allowedAllowance: allowanceValue && allowanceValue.length > 0 && allowanceValue[i],
         stakeFee: allFarmInfo[i] && allFarmInfo[i] && parseFloat(allFarmInfo[i].depositFeeBP) / 100,
         lpTokenAddress: allFarmInfo[i] && allFarmInfo[i] && allFarmInfo[i].lpToken,
         allocPoint: allFarmInfo[i] && allFarmInfo[i] && [allFarmInfo[i].allocPoint],
@@ -251,9 +227,6 @@ const Farming = (props) => {
 
   return (
     <>
-      <h3>FARMING</h3>
-      <h4>TotalPool: {totalPoolLengthState}</h4>
-
       {totalPoolLengthState &&
         totalPoolLengthState > 0 &&
         createFarms().map((pool) => {

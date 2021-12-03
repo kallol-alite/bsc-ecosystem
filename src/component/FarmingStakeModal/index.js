@@ -1,38 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
 import styles from "./FarmingStakeModal.module.css";
 import Button from "../Button";
 
-const pills = ["1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
-
-const FarmingStakeModal = ({ isOpen, toggle }) => {
-  // const [modal, setModal] = useState(false);
-  // const openModal = () => setModal(!modal);
-  const [chips, setChips] = useState();
-  const PillChange = (e, value) => {
-    setChips(e.target.value);
-  };
-  // console.log("Chips:-", chips);
+const FarmingStakeModal = ({ isOpen, toggle, enteredAmount, changeEnteredAmount, walletBalance, stake, title, max }) => {
   return (
     <>
       <Container>
-        {/* <Button onClick={openModal}> Click Me</Button> */}
         <Modal isOpen={isOpen} toggle={toggle} className={styles.ModalStyle}>
-          <ModalHeader toggle={toggle}>Stake YFDAI</ModalHeader>
+          <ModalHeader toggle={toggle}>Stake {title}</ModalHeader>
           <ModalBody>
             <div class={styles.text}>
-              <p>Balance in Wallet : 0</p>
+              <p>Balance in Wallet : {walletBalance && walletBalance}</p>
             </div>
             <div className={styles.addBalance}>
-              <Input type="text" placeholder="Enter YFDAI Amount" />
-              <Button buttonStyle="btnStyle4">Max</Button>
+              <Input value={enteredAmount} onChange={(e) => changeEnteredAmount(e)} type="text" placeholder="Enter Amount" />
+              <Button onClick={max} buttonStyle="btnStyle4">
+                Max
+              </Button>
             </div>
             <div className={styles.btnStake}>
-              <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
+              <Button onClick={stake} buttonStyle="btnStyle2" buttonSize="largeBtn">
                 Stake
               </Button>
-              <p>Stake Fee 1.5 %</p>
-              <Button buttonStyle="btnStyle3">Buy YFDAI</Button>
+              {/* <p>Stake Fee 1.5 %</p> */}
+              {/* <Button buttonStyle="btnStyle3">Buy YFDAI</Button> */}
             </div>
           </ModalBody>
         </Modal>

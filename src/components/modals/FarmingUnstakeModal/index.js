@@ -3,30 +3,28 @@ import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
 import styles from "../FarmingUnstakeModal/FarmingModal.module.css";
 import Button from "../../../component/Button";
 
-const FarmingModal = ({ isOpen, toggle }) => {
-  // const [modal, setModal] = useState(false);
-  // const openModal = () => setModal(!modal);
+const FarmingModal = ({ isOpen, toggle, enteredAmount, changeEnteredAmount, stakedAmount, unstake, title, max }) => {
   return (
     <>
       <Container>
-        {/* <Button onClick={openModal}> Click Me</Button> */}
         <Modal isOpen={isOpen} toggle={toggle} className={styles.ModalStyle}>
-          <ModalHeader toggle={toggle}>Unstake YFDAI</ModalHeader>
+          <ModalHeader toggle={toggle}>Unstake {title && title}</ModalHeader>
           <ModalBody>
             <div class={styles.text}>
-              <p>Balance in Wallet : 0</p>
-              <p>Max Per Tx : 500000</p>
+              <p>Total Staked : {stakedAmount && stakedAmount}</p>
             </div>
             <div className={styles.addBalance}>
-              <Input type="text" placeholder="Enter YFDAI Amount" />
-              <Button buttonStyle="btnStyle4">Max</Button>
+              <Input value={enteredAmount} onChange={changeEnteredAmount} type="text" placeholder="Enter Amount" />
+              <Button onClick={max} buttonStyle="btnStyle4">
+                Max
+              </Button>
             </div>
             <div className={styles.btnStake}>
-              <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
+              <Button onClick={unstake} buttonStyle="btnStyle2" buttonSize="largeBtn">
                 Unstake
               </Button>
-              <p>Stake Fee 1.5 %</p>
-              <Button buttonStyle="btnStyle3">Buy YFDAI</Button>
+              {/* <p>Stake Fee 1.5 %</p> */}
+              {/* <Button buttonStyle="btnStyle3">Buy YFDAI</Button> */}
             </div>
           </ModalBody>
         </Modal>
