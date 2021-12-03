@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <div className={styles.navBarContainer}>
       <div className={styles.burgerIconDiv}>
-        <i className={`bi ${isSidebarOpen ? "bi-x" : "bi-list"} fs-1 p-1`} onClick={() => dispatch(setSidebarView(!isSidebarOpen))}></i>
+        <i className={`bi ${isSidebarOpen ? "bi-x" : "bi-list"} fs-3 p-1`} onClick={() => dispatch(setSidebarView(!isSidebarOpen))}></i>
       </div>
       <div className={styles.logoDiv}>
         <img src={Logo} />

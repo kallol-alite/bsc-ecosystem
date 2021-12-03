@@ -2,11 +2,11 @@
 
 :root {
   --warning: #ebebeb;
-  --fontcolor: #1866ed;
-  --backGroundImage: linear-gradient(#f2f5fa, #f2f5fa), radial-gradient(circle at top right, #1866ed 4.02%, #c1d7fc 97.87%);
+  /* --fontcolor: #1866ed; */
+  /* --backGroundImage: linear-gradient(#f2f5fa, #f2f5fa), radial-gradient(circle at top right, #1866ed 4.02%, #c1d7fc 97.87%); */
   --buttonBorder: 1px double var(--fontcolor);
   --buttonFontWeight: 600;
-  --gradientbutton: linear-gradient(90deg, #04e762, #89fc00);
+  /* --gradientbutton: linear-gradient(90deg, #04e762, #89fc00); */
 }
 
 .btn1 {
@@ -29,38 +29,41 @@
 button.btnStyle {
   color: black;
   background: transparent;
-  border: 1px solid #05e2b7;
+  border: 1px solid #5b46f9;
   border-radius: 10px;
   font-weight: var(--buttonFontWeight);
 }
 button.btnStyle:hover {
-  background-color: #55ac57;
-  border-color: #05e2b7;
+  background-color: #5b46f9;
+  border-color: #5b46f9;
 }
 
 /* Button style 2 */
 button.btnStyle2 {
-  opacity: 0.5;
-  background: var(--gradientbutton);
+  /* opacity: 0.5; */
+  /* background: var(--gradientbutton); */
+  background-color: #5b46f9;
   font-weight: var(--buttonFontWeight);
   border: 1px solid transparent;
-  border-radius: 19px;
+  border-radius: 10px;
 }
 button.btnStyle2:hover {
-  opacity: 1;
-  border-color: var(--gradientbutton);
+  opacity: 0.9;
+  /* border-color: var(--gradientbutton); */
+  border-color: #5b46f9;
+  background-color: #5b46f9;
 }
 
 /* Button style 3 */
 button.btnStyle3 {
   background: #efefef;
   color: black;
-  border: 1px solid transparent;
-  border-radius: 19px;
+  /* border: 1px solid transparent; */
+  border-radius: 15px;
   width: 100%;
 }
 button.btnStyle3:hover {
-  opacity: 0.3;
+  opacity: 0.5;
   background: #efefef;
   color: black;
 }
@@ -73,9 +76,9 @@ button.btnStyle4 {
   font-weight: 700;
   border-radius: 5px;
 }
-/* Button style 5 */
+/* Button style 5
 button.btnStyle5:hover {
   opacity: 0.3;
   background: #efefef;
   color: black;
-}
+} */

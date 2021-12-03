@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import MakeQuerablePromise from "../../utils/querable-promise";
 import { setIsWalletConnected } from "../../actions/master-actions";
-import Button from '../common/Button';
+import Button from "../common/Button";
 
 const ConnectWalletButton = () => {
   const { account, activateBrowserWallet, deactivate } = useEthers();
@@ -29,7 +29,11 @@ const ConnectWalletButton = () => {
     }
   };
 
-  return <Button onClick={() => connectWallet()} buttonStyle="btnStyle5">{!account ? "Connect Wallet" : "Disconnect Wallet"}</Button>;
+  return (
+    <Button onClick={() => connectWallet()} buttonStyle="btnStyle2">
+      {!account ? "Connect Wallet" : "Disconnect Wallet"}
+    </Button>
+  );
 };
 
 export default ConnectWalletButton;

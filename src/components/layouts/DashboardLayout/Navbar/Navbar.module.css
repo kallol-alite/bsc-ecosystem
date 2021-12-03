@@ -1,5 +1,5 @@
 .navBarContainer {
-  background-color: #8c7dfb;
+  background-color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,6 +10,7 @@
   left: 0;
   right: 0;
   z-index: 100;
+  border-bottom: 2px solid #5b46f9;
 }
 .logoDiv {
   height: 50px;
@@ -24,11 +25,11 @@
   padding: 5px 15px;
 }
 .burgerIconDiv {
-  color: #ffffff;
+  color: #000000;
 }
 @media only screen and (max-width: 554px) {
   .burgerIconDiv {
     padding-left: 0px;
-    height: 50px;
+    /* height: 50px; */
   }
 }
