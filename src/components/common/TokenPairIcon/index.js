@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "./TokenPairIcon.module..css";
+import styles from "./TokenPairIcon.module.css";
 
 const TokenPairIcon = ({ image1, image2 }) => {
   return (
