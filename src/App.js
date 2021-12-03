@@ -5,6 +5,7 @@ import LoaderComponent from "./components/common/Loader";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import StakingCard from "./components/cards/StakingCard";
 import FarmingCard from "./components/cards/FarmingCard";
+import ConnectWalletCard from "./components/cards/ConnectWalletCard";
 
 function App() {
   return (
@@ -20,11 +21,11 @@ function App() {
         draggable
         pauseOnHover
       />
-      <LoaderComponent/>
+      <LoaderComponent />
       <Switch>
         <DashboardLayout>
           <Route exact path="/">
-            Dashboard
+            <ConnectWalletCard />
           </Route>
           <Route exact path="/staking">
             <StakingCard />

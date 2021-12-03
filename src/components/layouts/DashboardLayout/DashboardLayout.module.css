@@ -2,6 +2,7 @@
   display: flex;
   margin-top: 70px;
 }
+
 .sidebarOpenView {
   margin-left: 240px;
   width: calc(100vw - 240px);
@@ -9,6 +10,7 @@
 }
 .sidebarCloseView {
   transition: all 1.2s;
+  width: 100vw;
 }
 
 @media only screen and (max-width: 768px) {
