@@ -33,7 +33,7 @@ const FarmingUnstakeModal = (props) => {
             <div>Max Per Tx : 500000</div>
           </div>
           <div className={styles.inputSection}>
-            <Input type="text" placeholder="Enter Amount" />
+            <Input type="text" placeholder="Enter Amount" className={styles.input} />
             <Button style={{ marginLeft: "5px" }} buttonStyle="btnStyle">
               Max
             </Button>

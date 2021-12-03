@@ -37,7 +37,11 @@ button.btnStyle:hover {
   background-color: #5b46f9;
   border-color: #5b46f9;
 }
-
+button.btnStyle:focus {
+  background-color: #5b46f9;
+  box-shadow: none;
+  opacity: 0.8;
+}
 /* Button style 2 */
 button.btnStyle2 {
   /* opacity: 0.5; */
@@ -53,6 +57,11 @@ button.btnStyle2:hover {
   border-color: #5b46f9;
   background-color: #5b46f9;
 }
+button.btnStyle2:focus {
+  background-color: #5b46f9;
+  box-shadow: none;
+  opacity: 0.8;
+}
 
 /* Button style 3 */
 button.btnStyle3 {
@@ -65,6 +74,12 @@ button.btnStyle3 {
 button.btnStyle3:hover {
   opacity: 0.5;
   background: #efefef;
+  color: black;
+}
+button.btnStyle3:focus {
+  background-color: #efefef;
+  box-shadow: none;
+  opacity: 0.8;
   color: black;
 }
 

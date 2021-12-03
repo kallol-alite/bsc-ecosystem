@@ -11,7 +11,9 @@ div.inputSection {
   align-items: center;
   justify-content: space-between;
 }
-
+div.inputSection > input.input {
+  box-shadow: none;
+}
 span.percentage {
   color: #007bff;
 }
