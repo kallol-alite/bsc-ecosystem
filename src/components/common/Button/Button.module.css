@@ -42,6 +42,9 @@ button.btnStyle:focus {
   box-shadow: none;
   opacity: 0.8;
 }
+button.btnStyle:focus:active {
+  box-shadow: none;
+}
 /* Button style 2 */
 button.btnStyle2 {
   /* opacity: 0.5; */
@@ -61,6 +64,9 @@ button.btnStyle2:focus {
   background-color: #5b46f9;
   box-shadow: none;
   opacity: 0.8;
+}
+button.btnStyle2:focus:active {
+  box-shadow: none;
 }
 
 /* Button style 3 */
@@ -82,7 +88,9 @@ button.btnStyle3:focus {
   opacity: 0.8;
   color: black;
 }
-
+button.btnStyle3:focus:active {
+  box-shadow: none;
+}
 /* Button style 4 */
 button.btnStyle4 {
   background: rgba(23, 199, 167, 0.1);
