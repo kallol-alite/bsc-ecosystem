@@ -19,12 +19,11 @@ const StackingCard = ({
   checkAndUnstake,
   buyUrl,
   checkAndStakeToken,
-  updateLockTime,
+  updateCountPerPeriod,
   lockTime,
   totalEarned,
   checkAndHarvestToken,
   totalPending,
-  updateAprValuePeriodically,
   aprValuePeriodically,
 }) => {
   const [modal, setModal] = useState(false);
@@ -32,8 +31,7 @@ const StackingCard = ({
 
   const openModal = () => {
     updateWalletAmount("");
-    updateAprValuePeriodically("");
-    updateLockTime("");
+    updateCountPerPeriod("");
     setModal(!modal);
   };
 
@@ -41,7 +39,6 @@ const StackingCard = ({
     updateWalletAmount("");
     setUnstakeModal(!unstakeModal);
   };
-  // console.log(props);
   return (
     <>
       <div className={styles.container}>
@@ -103,11 +100,10 @@ const StackingCard = ({
                     toggle={openModal}
                     isOpen={modal}
                     updateWalletAmount={updateWalletAmount}
-                    updateLockTime={updateLockTime}
+                    updateCountPerPeriod={updateCountPerPeriod}
                     lockTime={lockTime}
                     aprValue={aprValue}
                     aprValuePeriodically={aprValuePeriodically}
-                    updateAprValuePeriodically={updateAprValuePeriodically}
                   />
                 </div>
               </div>
@@ -133,7 +129,6 @@ const StackingCard = ({
                 <CardText tag="h3" className={styles.zero}>
                   {totalPending}
                 </CardText>
-                {/*  <CardText>$</CardText> */}
               </div>
             </div>
           </CardBody>

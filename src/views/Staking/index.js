@@ -6,6 +6,7 @@ import { utils, BigNumber } from "ethers";
 import StakingBSC from "./abi/StakingBSC.json";
 import TokenABI from "./abi/Token.json";
 import Stakingcard from "../../component/StackingCard/index";
+import { useUtilContractFunction } from "../../hooks/useDappUtility";
 import {
   stakingContract,
   totalStakersContractCall,
@@ -43,12 +44,9 @@ const Staking = () => {
   const [aprValuePeriodically, setAprValuePeriodically] = useState(0);
   const buyUrl = "https://quickswap.exchange/#/swap?outputCurrency";
 
-  const updateLockTime = (e) => {
-    setLockTime(e);
-  };
-
-  const updateAprValuePeriodically = (e) => {
-    setAprValuePeriodically(e);
+  const updateCountPerPeriod = (e) => {
+    setLockTime(e._seconds);
+    setAprValuePeriodically(e.aprValuePerPeriod);
   };
 
   const updateWalletAmount = (inputAmount) => {
@@ -74,7 +72,7 @@ const Staking = () => {
   const { state: stakeTokens, send: depositToken } = useContractFunction(stakingContract, depositStakingFunction);
 
   const { state: approveAllownace, send: setApproveAllowances } = useContractFunction(stakingTokenContract, approveAllowanceFunction);
-
+  useUtilContractFunction(stakingContract, depositStakingFunction);
   const { state: stateOfUnstakeProcess, send: withdrawToken } = useContractFunction(stakingContract, withdrawStakingFunction);
 
   const checkAndStakeToken = () => {
@@ -168,7 +166,6 @@ const Staking = () => {
     // }
   };
 
-  console.log("LOCKTIME:", lockTimeFromContract);
   return (
     <Stakingcard
       aprValue={aprValue}
@@ -182,11 +179,10 @@ const Staking = () => {
       buyUrl={buyUrl}
       walletBalance={walletBalance}
       walletAmount={walletAmount}
-      updateLockTime={updateLockTime}
+      updateCountPerPeriod={updateCountPerPeriod}
       lockTime={lockTime}
       checkAndHarvestToken={checkAndHarvestToken}
       checkAndUnstake={checkAndUnstake}
-      updateAprValuePeriodically={updateAprValuePeriodically}
       aprValuePeriodically={aprValuePeriodically}
     />
   );
