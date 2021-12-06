@@ -176,29 +176,31 @@ const Farming = () => {
 
   const createFarms = () => {
     let newFarms = [];
-    for (let i = 0; i < totalPoolLengthState; i++) {
-      newFarms.push({
-        id: i,
-        earned: pendingRewardsValue[i] && pendingRewardsValue[i][0] && parseFloat(utils.formatUnits(pendingRewardsValue[i][0]._hex)).toFixed(3),
-        mulitplier: allFarmInfo[i] && allFarmInfo[i].allocPoint && parseFloat(allFarmInfo[i].allocPoint) / 100,
-        farmName: deployedFarmName && deployedFarmName.length > 0 && deployedFarmName[i] && deployedFarmName[i],
-        walletBalance: walletBalanceValue && walletBalanceValue[i] && utils.formatUnits(walletBalanceValue[i].toString()),
-        stakedValue: userInfoValue && userInfoValue[i] && userInfoValue[i].amount && utils.formatUnits(userInfoValue[i].amount.toString()),
-        token0: listOfToken0 && listOfToken0[i] ? listOfToken0[i] : "",
-        token1: listOfToken1 && listOfToken1[i] ? listOfToken1[i] : "",
-        token0Name: token0Symbol && token0Symbol[i] && token0Symbol[i][0],
-        token1Name: token1Symbol && token1Symbol[i] && token1Symbol[i][0],
-        allowedAllowance: allowanceValue && allowanceValue.length > 0 && allowanceValue[i],
-        stakeFee: allFarmInfo[i] && allFarmInfo[i] && parseFloat(allFarmInfo[i].depositFeeBP) / 100,
-        lpTokenAddress: allFarmInfo[i] && allFarmInfo[i] && allFarmInfo[i].lpToken,
-        allocPoint: allFarmInfo[i] && allFarmInfo[i] && [allFarmInfo[i].allocPoint],
-        farmingContract: new Contract(currentNetworkContract, currentNetworkAbi),
-        farmingAddress: currentNetworkContract,
-        lpContract: allFarmInfo[i] && allFarmInfo[i] && allFarmInfo[i].lpToken && new Contract(allFarmInfo[i].lpToken, LpTokenAbi),
-        totalAllocPoint: totalAllocPointValue,
-        token0Liquidity: token0Liquidity && token0Liquidity[i],
-        token1Liquidity: token1Liquidity && token1Liquidity[i],
-      });
+    if(ALLOWED_NETWORKS.FARMING.BSC === chainId){
+      for (let i = 0; i < totalPoolLengthState; i++) {
+        newFarms.push({
+          id: i,
+          earned: pendingRewardsValue[i] && pendingRewardsValue[i][0] && parseFloat(utils.formatUnits(pendingRewardsValue[i][0]._hex)).toFixed(3),
+          mulitplier: allFarmInfo[i] && allFarmInfo[i].allocPoint && parseFloat(allFarmInfo[i].allocPoint) / 100,
+          farmName: deployedFarmName && deployedFarmName.length > 0 && deployedFarmName[i] && deployedFarmName[i],
+          walletBalance: walletBalanceValue && walletBalanceValue[i] && utils.formatUnits(walletBalanceValue[i].toString()),
+          stakedValue: userInfoValue && userInfoValue[i] && userInfoValue[i].amount && utils.formatUnits(userInfoValue[i].amount.toString()),
+          token0: listOfToken0 && listOfToken0[i] ? listOfToken0[i] : "",
+          token1: listOfToken1 && listOfToken1[i] ? listOfToken1[i] : "",
+          token0Name: token0Symbol && token0Symbol[i] && token0Symbol[i][0],
+          token1Name: token1Symbol && token1Symbol[i] && token1Symbol[i][0],
+          allowedAllowance: allowanceValue && allowanceValue.length > 0 && allowanceValue[i],
+          stakeFee: allFarmInfo[i] && allFarmInfo[i] && parseFloat(allFarmInfo[i].depositFeeBP) / 100,
+          lpTokenAddress: allFarmInfo[i] && allFarmInfo[i] && allFarmInfo[i].lpToken,
+          allocPoint: allFarmInfo[i] && allFarmInfo[i] && [allFarmInfo[i].allocPoint],
+          farmingContract: new Contract(currentNetworkContract, currentNetworkAbi),
+          farmingAddress: currentNetworkContract,
+          lpContract: allFarmInfo[i] && allFarmInfo[i] && allFarmInfo[i].lpToken && new Contract(allFarmInfo[i].lpToken, LpTokenAbi),
+          totalAllocPoint: totalAllocPointValue,
+          token0Liquidity: token0Liquidity && token0Liquidity[i],
+          token1Liquidity: token1Liquidity && token1Liquidity[i],
+        });
+      }
     }
     return newFarms;
   };
@@ -228,13 +230,14 @@ const Farming = () => {
 
   return (
     <div className={styles.viewContainer}>
-      {totalPoolLengthState > 0 &&
+      {ALLOWED_NETWORKS.FARMING.BSC === chainId ? totalPoolLengthState > 0 &&
         farms &&
         farms.length > 0 &&
         farms.map((pool) => {
           return (
             <FarmingCard
               key={pool.id}
+              disabled={ALLOWED_NETWORKS.FARMING.BSC !== chainId}
               pool={pool}
               coingeckoUrlData={coingeckoUrlData}
               forwardTokenCoingeckoEndPoint={FORWARD_TOKEN_COINGECKO_PRICE_BSC}
@@ -243,7 +246,7 @@ const Farming = () => {
               iconEndPoint={ICON_END_POINT}
             />
           );
-        })}
+        }) : <h5>Please switch to Polygon network</h5>}
     </div>
   );
 };
