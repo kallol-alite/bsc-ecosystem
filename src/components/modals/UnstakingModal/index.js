@@ -5,41 +5,66 @@ import styles from "./UnstakingModal.module.css";
 
 import Button from "../../common/Button";
 
-const UnstakingModal = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+const UnstakingModal = ({ style, tokenName, toggle, isOpen, stakeAmount, walletAmount, checkAndUnstake, updateWalletAmount }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const MAX_BALANCE = stakeAmount;
+
+  const toMax4Decimals = (x) => {
+    return +x.toFixed(4);
+  };
+
+  const setMaxAmount = () => {
+    updateWalletAmount(MAX_BALANCE);
+  };
 
   return (
     <>
       <Button
         buttonStyle="btnStyle"
         onClick={() => {
-          setIsOpen(true);
+          setIsModalOpen(true);
+          toggle && toggle();
         }}
-        style={props.style}
+        style={style}
       >
         Unstake &#45;
       </Button>
       <Modal
-        isOpen={isOpen}
+        isOpen={isModalOpen}
         centered
         toggle={() => {
-          setIsOpen(false);
+          setIsModalOpen(false);
+          toggle && toggle();
         }}
       >
-        <ModalHeader toggle={() => setIsOpen(false)}>Unstake YFDAI</ModalHeader>
+        <ModalHeader toggle={() => setIsModalOpen(false)}>Unstake {tokenName}</ModalHeader>
         <ModalBody>
           <div className={styles.infoText}>
-            <div>Balance in Wallet : 0</div>
-            <div>Max Per Tx : 500000</div>
+            <div>Total Staked : {toMax4Decimals(parseFloat(stakeAmount))}</div>
           </div>
           <div className={styles.inputSection}>
-            <Input type="text" placeholder="Enter Amount" className={styles.input} />
-            <Button style={{ marginLeft: "5px" }} buttonStyle="btnStyle">
+            <Input
+              type="text"
+              placeholder="Enter Amount"
+              className={styles.input}
+              value={walletAmount}
+              onChange={(e) => updateWalletAmount(e.target.value)}
+            />
+            <Button style={{ marginLeft: "5px" }} buttonStyle="btnStyle" onClick={setMaxAmount}>
               Max
             </Button>
           </div>
           <div className={styles.buttonSection + " mt-3"}>
-            <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
+            <Button
+              buttonStyle="btnStyle2"
+              buttonSize="largeBtn"
+              disabled={walletAmount && walletAmount === 0}
+              onClick={() => {
+                checkAndUnstake();
+                toggle();
+              }}
+            >
               Unstake
             </Button>
           </div>

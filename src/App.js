@@ -1,4 +1,4 @@
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import LoaderComponent from "./components/common/Loader";
@@ -6,6 +6,7 @@ import DashboardLayout from "./components/layouts/DashboardLayout";
 import StakingCard from "./components/cards/StakingCard";
 
 import Farming from "./views/Farming";
+import Staking from "./views/Staking";
 import { useSelector } from "react-redux";
 import ConnectWallet from "./views/ConnectWallet";
 
@@ -32,7 +33,7 @@ function App() {
             <ConnectWallet />
           </Route>
           {isWalletConnected && <Route exact path="/farming" component={Farming} />}
-          {isWalletConnected && <Route exact path="/staking" component={StakingCard} />}
+          {isWalletConnected && <Route exact path="/staking" component={Staking} />}
           <Route path="*" component={ConnectWallet} />
         </Switch>
       </DashboardLayout>

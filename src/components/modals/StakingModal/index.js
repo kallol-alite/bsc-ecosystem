@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, Input } from "reactstrap";
+import { utils } from "ethers";
 
 import styles from "./StakingModal.module.css";
 
@@ -7,43 +8,98 @@ import Button from "../../common/Button";
 
 const pills = ["1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
 
-const StakingModal = (props) => {
+const countsPerPeriod = (e, aprValue) => {
+  if (e === "1M") {
+    return { _seconds: 86400 * 30, aprValuePerPeriod: aprValue / 12 };
+  } else if (e === "2M") {
+    return { _seconds: 86400 * 30 * 2, aprValuePerPeriod: (aprValue / 12) * 2 };
+  } else if (e === "3M") {
+    return { _seconds: 86400 * 30 * 3, aprValuePerPeriod: (aprValue / 12) * 3 };
+  } else if (e === "6M") {
+    return { _seconds: 86400 * 30 * 6, aprValuePerPeriod: (aprValue / 12) * 6 };
+  } else if (e === "1Y") {
+    return { _seconds: 86400 * 30 * 12, aprValuePerPeriod: (aprValue / 12) * 12 };
+  } else if (e === "2Y") {
+    return { _seconds: 86400 * 30 * 12 * 2, aprValuePerPeriod: (aprValue / 12) * 12 * 2 };
+  } else if (e === "3Y") {
+    return { _seconds: 86400 * 30 * 12 * 3, aprValuePerPeriod: (aprValue / 12) * 12 * 3 };
+  } else if (e === "4Y") {
+    return { _seconds: 86400 * 30 * 12 * 4, aprValuePerPeriod: (aprValue / 12) * 12 * 4 };
+  }
+};
+
+const StakingModal = ({
+  style,
+  tokenName,
+  isOpen,
+  toggle,
+  buyUrl,
+  updateCountPerPeriod,
+  checkAndStakeToken,
+  updateWalletAmount,
+  aprValue,
+  aprValuePeriodically,
+  walletBalance,
+  walletAmount,
+}) => {
   const [selectedChip, setSelectedChip] = useState();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const MAX_BALANCE = 500000;
+
+  const PillChange = (e) => {
+    updateCountPerPeriod(countsPerPeriod(e.target.value, aprValue));
+  };
+  const openInNewWindow = (url) => {
+    const newWindow = window.open(url);
+  };
+
+  const toMax4Decimals = (x) => {
+    return +x.toFixed(4);
+  };
+
+  const setMaxAmount = () => {
+    walletBalance < MAX_BALANCE ? updateWalletAmount(walletBalance) : updateWalletAmount(MAX_BALANCE);
+  };
 
   return (
     <>
       <Button
         buttonStyle="btnStyle"
         onClick={() => {
-          setIsOpen(true);
+          setIsModalOpen(true);
         }}
-        style={props.style}
+        style={style}
       >
         Stake &#43;
       </Button>
       <Modal
-        isOpen={isOpen}
+        isOpen={isModalOpen}
         centered
         toggle={() => {
-          setIsOpen(false);
+          setIsModalOpen(false);
         }}
       >
-        <ModalHeader toggle={() => setIsOpen(false)}>Stake YFDAI</ModalHeader>
+        <ModalHeader toggle={() => setIsModalOpen(false)}>Stake {tokenName}</ModalHeader>
         <ModalBody>
           <div className={styles.infoText}>
-            <div>Balance in Wallet : 0</div>
-            <div>Max Per Tx : 500000</div>
+            <div>Balance in Wallet : {utils.commify(toMax4Decimals(parseFloat(walletBalance)))}</div>
           </div>
           <div className={styles.inputSection}>
-            <Input type="text" placeholder="Enter Amount" className={styles.input} />
-            <Button style={{ marginLeft: "5px" }} buttonStyle="btnStyle">
+            <Input
+              type="text"
+              placeholder="Enter Amount"
+              className={styles.input}
+              value={walletAmount}
+              onChange={(e) => updateWalletAmount(e.target.value)}
+            />
+            <Button style={{ marginLeft: "5px" }} buttonStyle="btnStyle" onClick={() => setMaxAmount()}>
               Max
             </Button>
           </div>
           <div className={styles.infoText + " mt-3"}>
             <div>
-              Estimated APR : <span className={styles.percentage}>00%</span>
+              Estimated APR : <span className={styles.percentage}>{aprValuePeriodically ? aprValuePeriodically : 0.0}%</span>
             </div>
           </div>
           <div className={styles.pills}>
@@ -58,6 +114,7 @@ const StakingModal = (props) => {
                     style={style}
                     onClick={(e) => {
                       setSelectedChip(e.target.value);
+                      updateCountPerPeriod(countsPerPeriod(e.target.value, aprValue));
                     }}
                   >
                     {option}
@@ -67,11 +124,25 @@ const StakingModal = (props) => {
             })}
           </div>
           <div className={styles.buttonSection + " mt-2"}>
-            <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
+            <Button
+              buttonStyle="btnStyle2"
+              buttonSize="largeBtn"
+              onClick={() => {
+                checkAndStakeToken();
+                toggle();
+              }}
+            >
               Stake
             </Button>
-            <div className="my-2">Stake Fee 1.5 %</div>
-            <Button buttonStyle="btnStyle3">Buy YFDAI</Button>
+            <Button
+              buttonStyle="btnStyle3"
+              style={{ marginTop: "10px" }}
+              onClick={() => {
+                openInNewWindow(buyUrl);
+              }}
+            >
+              Buy {tokenName}
+            </Button>
           </div>
         </ModalBody>
       </Modal>

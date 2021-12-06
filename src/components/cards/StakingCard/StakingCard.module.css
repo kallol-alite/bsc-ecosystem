@@ -9,6 +9,7 @@
   box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
   border: 1px double #5b46f9;
   font-size: 15px;
+  width: 400px;
 }
 
 .stakingCard > div {
