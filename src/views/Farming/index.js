@@ -204,7 +204,7 @@ const Farming = () => {
   };
 
   useEffect(() => {
-    if (totalPoolLengthResolved) {
+    if (totalPoolLengthResolved && totalPoolLengthResolved.totalPoolLength) {
       setTotalPoolLengthState(totalPoolLengthResolved.totalPoolLength);
     }
   }, [totalPoolLengthResolved]);
@@ -228,8 +228,7 @@ const Farming = () => {
 
   return (
     <div className={styles.viewContainer}>
-      {totalPoolLengthState &&
-        totalPoolLengthState > 0 &&
+      {totalPoolLengthState > 0 &&
         farms &&
         farms.length > 0 &&
         farms.map((pool) => {

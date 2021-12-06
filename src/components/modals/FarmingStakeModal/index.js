@@ -1,31 +1,35 @@
 import React, { useState } from "react";
-import { Modal, ModalHeader, ModalBody, Input } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, Input, Spinner } from "reactstrap";
 
 import styles from "./FarmingStakeModal.module.css";
 
 import Button from "../../common/Button";
 
-const FarmingStakeModal = ({ style, isOpen, toggle, enteredAmount, changeEnteredAmount, walletBalance, stake, title, max }) => {
+const FarmingStakeModal = ({ style, enteredAmount, changeEnteredAmount, walletBalance, stake, title, max, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const callStake = () => {
+    stake();
+    setIsModalOpen(false);
+  };
 
   return (
     <>
       <Button
         buttonStyle="btnStyle"
+        disabled={loading}
         onClick={() => {
-          setIsModalOpen(true);
-          toggle && toggle();
+          !loading && setIsModalOpen(true);
         }}
         style={style}
       >
-        Stake &#43;
+        {loading ? <Spinner animation="grow" variant="light" size="sm" as="span" /> : <span>Stake &#43;</span>}
       </Button>
       <Modal
         isOpen={isModalOpen}
         centered
         toggle={() => {
           setIsModalOpen(false);
-          toggle && toggle();
         }}
       >
         <ModalHeader toggle={() => setIsModalOpen(false)}>Stake WMATIC-USDT</ModalHeader>
@@ -40,7 +44,7 @@ const FarmingStakeModal = ({ style, isOpen, toggle, enteredAmount, changeEntered
             </Button>
           </div>
           <div className={styles.buttonSection + " mt-3"}>
-            <Button onClick={stake} buttonStyle="btnStyle2" buttonSize="largeBtn">
+            <Button onClick={callStake} buttonStyle="btnStyle2" buttonSize="largeBtn">
               Stake
             </Button>
             <div className="my-2">{/* Stake Fee 1.5 % */}</div>
