@@ -25,16 +25,46 @@ const secondsCount = (e) => {
     return 86400 * 30 * 12 * 4;
   }
 };
-const StakeModal = (props) => {
-  // const [modal, setModal] = useState(false);
-  // const openModal = () => setModal(!modal);
+const coutAprPeriodically = (e, aprValue) => {
+  if (e === "1M") {
+    return aprValue / 12;
+  } else if (e === "2M") {
+    return (aprValue / 12) * 2;
+  } else if (e === "3M") {
+    return (aprValue / 12) * 3;
+  } else if (e === "6M") {
+    return (aprValue / 12) * 6;
+  } else if (e === "1Y") {
+    return (aprValue / 12) * 12;
+  } else if (e === "2Y") {
+    return aprValue * 2;
+  } else if (e === "3Y") {
+    return aprValue * 3;
+  } else if (e === "4Y") {
+    return aprValue * 4;
+  }
+};
+const StakeModal = ({
+  buyUrl,
+  isOpen,
+  toggle,
+  updateLockTime,
+  updateAprValuePeriodically,
+  checkAndStakeToken,
+  updateWalletAmount,
+  walletBalance,
+  walletAmount,
+  aprValuePeriodically,
+  aprValue,
+}) => {
   const MAX_BALANCE = 500000;
 
-  const PillChange = (e, value) => {
-    props.updateLockTime(secondsCount(e.target.value));
+  const PillChange = (e) => {
+    updateLockTime(secondsCount(e.target.value));
+    updateAprValuePeriodically(coutAprPeriodically(e.target.value, aprValue));
   };
   const openInNewWindow = (url) => {
-    const newWindow = window.open(url);
+    return window.open(url);
   };
 
   const toMax4Decimals = (x) => {
@@ -42,28 +72,28 @@ const StakeModal = (props) => {
   };
 
   const setMaxAmount = () => {
-    props.walletBalance < MAX_BALANCE ? props.updateWalletAmount(props.walletBalance) : props.updateWalletAmount(MAX_BALANCE);
+    walletBalance < MAX_BALANCE ? updateWalletAmount(walletBalance) : updateWalletAmount(MAX_BALANCE);
   };
 
   return (
     <>
       <Container>
         {/* <Button onClick={openModal}> Click Me</Button> */}
-        <Modal isOpen={props.isOpen} toggle={props.toggle} className={styles.ModalStyle}>
-          <ModalHeader toggle={props.toggle}>Stake YFDAI</ModalHeader>
+        <Modal isOpen={isOpen} toggle={toggle} className={styles.ModalStyle}>
+          <ModalHeader toggle={toggle}>Stake YFDAI</ModalHeader>
           <ModalBody>
             <div class={styles.text}>
-              <p>Balance in Wallet : {utils.commify(toMax4Decimals(parseFloat(props.walletBalance)))}</p>
+              <p>Balance in Wallet : {utils.commify(toMax4Decimals(parseFloat(walletBalance)))}</p>
             </div>
             <div className={styles.addBalance}>
-              <Input type="text" placeholder={"Enter amount"} value={props.walletAmount} onChange={(e) => props.updateWalletAmount(e.target.value)} />
+              <Input type="text" placeholder={"Enter amount"} value={walletAmount} onChange={(e) => updateWalletAmount(e.target.value)} />
               <Button type="submit" value="MAX" onClick={() => setMaxAmount()}>
                 MAX
               </Button>
             </div>
             <div className={styles.pills}>
               <p>
-                Estimated APR <span className={styles.percentage}>00 %</span>
+                Estimated APR <span className={styles.percentage}>{aprValuePeriodically ? aprValuePeriodically : 0} %</span>
               </p>
               <ul className={styles.tab}>
                 {pills.map((option, i) => (
@@ -78,8 +108,8 @@ const StakeModal = (props) => {
                 buttonStyle="btnStyle2"
                 buttonSize="largeBtn"
                 onClick={() => {
-                  props.checkAndStakeToken();
-                  props.toggle();
+                  checkAndStakeToken();
+                  toggle();
                 }}
               >
                 Stake
@@ -88,7 +118,7 @@ const StakeModal = (props) => {
               <Button
                 buttonStyle="btnStyle3"
                 onClick={() => {
-                  openInNewWindow(props.buyUrl);
+                  openInNewWindow(buyUrl);
                 }}
               >
                 Buy Token

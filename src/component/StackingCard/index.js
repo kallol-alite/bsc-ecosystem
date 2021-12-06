@@ -9,7 +9,7 @@ import Button from "../Button";
 import Icon from "../../assets/torus.png";
 
 const StackingCard = ({
-  aprV,
+  aprValue,
   totalStaked,
   totalStaker,
   stakeAmount,
@@ -24,12 +24,15 @@ const StackingCard = ({
   totalEarned,
   checkAndHarvestToken,
   totalPending,
+  updateAprValuePeriodically,
+  aprValuePeriodically,
 }) => {
   const [modal, setModal] = useState(false);
   const [unstakeModal, setUnstakeModal] = useState(false);
 
   const openModal = () => {
     updateWalletAmount("");
+    updateAprValuePeriodically("");
     updateLockTime("");
     setModal(!modal);
   };
@@ -51,7 +54,7 @@ const StackingCard = ({
             <div className={styles.numbers}>
               <div className={styles.numbersBlock}>
                 <CardTitle tag="p">APR</CardTitle>
-                <CardText tag="strong">{aprV}</CardText>
+                <CardText tag="strong">{aprValue}</CardText>
               </div>
               <div className={styles.dividerRight}></div>
               <div className={styles.numbersBlock}>
@@ -102,6 +105,9 @@ const StackingCard = ({
                     updateWalletAmount={updateWalletAmount}
                     updateLockTime={updateLockTime}
                     lockTime={lockTime}
+                    aprValue={aprValue}
+                    aprValuePeriodically={aprValuePeriodically}
+                    updateAprValuePeriodically={updateAprValuePeriodically}
                   />
                 </div>
               </div>

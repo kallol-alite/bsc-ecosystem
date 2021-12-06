@@ -28,7 +28,7 @@ const Staking = () => {
   const dispatch = useDispatch();
   const [currentNetworkContract, setCurrentNetworkContract] = useState("");
   const [currentTokenContract, setCurrentTokenContract] = useState("");
-  const [aprV, setAprV] = useState(0);
+  const [aprValue, setAprValue] = useState(0);
   const [totalStaked, setTotalStaked] = useState(0);
   const [totalEarned, setTotalEarned] = useState(0);
   const [totalPending, setTotalPending] = useState(0);
@@ -40,13 +40,22 @@ const Staking = () => {
   const [lockTime, setLockTime] = useState(0);
   const [lockTimeFromContract, setLockTimeFromContract] = useState(0);
   const [txnBlockTime, setTxnBlockTime] = useState();
+  const [aprValuePeriodically, setAprValuePeriodically] = useState(0);
   const buyUrl = "https://quickswap.exchange/#/swap?outputCurrency";
 
   const updateLockTime = (e) => {
-    if (isNaN(e)) {
+    setLockTime(e);
+  };
+
+  const updateAprValuePeriodically = (e) => {
+    setAprValuePeriodically(e);
+  };
+
+  const updateWalletAmount = (inputAmount) => {
+    if (isNaN(inputAmount)) {
       return;
     }
-    setLockTime(e);
+    setWalletAmount(inputAmount);
   };
 
   const [totalStakersCount, userInfo, Pending] = useContractCalls([
@@ -67,13 +76,6 @@ const Staking = () => {
   const { state: approveAllownace, send: setApproveAllowances } = useContractFunction(stakingTokenContract, approveAllowanceFunction);
 
   const { state: stateOfUnstakeProcess, send: withdrawToken } = useContractFunction(stakingContract, withdrawStakingFunction);
-
-  const updateWalletAmount = (inputAmount) => {
-    if (isNaN(inputAmount)) {
-      return;
-    }
-    setWalletAmount(inputAmount);
-  };
 
   const checkAndStakeToken = () => {
     // Check allowance, if allowance > 0 && < entered amount then proceed
@@ -147,7 +149,7 @@ const Staking = () => {
     //   }
     // }
 
-    setAprV(apr.toFixed(2));
+    setAprValue(apr.toFixed(2));
   };
 
   const checkAndHarvestToken = () => {
@@ -169,7 +171,7 @@ const Staking = () => {
   console.log("LOCKTIME:", lockTimeFromContract);
   return (
     <Stakingcard
-      aprV={aprV}
+      aprValue={aprValue}
       totalStaked={totalStaked}
       totalEarned={totalEarned}
       totalStaker={totalStaker}
@@ -184,6 +186,8 @@ const Staking = () => {
       lockTime={lockTime}
       checkAndHarvestToken={checkAndHarvestToken}
       checkAndUnstake={checkAndUnstake}
+      updateAprValuePeriodically={updateAprValuePeriodically}
+      aprValuePeriodically={aprValuePeriodically}
     />
   );
 };
