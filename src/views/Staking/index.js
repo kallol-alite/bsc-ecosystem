@@ -69,11 +69,19 @@ const Staking = () => {
 
   const userBalance = useTokenBalance(currentTokenContract, account);
 
-  const { state: stakeTokens, send: depositToken } = useContractFunction(stakingContract, depositStakingFunction);
+  // const { state: stakeTokens, send: depositToken } = useContractFunction(stakingContract, depositStakingFunction);
 
-  const { state: approveAllownace, send: setApproveAllowances } = useContractFunction(stakingTokenContract, approveAllowanceFunction);
-  useUtilContractFunction(stakingContract, depositStakingFunction);
-  const { state: stateOfUnstakeProcess, send: withdrawToken } = useContractFunction(stakingContract, withdrawStakingFunction);
+  // const { state: approveAllownace, send: setApproveAllowances } = useContractFunction(stakingTokenContract, approveAllowanceFunction);
+
+  // const { state: stateOfUnstakeProcess, send: withdrawToken } = useContractFunction(stakingContract, withdrawStakingFunction);
+
+  const depositToken = useUtilContractFunction(stakingContract, depositStakingFunction);
+
+  const setApproveAllowances = useUtilContractFunction(stakingTokenContract, approveAllowanceFunction);
+
+  const withdrawToken = useUtilContractFunction(stakingContract, withdrawStakingFunction);
+
+  const harvestToken = useUtilContractFunction(stakingContract, depositStakingFunction);
 
   const checkAndStakeToken = () => {
     // Check allowance, if allowance > 0 && < entered amount then proceed
@@ -82,7 +90,7 @@ const Staking = () => {
         stakeToken();
       } else {
         // Else call approve allowance
-        setApproveAllowances(currentNetworkContract, BigNumber.from(2).pow(256).sub(1));
+        setApproveAllowances.send(currentNetworkContract, BigNumber.from(2).pow(256).sub(1));
       }
     } else {
       // Show error to user
@@ -90,7 +98,7 @@ const Staking = () => {
   };
 
   const stakeToken = () => {
-    depositToken(utils.parseUnits(walletAmount.toString(), 18), 300);
+    depositToken.send(utils.parseUnits(walletAmount.toString(), 18), 300);
   };
 
   useEffect(() => {
@@ -116,7 +124,7 @@ const Staking = () => {
     setLockTimeFromContract(userInfo ? parseInt(userInfo[4]._hex) : 0);
     setTxnBlockTime(userInfo ? parseInt(userInfo[3]._hex) : 0);
     setAllowance(getAllowance ? utils.formatUnits(getAllowance[0]._hex, "ether") : 0);
-  }, [totalStakersCount, userInfo, Pending, totalStakedofContract, getAllowance]);
+  }, [totalStakersCount, userInfo, Pending, totalStakedofContract, getAllowance, totalPending]);
 
   useEffect(() => {
     setWalletBalance(!!userBalance ? utils.formatEther(userBalance) : 0);
@@ -151,11 +159,11 @@ const Staking = () => {
   };
 
   const checkAndHarvestToken = () => {
-    depositToken(0, 0);
+    harvestToken.send(0, 0);
   };
 
   const checkAndUnstake = () => {
-    withdrawToken(utils.parseUnits(walletAmount.toString(), 18));
+    withdrawToken.send(utils.parseUnits(walletAmount.toString(), 18));
 
     //this logic will impliment on production tym
     // let currentTime = new Date().getTime();

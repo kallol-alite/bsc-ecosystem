@@ -7,9 +7,9 @@ import { toast } from "react-toastify";
 import { setDappErrorQueue, setDappTxnSuccessQueue } from "../actions/master-actions";
 
 //The hook returns an extra value "loading" which can be used to show loaders where the contract function is called.
-export const useUtilContractFunction = (args) => {
+export const useUtilContractFunction = (...args) => {
   const [loading, setLoading] = useState(false);
-  const { send, state } = useContractFunction(args);
+  const { send, state } = useContractFunction(...args);
 
   //connects to redux Transaction Error Queue. ref masterReducer
   const dispatch = useDispatch();
