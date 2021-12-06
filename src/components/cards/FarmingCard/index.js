@@ -155,6 +155,12 @@ const FarmingCard = ({
   }, [approveFunction.loading]);
 
   useEffect(() => {
+    if (approveFunction.state.status === "Success") {
+      stake();
+    }
+  }, [approveFunction.state]);
+
+  useEffect(() => {
     console.log(depositFunction.loading);
   }, [depositFunction.loading]);
 
@@ -175,7 +181,9 @@ const FarmingCard = ({
               <TokenPairIcon image1={img0} image2={img1} />
             </Col>
             <Col xs={9} className="d-flex align-items-center">
-              <h3>{token0Name && token0Name}-{token1Name && token1Name}</h3>
+              <h3>
+                {token0Name && token0Name}-{token1Name && token1Name}
+              </h3>
             </Col>
           </Row>
           <Row>

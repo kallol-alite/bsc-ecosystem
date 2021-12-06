@@ -230,7 +230,9 @@ const Farming = () => {
     <div className={styles.viewContainer}>
       {totalPoolLengthState &&
         totalPoolLengthState > 0 &&
-        farms && farms.length>0 && farms.map((pool) => {
+        farms &&
+        farms.length > 0 &&
+        farms.map((pool) => {
           return (
             <FarmingCard
               key={pool.id}
