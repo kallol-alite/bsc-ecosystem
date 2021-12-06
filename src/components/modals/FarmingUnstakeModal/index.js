@@ -1,46 +1,50 @@
 import React, { useState } from "react";
-import { Modal, ModalHeader, ModalBody, Input } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, Input, Spinner } from "reactstrap";
 
 import styles from "./FarmingUnstakeModal.module.css";
 
 import Button from "../../common/Button";
 
-const FarmingUnstakeModal = ({ style, isOpen, toggle, enteredAmount, changeEnteredAmount, stakedAmount, unstake, title, max }) => {
+const FarmingUnstakeModal = ({ style, enteredAmount, changeEnteredAmount, stakedAmount, unstake, title, max, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const callUnstake = () => {
+    unstake();
+    setIsModalOpen(false);
+  };
 
   return (
     <>
       <Button
         buttonStyle="btnStyle"
+        disabled={loading}
         onClick={() => {
-          setIsModalOpen(true);
-          toggle && toggle();
+          !loading && setIsModalOpen(true);
         }}
         style={style}
       >
-        Unstake &#45;
+        {loading ? <Spinner animation="grow" variant="light" size="sm" as="span" /> : <span>Unstake &#45;</span>}
       </Button>
       <Modal
         isOpen={isModalOpen}
         centered
         toggle={() => {
           setIsModalOpen(false);
-          toggle && toggle();
         }}
       >
-        <ModalHeader toggle={() => setIsModalOpen(false)}>Unstake WMATIC-USDT</ModalHeader>
+        <ModalHeader toggle={() => setIsModalOpen(false)}>Unstake {title}</ModalHeader>
         <ModalBody>
           <div className={styles.infoText}>
             <div>Total Staked : {stakedAmount && stakedAmount}</div>
           </div>
           <div className={styles.inputSection}>
-            <Input type="text" placeholder="Enter Amount" value={enteredAmount} onChange={changeEnteredAmount}/>
+            <Input type="text" placeholder="Enter Amount" value={enteredAmount} onChange={changeEnteredAmount} />
             <Button onClick={max} style={{ marginLeft: "5px" }} buttonStyle="btnStyle">
               Max
             </Button>
           </div>
           <div className={styles.buttonSection + " mt-3"}>
-            <Button onClick={unstake} buttonStyle="btnStyle2" buttonSize="largeBtn">
+            <Button onClick={callUnstake} buttonStyle="btnStyle2" buttonSize="largeBtn">
               Unstake
             </Button>
           </div>

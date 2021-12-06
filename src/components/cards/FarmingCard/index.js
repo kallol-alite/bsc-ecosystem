@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col, Container, Row } from "reactstrap";
+import { Card, Col, Container, Row, Spinner } from "reactstrap";
 import { utils } from "ethers";
 import { BigNumber } from "@ethersproject/bignumber";
 
@@ -15,8 +15,6 @@ import Button from "../../common/Button";
 import FarmingStakeModal from "../../modals/FarmingStakeModal";
 import FarmingUnstakeModal from "../../modals/FarmingUnstakeModal";
 
-import icon1 from "../../../assets/torus.png";
-import icon2 from "../../../assets/torus.png";
 import notFound from "../../../assets/oval.png";
 
 const FarmingCard = ({
@@ -214,6 +212,7 @@ const FarmingCard = ({
                   <div className={styles.buttons}>
                     <div>
                       <FarmingUnstakeModal
+                        loading={withdrawFunction.loading}
                         style={{ margin: "5px" }}
                         max={maxUnstake}
                         title={token0Name + "-" + token1Name}
@@ -221,12 +220,11 @@ const FarmingCard = ({
                         stakedAmount={stakedValue}
                         enteredAmount={inputAmount}
                         changeEnteredAmount={changeEnteredAmount}
-                        toggle={openModal1}
-                        isOpen={modal1}
                       />
                     </div>
                     <div>
                       <FarmingStakeModal
+                        loading={depositFunction.loading}
                         style={{ margin: "5px" }}
                         max={maxStake}
                         title={token0Name + "-" + token1Name}
@@ -234,8 +232,6 @@ const FarmingCard = ({
                         walletBalance={walletBalance}
                         enteredAmount={inputAmount}
                         changeEnteredAmount={changeEnteredAmount}
-                        toggle={openModal}
-                        isOpen={modal}
                       />
                     </div>
                   </div>
@@ -255,8 +251,8 @@ const FarmingCard = ({
           </Row>
           <Row>
             <Col>
-              <Button onClick={harvest} buttonStyle="btnStyle2" buttonSize="largeBtn">
-                Harvest
+              <Button onClick={!harvestFunction.loading && harvest} disabled={harvestFunction.loading} buttonStyle="btnStyle2" buttonSize="largeBtn">
+                {harvestFunction.loading ? <Spinner animation="grow" variant="light" size="sm" as="span" /> : <span>Harvest</span>}
               </Button>
             </Col>
           </Row>
