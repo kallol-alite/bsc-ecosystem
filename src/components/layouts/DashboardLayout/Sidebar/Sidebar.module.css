@@ -60,3 +60,18 @@ a.activeClass .sideLi {
   color: #5b46f9;
   cursor: default;
 }
+
+.showElements{
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (min-width: 555px) {
+  /* used for show sidebar element as substitute of header elements on smaller screens */
+  .showElements {
+    display: none;
+  }
+}

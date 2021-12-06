@@ -13,7 +13,7 @@ const ConnectWalletButton = (props) => {
 
   const connectWallet = async () => {
     const activateBrowserWalletPromise = MakeQuerablePromise(activateBrowserWallet());
-    if (!account) {
+    if (!account || !isWalletConnected) {
       activateBrowserWalletPromise.then(
         function () {
           if (activateBrowserWalletPromise.isFulfilled()) {

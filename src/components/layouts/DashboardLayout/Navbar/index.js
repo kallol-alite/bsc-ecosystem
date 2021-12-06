@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./Navbar.module.css";
@@ -8,7 +8,7 @@ import { setSidebarView } from "../../../../actions/master-actions";
 import ConnectWalletButton from "../../../ConnectWalletButton";
 import { useHistory } from "react-router-dom";
 
-const Navbar = (props, context) => {
+const Navbar = () => {
   const dispatch = useDispatch();
   const { isSidebarOpen } = useSelector((state) => state.masterReducer);
 
@@ -22,7 +22,7 @@ const Navbar = (props, context) => {
       <div className={styles.logoDiv} onClick={() => {history.push('/')}}>
         <img src={Logo} />
       </div>
-      <div className="mx-2">
+      <div className={styles.linkElements + " mx-2"}>
         {/* need to refactor for smaller screens */}
         <ConnectWalletButton />
       </div>

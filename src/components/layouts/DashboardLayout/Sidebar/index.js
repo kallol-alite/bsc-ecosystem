@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import ConnectWalletButton from "../../../ConnectWalletButton";
 
 import styles from "./Sidebar.module.css";
 
@@ -23,6 +24,9 @@ const Sidebar = () => {
   return (
     <div className={`${sidebar ? styles.sidebarContainer : styles.sidebarContainerClose}`}>
       <div className={styles.sListDiv}>
+        <div className={styles.showElements}>
+          <ConnectWalletButton style={{ width: "100%" }} />
+        </div>
         <ul className={styles.sidebarList}>
           {NAV_LINKS.map((item) => {
             return (
