@@ -32,7 +32,7 @@ const FarmingStakeModal = ({ style, enteredAmount, changeEnteredAmount, walletBa
           setIsModalOpen(false);
         }}
       >
-        <ModalHeader toggle={() => setIsModalOpen(false)}>Stake WMATIC-USDT</ModalHeader>
+        <ModalHeader toggle={() => setIsModalOpen(false)}>Stake {title}</ModalHeader>
         <ModalBody>
           <div className={styles.infoText}>
             <div>Balance in Wallet : {walletBalance && walletBalance}</div>
@@ -48,7 +48,7 @@ const FarmingStakeModal = ({ style, enteredAmount, changeEnteredAmount, walletBa
               Stake
             </Button>
             <div className="my-2">{/* Stake Fee 1.5 % */}</div>
-            <Button buttonStyle="btnStyle3">Buy WMATIC-USDT</Button>
+            <Button buttonStyle="btnStyle3">Buy {title}</Button>
           </div>
         </ModalBody>
       </Modal>

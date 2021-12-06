@@ -32,7 +32,7 @@ const FarmingUnstakeModal = ({ style, enteredAmount, changeEnteredAmount, staked
           setIsModalOpen(false);
         }}
       >
-        <ModalHeader toggle={() => setIsModalOpen(false)}>Unstake WMATIC-USDT</ModalHeader>
+        <ModalHeader toggle={() => setIsModalOpen(false)}>Unstake {title}</ModalHeader>
         <ModalBody>
           <div className={styles.infoText}>
             <div>Total Staked : {stakedAmount && stakedAmount}</div>
