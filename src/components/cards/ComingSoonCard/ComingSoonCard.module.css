@@ -36,12 +36,7 @@
 }
 
 .contactLinks > div {
-  width: 20px;
   margin: 5px;
-}
-
-.contactLinks > div img {
-  width: 100%;
 }
 
 .contactLinks > a {

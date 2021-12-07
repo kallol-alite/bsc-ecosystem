@@ -2,33 +2,37 @@ import React from "react";
 import { Card } from "reactstrap";
 
 import styles from "./ComingSoonCard.module.css";
-import DiscordIcon from '../../../assets/discord.svg';
-import LinkedinIcon from '../../../assets/linkedin.svg';
 import TelegramIcon from '../../../assets/telegram.svg';
 import TwitterIcon from '../../../assets/twitter.svg';
-import RedditIcon from '../../../assets/reddit.svg';
+import FacebookIcon from '../../../assets/facebook.svg';
+import InstagramIcon from '../../../assets/instagram.svg';
+import YoutubeIcon from '../../../assets/youtube.svg';
 
 const LINKS = [
   {
-    icon: DiscordIcon,
-    link: "#"
-  },
-  {
-    icon: LinkedinIcon,
-    link: "#"
-  },
-  {
     icon: TelegramIcon,
-    link: "#"
+    link: "https://t.me/forwardprotocolofficial"
   },
   {
     icon: TwitterIcon,
-    link: "#"
+    link: "https://twitter.com/ForwardProtocol"
   },
   {
-    icon: RedditIcon,
-    link: "#"
-  }
+    icon: FacebookIcon,
+    link: "https://facebook.com/ForwardProtocol"
+  },
+  {
+    icon: InstagramIcon,
+    link: "https://instagram.com/forwardprotocol"
+  },
+  {
+    icon: YoutubeIcon,
+    link: "https://www.youtube.com/forwardprotocol"
+  },
+  // {
+  //   icon: DiscordIcon,
+  //   link: "https://twitter.com/ForwardProtocol"
+  // },
 ]
 
 const ComingSoonCard = () => {
