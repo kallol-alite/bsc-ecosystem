@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { useEthers } from "@usedapp/core";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
-import Button from "../../common/Button";
-import styles from "../NetworkSwitch/NetworkSwitch.module.css";
-import PolygonIcon from "../../../assets/Matic.svg";
-import EthereumIcon from "../../../assets/Ethereum.svg";
-import BinanceIcon from "../../../assets/bsc.svg";
+
+import styles from "./NetworkSwitch.module.css";
+import PolygonIcon from "../../assets/Matic.svg";
+import EthereumIcon from "../../assets/Ethereum.svg";
+import BinanceIcon from "../../assets/bsc.svg";
+
+
+import Button from "../common/Button";
+// const styles = {}
+
 const NETWORK = {
   1: {
     chainId: 1,
@@ -36,10 +41,12 @@ const NETWORK = {
     rpcURL: ["https://bsc-dataseed1.ninicoin.io"],
   },
 };
+
 const NetworkSwitch = () => {
   const { chainId } = useEthers();
   const [isNetworkModalOpen, setIsNetworkModalOpen] = useState(false);
   const ethereum = window.ethereum;
+
   const switchNetwork = async (selectedNetwork) => {
     let currentChainId = parseInt(chainId);
 
@@ -101,4 +108,5 @@ const NetworkSwitch = () => {
     </>
   );
 };
+
 export default NetworkSwitch;

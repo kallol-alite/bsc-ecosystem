@@ -9,29 +9,33 @@ import Button from "../../common/Button";
 const pills = ["1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
 
 const countsPerPeriod = (e, aprValue) => {
-  if (e === "1M") {
-    return { _seconds: 86400 * 30, aprValuePerPeriod: aprValue / 12 };
-  } else if (e === "2M") {
-    return { _seconds: 86400 * 30 * 2, aprValuePerPeriod: (aprValue / 12) * 2 };
-  } else if (e === "3M") {
-    return { _seconds: 86400 * 30 * 3, aprValuePerPeriod: (aprValue / 12) * 3 };
-  } else if (e === "6M") {
-    return { _seconds: 86400 * 30 * 6, aprValuePerPeriod: (aprValue / 12) * 6 };
-  } else if (e === "1Y") {
-    return { _seconds: 86400 * 30 * 12, aprValuePerPeriod: (aprValue / 12) * 12 };
-  } else if (e === "2Y") {
-    return { _seconds: 86400 * 30 * 12 * 2, aprValuePerPeriod: (aprValue / 12) * 12 * 2 };
-  } else if (e === "3Y") {
-    return { _seconds: 86400 * 30 * 12 * 3, aprValuePerPeriod: (aprValue / 12) * 12 * 3 };
-  } else if (e === "4Y") {
-    return { _seconds: 86400 * 30 * 12 * 4, aprValuePerPeriod: (aprValue / 12) * 12 * 4 };
+  switch (e) {
+    case "1M":
+      return { _seconds: 86400 * 30, aprValuePerPeriod: aprValue / 12 };
+    case "2M":
+      return { _seconds: 86400 * 30 * 2, aprValuePerPeriod: (aprValue / 12) * 2 };
+    case "3M":
+      return { _seconds: 86400 * 30 * 3, aprValuePerPeriod: (aprValue / 12) * 3 };
+    case "6M":
+      return { _seconds: 86400 * 30 * 6, aprValuePerPeriod: (aprValue / 12) * 6 };
+    case "1Y":
+      return { _seconds: 86400 * 30 * 12, aprValuePerPeriod: (aprValue / 12) * 12 };
+    case "2Y":
+      return { _seconds: 86400 * 30 * 12 * 2, aprValuePerPeriod: (aprValue / 12) * 12 * 2 };
+    case "3Y":
+      return { _seconds: 86400 * 30 * 12 * 3, aprValuePerPeriod: (aprValue / 12) * 12 * 3 };
+    case "3Y":
+      return { _seconds: 86400 * 30 * 12 * 4, aprValuePerPeriod: (aprValue / 12) * 12 * 4 };
+    case "4Y":
+      return { _seconds: 86400 * 30 * 12 * 4, aprValuePerPeriod: (aprValue / 12) * 12 * 4 };
+    default:
+      break;
   }
 };
 
 const StakingModal = ({
   style,
   tokenName,
-  isOpen,
   toggle,
   buyUrl,
   updateCountPerPeriod,
@@ -47,9 +51,6 @@ const StakingModal = ({
 
   const MAX_BALANCE = 500000;
 
-  const PillChange = (e) => {
-    updateCountPerPeriod(countsPerPeriod(e.target.value, aprValue));
-  };
   const openInNewWindow = (url) => {
     const newWindow = window.open(url);
   };
@@ -68,6 +69,7 @@ const StakingModal = ({
         buttonStyle="btnStyle"
         onClick={() => {
           setIsModalOpen(true);
+          toggle && toggle();
         }}
         style={style}
       >
@@ -78,9 +80,17 @@ const StakingModal = ({
         centered
         toggle={() => {
           setIsModalOpen(false);
+          toggle && toggle();
         }}
       >
-        <ModalHeader toggle={() => setIsModalOpen(false)}>Stake {tokenName}</ModalHeader>
+        <ModalHeader
+          toggle={() => {
+            setIsModalOpen(false);
+            toggle && toggle();
+          }}
+        >
+          Stake {tokenName}
+        </ModalHeader>
         <ModalBody>
           <div className={styles.infoText}>
             <div>Balance in Wallet : {utils.commify(toMax4Decimals(parseFloat(walletBalance)))}</div>

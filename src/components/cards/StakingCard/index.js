@@ -29,18 +29,13 @@ const StakingCard = ({
   totalPending,
   aprValuePeriodically,
 }) => {
-  const [modal, setModal] = useState(false);
-  const [unstakeModal, setUnstakeModal] = useState(false);
-
-  const openModal = () => {
+  const handleStakeToggle = () => {
     updateWalletAmount("");
     updateCountPerPeriod("");
-    setModal(!modal);
   };
 
-  const openModal1 = () => {
+  const handleUnstakeToggle = () => {
     updateWalletAmount("");
-    setUnstakeModal(!unstakeModal);
   };
 
   return (
@@ -85,8 +80,7 @@ const StakingCard = ({
                       <UnstakingModal
                         style={{ margin: "5px", minWidth: "100px" }}
                         tokenName={tokenName}
-                        toggle={openModal1}
-                        isOpen={unstakeModal}
+                        toggle={handleUnstakeToggle}
                         walletBalance={walletBalance}
                         walletAmount={walletAmount}
                         updateWalletAmount={updateWalletAmount}
@@ -102,8 +96,7 @@ const StakingCard = ({
                         checkAndStakeToken={checkAndStakeToken}
                         walletBalance={walletBalance}
                         walletAmount={walletAmount}
-                        toggle={openModal}
-                        isOpen={modal}
+                        toggle={handleStakeToggle}
                         updateWalletAmount={updateWalletAmount}
                         updateCountPerPeriod={updateCountPerPeriod}
                         lockTime={lockTime}

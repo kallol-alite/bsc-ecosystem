@@ -5,7 +5,7 @@ import styles from "./UnstakingModal.module.css";
 
 import Button from "../../common/Button";
 
-const UnstakingModal = ({ style, tokenName, toggle, isOpen, stakeAmount, walletAmount, checkAndUnstake, updateWalletAmount }) => {
+const UnstakingModal = ({ style, tokenName, toggle, stakeAmount, walletAmount, checkAndUnstake, updateWalletAmount }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const MAX_BALANCE = stakeAmount;

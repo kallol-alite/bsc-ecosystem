@@ -147,28 +147,12 @@ const FarmingCard = ({
     fetchImage0(token0Name);
     fetchImage1(token1Name);
   }, [token0Name, token1Name]);
-
-  useEffect(() => {
-    console.log(approveFunction.loading);
-  }, [approveFunction.loading]);
-
+  
   useEffect(() => {
     if (approveFunction.state.status === "Success") {
       stake();
     }
   }, [approveFunction.state]);
-
-  useEffect(() => {
-    console.log(depositFunction.loading);
-  }, [depositFunction.loading]);
-
-  useEffect(() => {
-    console.log(withdrawFunction.loading);
-  }, [withdrawFunction.loading]);
-
-  useEffect(() => {
-    console.log(harvestFunction.loading);
-  }, [harvestFunction.loading]);
 
   return (
     <>
