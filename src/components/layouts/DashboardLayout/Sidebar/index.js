@@ -20,6 +20,31 @@ const Sidebar = () => {
       title: "Staking",
       path: "/staking",
     },
+    {
+      logo: <i className="bi bi-people-fill"></i>,
+      title: "Social Tokens",
+      path: "/social-tokens",
+    },
+    {
+      logo: <i className="bi bi-link"></i>,
+      title: "Forward Chain",
+      path: "/forward-chain",
+    },
+    {
+      logo: <i className="bi bi-person-lines-fill"></i>,
+      title: "Forward ID",
+      path: "/forward-id",
+    },
+    {
+      logo: <i className="bi bi-wallet-fill"></i>,
+      title: "Forward Pay",
+      path: "/forward-pay",
+    },
+    {
+      logo: <i className="bi bi-building"></i>,
+      title: "Forward Factory",
+      path: "/forward-factory",
+    },
   ];
 
   return (

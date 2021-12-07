@@ -1,14 +1,14 @@
 import { Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
 
 import LoaderComponent from "./components/common/Loader";
 import DashboardLayout from "./components/layouts/DashboardLayout";
-import StakingCard from "./components/cards/StakingCard";
 
 import Farming from "./views/Farming";
 import Staking from "./views/Staking";
-import { useSelector } from "react-redux";
 import ConnectWallet from "./views/ConnectWallet";
+import ComingSoon from "./views/ComingSoon";
 
 function App() {
   const { isWalletConnected } = useSelector((state) => state.masterReducer);
@@ -34,6 +34,7 @@ function App() {
           </Route>
           {isWalletConnected && <Route exact path="/farming" component={Farming} />}
           {isWalletConnected && <Route exact path="/staking" component={Staking} />}
+          <Route path={["/social-tokens", "/forward-chain", "/forward-id", "/forward-pay", "/forward-factory"]} component={ComingSoon} />
           <Route path="*" component={ConnectWallet} />
         </Switch>
       </DashboardLayout>
