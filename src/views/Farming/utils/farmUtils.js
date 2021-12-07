@@ -48,11 +48,11 @@ export const calculateLiquidity = async (token0, token1, coingeckoData, liquidit
     }
   }
   //USE BELOW CODE FOR DEVELOPMENT TESTING
-  // else if(coingeckoFinalUrl.filter((item) => {return item.value}) && liquidityToken0 && liquidityToken0[0] && liquidityToken0[0]._hex){
-  //     // let defaultValue = coingeckoFinalUrl.filter((item) => {return item.value})
-  //     // usdValueToken0 = defaultValue[0].value * utils.formatEther(liquidityToken0[0]._hex)
-  //     // setUsdRateForToken0(usdValueToken0)
-  // }
+  else if(coingeckoData.filter((item) => {return item.value}) && liquidityToken0 && liquidityToken0[0] && liquidityToken0[0]._hex){
+      let defaultValue = coingeckoData.filter((item) => {return item.value})
+      usdValueToken0 = defaultValue[0].value * utils.formatEther(liquidityToken0[0]._hex)
+      usdRateForToken0 = usdValueToken0
+  }
   else {
     usdRateForToken0 = 0;
   }
@@ -69,11 +69,11 @@ export const calculateLiquidity = async (token0, token1, coingeckoData, liquidit
     }
   }
   //BELOW CODE FOR DEVELOPMENT TESTING
-  //  else if(coingeckoFinalUrl.filter((item) => {return item.value}) && liquidityToken1 && liquidityToken1.length>0 && liquidityToken1[0] && liquidityToken1[0]._hex){
-  //     // let defaultValue = coingeckoFinalUrl.filter((item) => {return item.value})
-  //     // usdValueToken1 = defaultValue[0].value * utils.formatEther(liquidityToken1[0]._hex)
-  //     // setUsdRateForToken1(usdValueToken1)
-  // }
+   else if(coingeckoData.filter((item) => {return item.value}) && liquidityToken1 && liquidityToken1.length>0 && liquidityToken1[0] && liquidityToken1[0]._hex){
+      let defaultValue = coingeckoData.filter((item) => {return item.value})
+      usdValueToken1 = defaultValue[0].value * utils.formatEther(liquidityToken1[0]._hex)
+      usdRateForToken1 = usdValueToken1
+  }
   else {
     usdRateForToken1 = 0;
   }
