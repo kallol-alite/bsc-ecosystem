@@ -11,6 +11,7 @@ import UnstakingModal from "../../modals/UnstakingModal";
 const StakingCard = ({
   disabled,
   tokenName,
+  rewardTokenName,
   tokenIcon,
   aprValue,
   totalStaked,
@@ -36,6 +37,10 @@ const StakingCard = ({
 
   const handleUnstakeToggle = () => {
     updateWalletAmount("");
+  };
+
+  const toMax4Decimals = (x) => {
+    return +x.toFixed(4);
   };
 
   return (
@@ -106,21 +111,21 @@ const StakingCard = ({
                     </div>
                   </div>
                 </div>
-                <div className={styles.zero}>0.0000</div>
+                <div className={styles.zero}>{toMax4Decimals(parseFloat(stakeAmount))}</div>
               </div>
             </Col>
           </Row>
           <Row>
             <Col xs={6}>
               <div className={styles.pending}>
-                <div>{tokenName} EARNED</div>
+                <div>{rewardTokenName} EARNED</div>
                 <div className={styles.zero}>{totalEarned}</div>
                 <div>~ 0.0 USD</div>
               </div>
             </Col>
             <Col xs={6}>
               <div className={styles.pending}>
-                <div>{tokenName} PENDING</div>
+                <div>{rewardTokenName} PENDING</div>
                 <div className={styles.zero}>{totalPending}</div>
                 <div>~ 0.0 USD</div>
               </div>

@@ -76,7 +76,7 @@ const NetworkSwitch = (props) => {
         Network Switch
       </Button>
       {isNetworkModalOpen && (
-        <Modal isOpen={isNetworkModalOpen} toggle={() => setIsNetworkModalOpen(false)}>
+        <Modal isOpen={isNetworkModalOpen} centered toggle={() => setIsNetworkModalOpen(false)}>
           <ModalHeader toggle={() => setIsNetworkModalOpen(false)}>Change Network</ModalHeader>
           <ModalBody className={styles.modalBody}>
             {NETWORK &&

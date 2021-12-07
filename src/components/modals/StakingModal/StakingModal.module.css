@@ -24,7 +24,7 @@ div.pills {
   margin-bottom: 5px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 @media screen and (max-width: 400px) {

@@ -91,7 +91,7 @@ const Staking = () => {
   const checkAndStakeToken = () => {
     if (inputAmount <= displayState.walletBalance) {
       if (parseFloat(displayState.allowance) > 0 && parseFloat(displayState.allowance) > inputAmount) {
-        depositToken.send(utils.parseUnits(inputAmount.toString(), 18), 300);
+        depositToken.send(utils.parseUnits(inputAmount.toString(), 18), lockTime);
       } else {
         setApproveAllowances.send(CONTRACT_ADDRESS.STAKING.BSC, BigNumber.from(2).pow(256).sub(1));
       }
@@ -134,7 +134,7 @@ const Staking = () => {
 
   const checkAndHarvestToken = () => {
     if(displayState.pendingReward){
-      harvestToken.send(0, 0);
+      harvestToken.send(0, 86400);
     }
   };
 
@@ -154,7 +154,8 @@ const Staking = () => {
     <div className={styles.viewContainer}>
       <StakingCard
         disabled={ALLOWED_NETWORKS.STAKING.BSC !== chainId}
-        tokenName="DT"
+        tokenName="DAW"
+        rewardTokenName="DT"
         tokenIcon={icon}
         aprValue={aprValue}
         totalStaked={displayState.totalStaked}
