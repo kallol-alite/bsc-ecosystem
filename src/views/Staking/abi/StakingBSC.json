@@ -155,6 +155,7 @@
       { "internalType": "uint256", "name": "_startBlock", "type": "uint256" },
       { "internalType": "uint256", "name": "_bonusEndBlock", "type": "uint256" },
       { "internalType": "uint256", "name": "_poolLimitPerUser", "type": "uint256" },
+      { "internalType": "uint256", "name": "_minLockTime", "type": "uint256" },
       { "internalType": "address", "name": "_admin", "type": "address" }
     ],
     "name": "initialize",
@@ -172,6 +173,13 @@
   {
     "inputs": [],
     "name": "lastRewardBlock",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "minLockTime",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
@@ -220,6 +228,13 @@
     "name": "rewardToken",
     "outputs": [{ "internalType": "contract IBEP20", "name": "", "type": "address" }],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "_minLockTime", "type": "uint256" }],
+    "name": "ssetMinLockTime",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -284,6 +299,7 @@
     "outputs": [
       { "internalType": "uint256", "name": "amount", "type": "uint256" },
       { "internalType": "uint256", "name": "rewardDebt", "type": "uint256" },
+      { "internalType": "uint256", "name": "totalEarned", "type": "uint256" },
       { "internalType": "uint256", "name": "depositTime", "type": "uint256" },
       { "internalType": "uint256", "name": "lockTime", "type": "uint256" }
     ],
