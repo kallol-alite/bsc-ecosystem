@@ -1,7 +1,7 @@
 .navBarContainer {
   background-color: #ffffff;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   flex-direction: row;
   height: 70px;
@@ -15,10 +15,10 @@
 .logoDiv {
   height: 50px;
   width: 143px;
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-grow: 1;
+  flex-grow: 1; */
 }
 .logoDiv img {
   height: 100%;
@@ -26,6 +26,10 @@
 }
 .burgerIconDiv {
   color: #000000;
+}
+.linkElements {
+  flex-grow: 1;
+  text-align: end;
 }
 @media only screen and (max-width: 554px) {
   .burgerIconDiv {

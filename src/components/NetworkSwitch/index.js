@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { useEthers } from "@usedapp/core";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
-
 import styles from "./NetworkSwitch.module.css";
 import PolygonIcon from "../../assets/Matic.svg";
 import EthereumIcon from "../../assets/Ethereum.svg";
 import BinanceIcon from "../../assets/bsc.svg";
-
-
 import Button from "../common/Button";
-// const styles = {}
 
 const NETWORK = {
   1: {
@@ -18,7 +14,6 @@ const NETWORK = {
     chainName: "Ethereum Mainnet",
     bgColor: "#103D8B",
     name: "Ethereum",
-
     icon: EthereumIcon,
     rpcURL: ["https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"],
   },
@@ -42,7 +37,7 @@ const NETWORK = {
   },
 };
 
-const NetworkSwitch = () => {
+const NetworkSwitch = (props) => {
   const { chainId } = useEthers();
   const [isNetworkModalOpen, setIsNetworkModalOpen] = useState(false);
   const ethereum = window.ethereum;
@@ -77,7 +72,7 @@ const NetworkSwitch = () => {
 
   return (
     <>
-      <Button buttonStyle="btnStyle2" onClick={() => setIsNetworkModalOpen(true)}>
+      <Button buttonStyle="btnStyle2" onClick={() => setIsNetworkModalOpen(true)} {...props}>
         Network Switch
       </Button>
       {isNetworkModalOpen && (
