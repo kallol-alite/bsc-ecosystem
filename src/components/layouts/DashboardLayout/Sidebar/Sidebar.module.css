@@ -1,0 +1,77 @@
+.sidebarContainer {
+  position: fixed;
+  width: 240px;
+  height: calc(100vh - 70px);
+  background-color: #fff;
+  transition: 0.6s;
+  left: 0px;
+  box-shadow: 5px 5px 20px -9px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 5px 5px 20px -9px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 5px 5px 20px -9px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+
+.sidebarContainerClose {
+  position: fixed;
+  width: 240px;
+  height: calc(100vh - 70px);
+  background-color: #fff;
+  transition: 0.6s;
+  left: -240px;
+  z-index: 100;
+}
+.sideLi {
+  padding: 10px;
+  color: black;
+  font-size: 20px;
+}
+.sideLi a {
+  text-decoration: none;
+  color: black;
+  width: 100%;
+  margin-left: 5px;
+}
+.sideLi:hover {
+  text-decoration: none;
+  background-color: #eee;
+  transition: 0.5s;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  color: #5b46f9;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.sidebarList {
+  flex-direction: column;
+  list-style: none;
+  margin-top: 20px;
+  padding-left: 0px;
+  text-align: left;
+}
+a i {
+  padding: 10px;
+}
+a.activeClass .sideLi {
+  border-left: 5px solid #5b46f9;
+  margin-left: 0px;
+  color: #5b46f9;
+  cursor: default;
+}
+
+.showElements{
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (min-width: 555px) {
+  /* used for show sidebar element as substitute of header elements on smaller screens */
+  .showElements {
+    display: none;
+  }
+}

@@ -1,10 +1,12 @@
 import React from 'react';
 
+import styles from './TokenIcon.module.css';
+
 const TokenIcon = ({image}) => {
   return(
     <>
-      <div className="token-wrapper">
-        <img className="icon" src={image} alt="" />
+      <div className={styles.tokenWrapper}>
+        <img className={styles.icon} src={image} alt="" />
       </div>
     </>
   )

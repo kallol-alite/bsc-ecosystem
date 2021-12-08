@@ -1,0 +1,42 @@
+.navBarContainer {
+  background-color: #ffffff;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  flex-direction: row;
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-bottom: 2px solid #5b46f9;
+}
+.logoDiv {
+  height: 50px;
+  width: 143px;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1; */
+}
+.logoDiv img {
+  height: 100%;
+  padding: 5px 15px;
+}
+.burgerIconDiv {
+  color: #000000;
+}
+.linkElements {
+  flex-grow: 1;
+  text-align: end;
+}
+@media only screen and (max-width: 554px) {
+  .burgerIconDiv {
+    padding-left: 0px;
+  }
+  /* used for hiding header element on smaller screens */
+  .linkElements {
+    display: none;
+  }
+}

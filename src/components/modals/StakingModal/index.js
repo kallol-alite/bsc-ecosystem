@@ -1,18 +1,70 @@
 import React, { useState } from "react";
-import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, Input } from "reactstrap";
+import { utils } from "ethers";
 
-import styles from "./StakeModal.module.css";
+import styles from "./StakingModal.module.css";
 
-import Button from "../../../component/Button";
+import Button from "../../common/Button";
 
-const pills = ["1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
+const pills = ["1m", "1h", "1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
 
-const StakeModal = ({}) => {
-  const [chips, setChips] = useState();
-  const [isOpen, setIsOpen] = useState(false);
+const countsPerPeriod = (e, aprValue) => {
+  switch (e) {
+    case "1m":
+      return { _seconds: 60, aprValuePerPeriod: aprValue / (12*30*24*60) };
+    case "1h":
+      return { _seconds: 3600, aprValuePerPeriod: aprValue / (12*30*24) };
+    case "1M":
+      return { _seconds: 86400 * 30, aprValuePerPeriod: aprValue / 12 };
+    case "2M":
+      return { _seconds: 86400 * 30 * 2, aprValuePerPeriod: (aprValue / 12) * 2 };
+    case "3M":
+      return { _seconds: 86400 * 30 * 3, aprValuePerPeriod: (aprValue / 12) * 3 };
+    case "6M":
+      return { _seconds: 86400 * 30 * 6, aprValuePerPeriod: (aprValue / 12) * 6 };
+    case "1Y":
+      return { _seconds: 86400 * 30 * 12, aprValuePerPeriod: (aprValue / 12) * 12 };
+    case "2Y":
+      return { _seconds: 86400 * 30 * 12 * 2, aprValuePerPeriod: (aprValue / 12) * 12 * 2 };
+    case "3Y":
+      return { _seconds: 86400 * 30 * 12 * 3, aprValuePerPeriod: (aprValue / 12) * 12 * 3 };
+    case "3Y":
+      return { _seconds: 86400 * 30 * 12 * 4, aprValuePerPeriod: (aprValue / 12) * 12 * 4 };
+    case "4Y":
+      return { _seconds: 86400 * 30 * 12 * 4, aprValuePerPeriod: (aprValue / 12) * 12 * 4 };
+    default:
+      break;
+  }
+};
 
-  const PillChange = (e, value) => {
-    setChips(e.target.value);
+const StakingModal = ({
+  style,
+  tokenName,
+  toggle,
+  buyUrl,
+  updateCountPerPeriod,
+  checkAndStakeToken,
+  updateWalletAmount,
+  aprValue,
+  aprValuePeriodically,
+  walletBalance,
+  walletAmount,
+}) => {
+  const [selectedChip, setSelectedChip] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const MAX_BALANCE = 500000;
+
+  const openInNewWindow = (url) => {
+    const newWindow = window.open(url);
+  };
+
+  const toMax4Decimals = (x) => {
+    return +x.toFixed(4);
+  };
+
+  const setMaxAmount = () => {
+    walletBalance < MAX_BALANCE ? updateWalletAmount(walletBalance) : updateWalletAmount(MAX_BALANCE);
   };
 
   return (
@@ -20,59 +72,96 @@ const StakeModal = ({}) => {
       <Button
         buttonStyle="btnStyle"
         onClick={() => {
-          setIsOpen(true);
+          setIsModalOpen(true);
+          toggle && toggle();
         }}
+        style={style}
       >
         Stake &#43;
       </Button>
       <Modal
-        isOpen={isOpen}
+        isOpen={isModalOpen}
         centered
         toggle={() => {
-          console.log("asd");
-          setIsOpen(false);
+          setIsModalOpen(false);
+          toggle && toggle();
         }}
-        className={styles.ModalStyle}
       >
         <ModalHeader
           toggle={() => {
-            console.log("asd");
-            setIsOpen(false);
+            setIsModalOpen(false);
+            toggle && toggle();
           }}
         >
-          Stake YFDAI
+          Stake {tokenName}
         </ModalHeader>
         <ModalBody>
-          <div class={styles.text}>
-            <p>Balance in Wallet : 0</p>
-            <p>Max Per Tx : 500000</p>
+          <div className={styles.infoText}>
+            <div>Balance in Wallet : {utils.commify(toMax4Decimals(parseFloat(walletBalance)))}</div>
           </div>
-          <div className={styles.addBalance}>
-            <Input type="text" placeholder="Enter YFDAI Amount" />
-            <Button buttonStyle="btnStyle">Max</Button>
+          <div className={styles.inputSection}>
+            <Input
+              type="text"
+              placeholder="Enter Amount"
+              className={styles.input}
+              value={walletAmount}
+              onChange={(e) => updateWalletAmount(e.target.value)}
+            />
+            <Button style={{ marginLeft: "5px" }} buttonStyle="btnStyle" onClick={() => setMaxAmount()}>
+              Max
+            </Button>
+          </div>
+          <div className={styles.infoText + " mt-3"}>
+            <div>
+              Estimated APR : <span className={styles.percentage}>{aprValuePeriodically ? aprValuePeriodically : 0.0}%</span>
+            </div>
           </div>
           <div className={styles.pills}>
-            <p>
-              Estimated APR <span className={styles.percentage}>00 %</span>
-            </p>
-            <ul className={styles.tab}>
-              {pills.map((option) => (
-                <button key={option} value={option} onClick={PillChange}>
-                  {option}
-                </button>
-              ))}
-            </ul>
+            {pills.map((option) => {
+              const style =
+                selectedChip && selectedChip === option ? { border: "1px solid #007bff", color: "#ffffff", backgroundColor: "#007bff" } : {};
+              return (
+                <div>
+                  <button
+                    key={option}
+                    value={option}
+                    style={style}
+                    onClick={(e) => {
+                      setSelectedChip(e.target.value);
+                      updateCountPerPeriod(countsPerPeriod(e.target.value, aprValue));
+                    }}
+                  >
+                    {option}
+                  </button>
+                </div>
+              );
+            })}
           </div>
-          <div className={styles.btnStake}>
-            <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
+          <div className={styles.buttonSection + " mt-2"}>
+            <Button
+              buttonStyle="btnStyle2"
+              buttonSize="largeBtn"
+              onClick={() => {
+                checkAndStakeToken();
+                toggle();
+              }}
+            >
               Stake
             </Button>
-            <p>Stake Fee 1.5 %</p>
-            <Button buttonStyle="btnStyle3">Buy YFDAI</Button>
+            <Button
+              buttonStyle="btnStyle3"
+              style={{ marginTop: "10px" }}
+              onClick={() => {
+                openInNewWindow(buyUrl);
+              }}
+            >
+              Buy {tokenName}
+            </Button>
           </div>
         </ModalBody>
       </Modal>
     </>
   );
 };
-export default StakeModal;
+
+export default StakingModal;

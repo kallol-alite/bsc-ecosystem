@@ -1,11 +1,18 @@
 import { Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
 
-import DashboardLayout from "./component/Layouts/DashboardLayout";
-import StackingCard from "./views/Staking";
-import FarmingCard from "./components/FarmingCard.js";
+import LoaderComponent from "./components/common/Loader";
+import DashboardLayout from "./components/layouts/DashboardLayout";
+
+import Farming from "./views/Farming";
+import Staking from "./views/Staking";
+import ConnectWallet from "./views/ConnectWallet";
+import ComingSoon from "./views/ComingSoon";
 
 function App() {
+  const { isWalletConnected } = useSelector((state) => state.masterReducer);
+
   return (
     <>
       <ToastContainer
@@ -19,19 +26,18 @@ function App() {
         draggable
         pauseOnHover
       />
-      <Switch>
-        <DashboardLayout>
+      <LoaderComponent />
+      <DashboardLayout>
+        <Switch>
           <Route exact path="/">
-            Dashboard
+            <ConnectWallet />
           </Route>
-          <Route exact path="/staking">
-            <StackingCard />
-          </Route>
-          <Route exact path="/farming">
-            <FarmingCard />
-          </Route>
-        </DashboardLayout>
-      </Switch>
+          {isWalletConnected && <Route exact path="/farming" component={Farming} />}
+          {isWalletConnected && <Route exact path="/staking" component={Staking} />}
+          <Route path={["/social-tokens", "/forward-chain", "/forward-id", "/forward-pay", "/forward-factory"]} component={ComingSoon} />
+          <Route path="*" component={ConnectWallet} />
+        </Switch>
+      </DashboardLayout>
     </>
   );
 }

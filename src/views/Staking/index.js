@@ -1,18 +1,18 @@
-import React, { useState, useEffect, Children } from "react";
-import { useEthers, useContractFunction, useTokenBalance, useContractCalls } from "@usedapp/core";
-import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, API_COINGECO, CSV, BSC_TEST_BLOCKTIME } from "./../../App.Config";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useEthers, useTokenBalance, useContractCalls } from "@usedapp/core";
 import { utils, BigNumber } from "ethers";
+
+import styles from "./Staking.module.css";
+
 import StakingBSC from "./abi/StakingBSC.json";
 import TokenABI from "./abi/Token.json";
-import Stakingcard from "../../component/StackingCard/index";
-import { useUtilContractFunction } from "../../hooks/useDappUtility";
+import { useUtilContractFunction, useContractValueTrasnformation } from "../../hooks/useDappUtility";
 import {
   stakingContract,
   totalStakersContractCall,
   userInfoContractCall,
   getPendingDivsContractCall,
-  getStakersListContractCall,
+  // getStakersListContractCall,
   depositStakingFunction,
   withdrawStakingFunction,
 } from "./services/StakingContractService";
@@ -20,115 +20,89 @@ import {
   stakingTokenContract,
   totalStakedContractCall,
   allowanceContractCall,
-  totalStakeTokenByAddress,
+  // totalStakeTokenByAddress,
   approveAllowanceFunction,
 } from "./services/TokenContractService";
+import { CONTRACT_ADDRESS, ALLOWED_NETWORKS } from "./../../App.Config";
+import StakingCard from "../../components/cards/StakingCard";
+
+import icon from "../../assets/torus.png";
 
 const Staking = () => {
   const { chainId, account } = useEthers();
-  const dispatch = useDispatch();
-  const [currentNetworkContract, setCurrentNetworkContract] = useState("");
-  const [currentTokenContract, setCurrentTokenContract] = useState("");
+
   const [aprValue, setAprValue] = useState(0);
-  const [totalStaked, setTotalStaked] = useState(0);
-  const [totalEarned, setTotalEarned] = useState(0);
-  const [totalPending, setTotalPending] = useState(0);
-  const [totalStaker, setTotalStaker] = useState(0);
-  const [stakeAmount, setStakeAmount] = useState(0);
-  const [allowance, setAllowance] = useState(0);
-  const [walletBalance, setWalletBalance] = useState(0);
-  const [walletAmount, setWalletAmount] = useState("");
+  const [inputAmount, setInputAmount] = useState("");
   const [lockTime, setLockTime] = useState(0);
-  const [lockTimeFromContract, setLockTimeFromContract] = useState(0);
-  const [txnBlockTime, setTxnBlockTime] = useState();
   const [aprValuePeriodically, setAprValuePeriodically] = useState(0);
-  const buyUrl = "https://quickswap.exchange/#/swap?outputCurrency";
+  // const [lockTimeFromContract, setLockTimeFromContract] = useState(0);
+  // const [txnBlockTime, setTxnBlockTime] = useState();
+
+  const userBalance = useTokenBalance(CONTRACT_ADDRESS.STAKING.TOKEN, account);
+
+  const [totalStakersCount, userInfo, pendingReward] = useContractCalls([
+    totalStakersContractCall(CONTRACT_ADDRESS.STAKING.BSC, StakingBSC),
+    userInfoContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.BSC, account),
+    getPendingDivsContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.BSC, account),
+  ]);
+  const [totalStakedofContract, getAllowance] = useContractCalls([
+    totalStakedContractCall(TokenABI, CONTRACT_ADDRESS.STAKING.TOKEN, CONTRACT_ADDRESS.STAKING.BSC),
+    allowanceContractCall(TokenABI, CONTRACT_ADDRESS.STAKING.TOKEN, account, CONTRACT_ADDRESS.STAKING.BSC),
+  ]);
+
+  const depositToken = useUtilContractFunction(stakingContract, depositStakingFunction);
+  const setApproveAllowances = useUtilContractFunction(stakingTokenContract, approveAllowanceFunction);
+  const withdrawToken = useUtilContractFunction(stakingContract, withdrawStakingFunction);
+  const harvestToken = useUtilContractFunction(stakingContract, depositStakingFunction);
+
+  const displayState = useContractValueTrasnformation(
+    {
+      totalStaked: totalStakedofContract,
+      totalEarned: userInfo,
+      stakeAmount: userInfo,
+      totalStaker: totalStakersCount,
+      pendingReward: pendingReward,
+      allowance: getAllowance,
+      walletBalance: userBalance,
+    },
+    {
+      totalStaked: (val) => (val ? utils.formatUnits(val[0]._hex, 18) : 0),
+      totalEarned: (val) => (val ? utils.formatUnits(val[2]._hex, 18) : 0),
+      stakeAmount: (val) => (val ? utils.formatUnits(val[0]._hex, 18) : 0),
+      totalStaker: (val) => (val ? parseInt(val) : 0),
+      pendingReward: (val) => (val ? utils.formatUnits(val[0]._hex, 18) : 0),
+      allowance: (val) => (val ? utils.formatUnits(val[0]._hex, "ether") : 0),
+      walletBalance: (val) => (val ? utils.formatEther(val) : 0),
+    }
+  );
 
   const updateCountPerPeriod = (e) => {
     setLockTime(e._seconds);
     setAprValuePeriodically(e.aprValuePerPeriod);
   };
 
-  const updateWalletAmount = (inputAmount) => {
+  const handleInputValueChange = (inputAmount) => {
     if (isNaN(inputAmount)) {
       return;
     }
-    setWalletAmount(inputAmount);
+    setInputAmount(inputAmount);
   };
 
-  const [totalStakersCount, userInfo, Pending] = useContractCalls([
-    totalStakersContractCall(currentNetworkContract, StakingBSC),
-    userInfoContractCall(StakingBSC, currentNetworkContract, account),
-    getPendingDivsContractCall(StakingBSC, currentNetworkContract, account),
-  ]);
-
-  const [totalStakedofContract, getAllowance] = useContractCalls([
-    totalStakedContractCall(TokenABI, currentTokenContract, currentNetworkContract),
-    allowanceContractCall(TokenABI, currentTokenContract, account, currentNetworkContract),
-  ]);
-
-  const userBalance = useTokenBalance(currentTokenContract, account);
-
-  // const { state: stakeTokens, send: depositToken } = useContractFunction(stakingContract, depositStakingFunction);
-
-  // const { state: approveAllownace, send: setApproveAllowances } = useContractFunction(stakingTokenContract, approveAllowanceFunction);
-
-  // const { state: stateOfUnstakeProcess, send: withdrawToken } = useContractFunction(stakingContract, withdrawStakingFunction);
-
-  const depositToken = useUtilContractFunction(stakingContract, depositStakingFunction);
-
-  const setApproveAllowances = useUtilContractFunction(stakingTokenContract, approveAllowanceFunction);
-
-  const withdrawToken = useUtilContractFunction(stakingContract, withdrawStakingFunction);
-
-  const harvestToken = useUtilContractFunction(stakingContract, depositStakingFunction);
-
   const checkAndStakeToken = () => {
-    // Check allowance, if allowance > 0 && < entered amount then proceed
-    if (walletAmount <= walletBalance) {
-      if (parseFloat(allowance) > 0 && parseFloat(allowance) > walletAmount) {
-        stakeToken();
+    if (inputAmount <= displayState.walletBalance) {
+      if (parseFloat(displayState.allowance) > 0 && parseFloat(displayState.allowance) > inputAmount) {
+        depositToken.send(utils.parseUnits(inputAmount.toString(), 18), lockTime);
       } else {
-        // Else call approve allowance
-        setApproveAllowances.send(currentNetworkContract, BigNumber.from(2).pow(256).sub(1));
+        setApproveAllowances.send(CONTRACT_ADDRESS.STAKING.BSC, BigNumber.from(2).pow(256).sub(1));
       }
     } else {
       // Show error to user
     }
   };
 
-  const stakeToken = () => {
-    depositToken.send(utils.parseUnits(walletAmount.toString(), 18), 300);
-  };
-
-  useEffect(() => {
-    if (chainId === ALLOWED_NETWORKS.STAKING.BSC) {
-      setCurrentNetworkContract(CONTRACT_ADDRESS.STAKING.BSC);
-      setCurrentTokenContract(CONTRACT_ADDRESS.STAKING.TOKEN);
-    } else {
-      setCurrentNetworkContract("");
-      setCurrentTokenContract("");
-    }
-  }, [chainId]);
-
   useEffect(() => {
     calculateApr();
-  }, [totalStaked]);
-
-  useEffect(() => {
-    setTotalStaked(totalStakedofContract ? utils.formatUnits(totalStakedofContract[0]._hex, 18) : 0);
-    setTotalEarned(userInfo ? utils.formatUnits(userInfo[2]._hex, 18) : 0);
-    setStakeAmount(userInfo ? utils.formatUnits(userInfo[0]._hex, 18) : 0);
-    setTotalStaker(totalStakersCount ? parseInt(totalStakersCount) : 0);
-    setTotalPending(Pending ? utils.formatUnits(Pending[0]._hex, 18) : 0);
-    setLockTimeFromContract(userInfo ? parseInt(userInfo[4]._hex) : 0);
-    setTxnBlockTime(userInfo ? parseInt(userInfo[3]._hex) : 0);
-    setAllowance(getAllowance ? utils.formatUnits(getAllowance[0]._hex, "ether") : 0);
-  }, [totalStakersCount, userInfo, Pending, totalStakedofContract, getAllowance, totalPending]);
-
-  useEffect(() => {
-    setWalletBalance(!!userBalance ? utils.formatEther(userBalance) : 0);
-  }, [userBalance]);
+  }, [displayState.totalStaked]);
 
   const calculateApr = async () => {
     // const url = chainId === Number(ALLOWED_NETWORKS.FARMING.BSC) ? API_COINGECO.TEST : " ";
@@ -144,7 +118,7 @@ const Staking = () => {
     const rewardTokenPrice = 0.1; ///this is for test only
 
     const totalRewardPricePerYear = rewardTokenPrice * tokenPerBlock * blocksPerYear;
-    const totalStakingTokenInPool = priceUSD * totalStaked;
+    const totalStakingTokenInPool = priceUSD * displayState.totalStaked;
     const apr = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
     // if (liquidityValue !== 0 && allocPoint && allocPoint[0] && totalAllocation && totalAllocation[0] && priceUsd) {
     //   const poolWeight = allocPoint[0] / totalAllocation[0];
@@ -159,40 +133,48 @@ const Staking = () => {
   };
 
   const checkAndHarvestToken = () => {
-    harvestToken.send(0, 0);
+    if (displayState.pendingReward) {
+      harvestToken.send(0, 86400);
+    }
   };
 
   const checkAndUnstake = () => {
-    withdrawToken.send(utils.parseUnits(walletAmount.toString(), 18));
+    withdrawToken.send(utils.parseUnits(inputAmount.toString(), 18));
 
     //this logic will impliment on production tym
     // let currentTime = new Date().getTime();
     // if (currentTime >= txnBlockTime + lockTimeFromContract) {
-    //   withdrawToken(utils.parseUnits(walletAmount.toString(), 18));
+    //   withdrawToken(utils.parseUnits(inputAmount.toString(), 18));
     // } else {
     //   ///will not work
     // }
   };
 
   return (
-    <Stakingcard
-      aprValue={aprValue}
-      totalStaked={totalStaked}
-      totalEarned={totalEarned}
-      totalStaker={totalStaker}
-      totalPending={totalPending}
-      stakeAmount={stakeAmount}
-      updateWalletAmount={updateWalletAmount}
-      checkAndStakeToken={checkAndStakeToken}
-      buyUrl={buyUrl}
-      walletBalance={walletBalance}
-      walletAmount={walletAmount}
-      updateCountPerPeriod={updateCountPerPeriod}
-      lockTime={lockTime}
-      checkAndHarvestToken={checkAndHarvestToken}
-      checkAndUnstake={checkAndUnstake}
-      aprValuePeriodically={aprValuePeriodically}
-    />
+    <div className={styles.viewContainer}>
+      <StakingCard
+        disabled={ALLOWED_NETWORKS.STAKING.BSC !== chainId}
+        tokenName="DAW"
+        rewardTokenName="DT"
+        tokenIcon={icon}
+        aprValue={aprValue}
+        totalStaked={displayState.totalStaked}
+        totalEarned={displayState.totalEarned}
+        totalStaker={displayState.totalStaker}
+        totalPending={displayState.pendingReward}
+        stakeAmount={displayState.stakeAmount}
+        updateWalletAmount={handleInputValueChange}
+        checkAndStakeToken={checkAndStakeToken}
+        buyUrl={"https://quickswap.exchange/#/swap?outputCurrency"}
+        walletBalance={displayState.walletBalance}
+        walletAmount={inputAmount}
+        updateCountPerPeriod={updateCountPerPeriod}
+        lockTime={lockTime}
+        checkAndHarvestToken={checkAndHarvestToken}
+        checkAndUnstake={checkAndUnstake}
+        aprValuePeriodically={aprValuePeriodically}
+      />
+    </div>
   );
 };
 export default Staking;

@@ -52,7 +52,7 @@ export const useUtilContractFunction = (...args) => {
 export const useContractValueTrasnformation = (properties, config) => {
   let displayState = {};
   Object.keys(properties).map((key) => {
-    displayState[key] = config[key] ? config[key](properties[key]) : properties[key];
+    displayState[key] = config[key] !== undefined ? config[key](properties[key]) : properties[key];
   });
   return displayState;
 };

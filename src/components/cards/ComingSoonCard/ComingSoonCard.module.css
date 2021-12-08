@@ -1,0 +1,44 @@
+.comingSoonCard {
+  margin: 5px;
+  padding: 1px;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  max-width: 400px;
+  min-height: 200px;
+  width: 400px;
+  border-radius: 9px;
+  box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
+  border: 1px double #5b46f9;
+  font-size: 15px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.comingSoonCardContent {
+  background-color: #fff;
+}
+
+.infoValue {
+  margin: 10px;
+  font-size: 18px;
+}
+
+@media screen and (max-width: 500px) {
+  .comingSoonCard {
+    width: 100%;
+  }
+}
+
+.contactLinks{
+  display: flex;
+  justify-content: center;
+}
+
+.contactLinks > div {
+  margin: 5px;
+}
+
+.contactLinks > a {
+  cursor: pointer;
+}

@@ -4,10 +4,12 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import masterReducer from './master-reducer';
+import farmingReducer from './farming-reducer';
 
 export const rootReducer = combineReducers({
   //add MODULE vise reducers
-  masterReducer
+  masterReducer,
+  farmingReducer
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

@@ -1,37 +1,57 @@
 import React, { useState } from "react";
-import { Modal, ModalHeader, ModalBody, Container, Input } from "reactstrap";
-import styles from "../FarmingUnstakeModal/FarmingModal.module.css";
-import Button from "../../../component/Button";
+import { Modal, ModalHeader, ModalBody, Input, Spinner } from "reactstrap";
 
-const FarmingModal = ({ isOpen, toggle }) => {
-  // const [modal, setModal] = useState(false);
-  // const openModal = () => setModal(!modal);
+import styles from "./FarmingUnstakeModal.module.css";
+
+import Button from "../../common/Button";
+
+const FarmingUnstakeModal = ({ style, enteredAmount, changeEnteredAmount, stakedAmount, unstake, title, max, loading }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const callUnstake = () => {
+    unstake();
+    setIsModalOpen(false);
+  };
+
   return (
     <>
-      <Container>
-        {/* <Button onClick={openModal}> Click Me</Button> */}
-        <Modal isOpen={isOpen} toggle={toggle} className={styles.ModalStyle}>
-          <ModalHeader toggle={toggle}>Unstake YFDAI</ModalHeader>
-          <ModalBody>
-            <div class={styles.text}>
-              <p>Balance in Wallet : 0</p>
-              <p>Max Per Tx : 500000</p>
-            </div>
-            <div className={styles.addBalance}>
-              <Input type="text" placeholder="Enter YFDAI Amount" />
-              <Button buttonStyle="btnStyle4">Max</Button>
-            </div>
-            <div className={styles.btnStake}>
-              <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
-                Unstake
-              </Button>
-              <p>Stake Fee 1.5 %</p>
-              <Button buttonStyle="btnStyle3">Buy YFDAI</Button>
-            </div>
-          </ModalBody>
-        </Modal>
-      </Container>
+      <Button
+        buttonStyle="btnStyle"
+        disabled={loading}
+        onClick={() => {
+          !loading && setIsModalOpen(true);
+        }}
+        style={style}
+      >
+        {loading ? <Spinner animation="grow" variant="light" size="sm" as="span" /> : <span>Unstake &#45;</span>}
+      </Button>
+      <Modal
+        isOpen={isModalOpen}
+        centered
+        toggle={() => {
+          setIsModalOpen(false);
+        }}
+      >
+        <ModalHeader toggle={() => setIsModalOpen(false)}>Unstake {title}</ModalHeader>
+        <ModalBody>
+          <div className={styles.infoText}>
+            <div>Total Staked : {stakedAmount && stakedAmount}</div>
+          </div>
+          <div className={styles.inputSection}>
+            <Input type="text" placeholder="Enter Amount" value={enteredAmount} onChange={changeEnteredAmount} />
+            <Button onClick={max} style={{ marginLeft: "5px" }} buttonStyle="btnStyle">
+              Max
+            </Button>
+          </div>
+          <div className={styles.buttonSection + " mt-3"}>
+            <Button onClick={callUnstake} buttonStyle="btnStyle2" buttonSize="largeBtn">
+              Unstake
+            </Button>
+          </div>
+        </ModalBody>
+      </Modal>
     </>
   );
 };
-export default FarmingModal;
+
+export default FarmingUnstakeModal;

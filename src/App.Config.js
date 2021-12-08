@@ -4,13 +4,15 @@ export const CONTRACT_ADDRESS = {
     // FORWARD: '', //PRODUCTION,
   },
   FARMING: {
-    BSC: "0xc2463998c97368C5981dfe3eCcA0528dF458631A", //DEVELOPMENT
-    TOKEN: "0x2dA7daE64D1cf0122096aA52A67C4bCA363Cc372", //DEVELOPMENT
+    BSC: "0xc2463998c97368C5981dfe3eCcA0528dF458631A", //DEVELOPMENT: ON POLYGON
+    TOKEN: "0x2dA7daE64D1cf0122096aA52A67C4bCA363Cc372", //DEVELOPMENT: ON POLYGON
     // BSC: '', //PRODUCTION
   },
   STAKING: {
-    BSC: "0x9372a522400d9443d62E2E7961a2646Ec7B77C85", //DEVLOPMENT
-    TOKEN: "0x0c298c380cdce88a017d4fa22af267878a3714e1", //DEVLOPMENT
+    // BSC: "0x9372a522400d9443d62E2E7961a2646Ec7B77C85", //DEVLOPMENT
+    // TOKEN: "0x0c298c380cdce88a017d4fa22af267878a3714e1", //DEVLOPMENT
+    BSC: "0x7ae8C55FCC5Fc808d381701179992e1D1C1c2Dc0", //PRODUCTION
+    TOKEN: "0xe91b6954607acb9aa3997ce00dc39cd03d33965d", //PRODUCTION
   },
 };
 
@@ -29,7 +31,13 @@ export const API_COINGECO = {
 };
 
 export const CSV = {
-  TEST_FORWARD: "safeswap", ////this is ONLY FOR TEST
+  TEST_FORWARD: "safeswap", //this is ONLY FOR TEST
 };
 
-export const BSC_TEST_BLOCKTIME = 3; //FOR TEST ONLY
+export const ICON_END_POINT = "https://raw.githubusercontent.com/Yara1990/TokensIcons/main/cryptocurrency-icons-master/128/icon/";
+export const COINGECKO_PRICE_END_POINT = "https://raw.githubusercontent.com/yfdaifinance/SafeSwapTokenList/main/coingeckourl1.json";
+export const FORWARD_TOKEN_COINGECKO_PRICE_BSC = "https://api.coingecko.com/api/v3/simple/price?ids=yfdai-finance&vs_currencies=USD"; //PRODUCTION === forward(place it next to id where currently it is yfdai-finance)
+export const FORWARD_TOKEN_CSV_NAME = "yfdai-finance"; //PRODUCTION CHANGE TO FORWARD (forward)
+export const BSC_BLOCK_TIME = 3; //PRODUCTION CHANGE IT TO CORRECT TIME
+
+export const IS_DEVICE_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
