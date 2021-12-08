@@ -6,14 +6,14 @@ import styles from "./StakingModal.module.css";
 
 import Button from "../../common/Button";
 
-const pills = ["1m", "1h", "1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
+const pills = [/* "1m", "1h",  */"1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
 
 const countsPerPeriod = (e, aprValue) => {
   switch (e) {
-    case "1m":
-      return { _seconds: 60, aprValuePerPeriod: aprValue / (12*30*24*60) };
-    case "1h":
-      return { _seconds: 3600, aprValuePerPeriod: aprValue / (12*30*24) };
+    // case "1m":
+    //   return { _seconds: 60, aprValuePerPeriod: aprValue / (12*30*24*60) };
+    // case "1h":
+    //   return { _seconds: 3600, aprValuePerPeriod: aprValue / (12*30*24) };
     case "1M":
       return { _seconds: 86400 * 30, aprValuePerPeriod: aprValue / 12 };
     case "2M":
