@@ -70,6 +70,9 @@ const FarmingCard = ({
   const approveFunction = useUtilContractFunction(lpContract, approveAllowanceFunction);
 
   const changeEnteredAmount = (e) => {
+    if (isNaN(e.target.value)) {
+      return;
+    }
     setInputAmount(e.target.value);
   };
 
@@ -147,7 +150,7 @@ const FarmingCard = ({
     fetchImage0(token0Name);
     fetchImage1(token1Name);
   }, [token0Name, token1Name]);
-  
+
   useEffect(() => {
     if (approveFunction.state.status === "Success") {
       stake();

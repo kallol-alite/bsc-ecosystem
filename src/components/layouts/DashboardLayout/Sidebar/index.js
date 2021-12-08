@@ -11,14 +11,14 @@ const Sidebar = () => {
 
   const NAV_LINKS = [
     {
-      logo: <i className="bi bi-layers-fill"></i>,
-      title: "Farming",
-      path: "/farming",
-    },
-    {
       logo: <i className="bi bi-bar-chart-fill"></i>,
       title: "Staking",
       path: "/staking",
+    },
+    {
+      logo: <i className="bi bi-layers-fill"></i>,
+      title: "Farming",
+      path: "/farming",
     },
     {
       logo: <i className="bi bi-people-fill"></i>,

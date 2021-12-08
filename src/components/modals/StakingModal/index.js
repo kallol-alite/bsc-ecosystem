@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, ModalHeader, ModalBody, Input } from "reactstrap";
 import { utils } from "ethers";
 
@@ -49,8 +49,10 @@ const StakingModal = ({
   aprValuePeriodically,
   walletBalance,
   walletAmount,
+  lockTime,
 }) => {
-  const [selectedChip, setSelectedChip] = useState();
+  const defaultPill = pills[0];
+  const [selectedChip, setSelectedChip] = useState(defaultPill);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const MAX_BALANCE = 500000;
@@ -67,18 +69,27 @@ const StakingModal = ({
     walletBalance < MAX_BALANCE ? updateWalletAmount(walletBalance) : updateWalletAmount(MAX_BALANCE);
   };
 
+  useEffect(() => {
+    updateCountPerPeriod(countsPerPeriod(selectedChip, aprValue));
+  }, [aprValue]);
+
   return (
     <>
       <Button
         buttonStyle="btnStyle"
         onClick={() => {
-          setIsModalOpen(true);
-          toggle && toggle();
+          if (walletBalance !== 0) {
+            setIsModalOpen(true);
+            toggle && toggle();
+            setSelectedChip(defaultPill);
+            updateCountPerPeriod(countsPerPeriod(defaultPill, aprValue));
+          }
         }}
         style={style}
       >
         Stake &#43;
       </Button>
+
       <Modal
         isOpen={isModalOpen}
         centered
@@ -113,7 +124,7 @@ const StakingModal = ({
           </div>
           <div className={styles.infoText + " mt-3"}>
             <div>
-              Estimated APR : <span className={styles.percentage}>{aprValuePeriodically ? aprValuePeriodically : 0.0}%</span>
+              Estimated APR : <span className={styles.percentage}>{aprValuePeriodically ? aprValuePeriodically : 0}%</span>
             </div>
           </div>
           <div className={styles.pills}>
@@ -126,6 +137,7 @@ const StakingModal = ({
                     key={option}
                     value={option}
                     style={style}
+                    className={option === selectedChip ? styles.activePill : ""}
                     onClick={(e) => {
                       setSelectedChip(e.target.value);
                       updateCountPerPeriod(countsPerPeriod(e.target.value, aprValue));
@@ -143,7 +155,7 @@ const StakingModal = ({
               buttonSize="largeBtn"
               onClick={() => {
                 checkAndStakeToken();
-                toggle();
+                toggle && toggle();
               }}
             >
               Stake

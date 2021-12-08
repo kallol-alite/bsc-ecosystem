@@ -23,8 +23,7 @@ const UnstakingModal = ({ style, tokenName, toggle, stakeAmount, walletAmount, c
       <Button
         buttonStyle="btnStyle"
         onClick={() => {
-          setIsModalOpen(true);
-          toggle && toggle();
+          stakeAmount !== 0 && setIsModalOpen(true) && toggle && toggle();
         }}
         style={style}
       >
