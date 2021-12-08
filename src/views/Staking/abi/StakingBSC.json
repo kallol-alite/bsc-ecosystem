@@ -363,6 +363,11 @@
     "name": "Withdraw",
     "type": "event"
   },
+<<<<<<< HEAD
+  {
+    "inputs": [],
+    "name": "accTokenPerShare",
+=======
   {
     "inputs": [],
     "name": "accTokenPerShare",
@@ -392,6 +397,7 @@
   {
     "inputs": [],
     "name": "getNumberOfStakers",
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
     "outputs": [
       {
         "internalType": "uint256",
@@ -403,6 +409,78 @@
     "type": "function"
   },
   {
+<<<<<<< HEAD
+    "inputs": [],
+    "name": "bonusEndBlock",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+=======
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "startIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "getStakersList",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "stakers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "stakingTimestamps",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "stakedTokens",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "lockTime",
+        "type": "uint256[]"
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+<<<<<<< HEAD
+    "name": "getNumberOfStakers",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+=======
+    "name": "hasUserLimit",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+<<<<<<< HEAD
     "inputs": [
       {
         "internalType": "uint256",
@@ -438,23 +516,7 @@
         "type": "uint256[]"
       }
     ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "hasUserLimit",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
+=======
     "inputs": [],
     "name": "isInitialized",
     "outputs": [
@@ -464,17 +526,27 @@
         "type": "bool"
       }
     ],
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
+<<<<<<< HEAD
+    "name": "hasUserLimit",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+=======
     "name": "lastRewardBlock",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
       }
     ],
     "stateMutability": "view",
@@ -482,12 +554,21 @@
   },
   {
     "inputs": [],
+<<<<<<< HEAD
+    "name": "isInitialized",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+=======
     "name": "minLockTime",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
       }
     ],
     "stateMutability": "view",
@@ -495,25 +576,31 @@
   },
   {
     "inputs": [],
-    "name": "minLockTime",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
+<<<<<<< HEAD
+    "name": "lastRewardBlock",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+=======
     "name": "owner",
     "outputs": [
       {
         "internalType": "address",
         "name": "",
         "type": "address"
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
       }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
+<<<<<<< HEAD
+    "inputs": [],
+    "name": "minLockTime",
+=======
     "inputs": [
       {
         "internalType": "address",
@@ -522,6 +609,7 @@
       }
     ],
     "name": "pendingReward",
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
     "outputs": [
       {
         "internalType": "uint256",
@@ -534,6 +622,10 @@
   },
   {
     "inputs": [],
+<<<<<<< HEAD
+    "name": "minLockTime",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+=======
     "name": "poolLimitPerUser",
     "outputs": [
       {
@@ -542,25 +634,46 @@
         "type": "uint256"
       }
     ],
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
+<<<<<<< HEAD
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+=======
     "name": "PRECISION_FACTOR",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
       }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
+<<<<<<< HEAD
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      }
+    ],
+    "name": "pendingReward",
+=======
     "inputs": [],
     "name": "rewardPerBlock",
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
     "outputs": [
       {
         "internalType": "uint256",
@@ -573,18 +686,94 @@
   },
   {
     "inputs": [],
+<<<<<<< HEAD
+    "name": "poolLimitPerUser",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+=======
     "name": "rewardToken",
     "outputs": [
       {
         "internalType": "contract IBEP20",
         "name": "",
         "type": "address"
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
       }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
+    "inputs": [],
+<<<<<<< HEAD
+    "name": "PRECISION_FACTOR",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+=======
+    "name": "SMART_CHEF_FACTORY",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+<<<<<<< HEAD
+    "name": "rewardPerBlock",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+=======
+    "name": "stakedToken",
+    "outputs": [
+      {
+        "internalType": "contract IBEP20",
+        "name": "",
+        "type": "address"
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+<<<<<<< HEAD
+    "name": "rewardToken",
+    "outputs": [
+      {
+        "internalType": "contract IBEP20",
+        "name": "",
+        "type": "address"
+=======
+    "name": "startBlock",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+<<<<<<< HEAD
     "inputs": [{ "internalType": "uint256", "name": "_minLockTime", "type": "uint256" }],
     "name": "ssetMinLockTime",
     "outputs": [],
@@ -637,6 +826,13 @@
       {
         "internalType": "uint256",
         "name": "",
+=======
+    "inputs": [],
+    "name": "totalStaked",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
         "type": "uint256"
       }
     ],
@@ -676,10 +872,53 @@
       {
         "internalType": "uint256",
         "name": "lockTime",
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
         "type": "uint256"
       }
     ],
     "stateMutability": "view",
     "type": "function"
+<<<<<<< HEAD
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "userInfo",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rewardDebt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalEarned",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "depositTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lockTime",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+=======
+>>>>>>> 10f2e269d74d2c24cc8c8c827ac5e4846f637bda
   }
 ]
