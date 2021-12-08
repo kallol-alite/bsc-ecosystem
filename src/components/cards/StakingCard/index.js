@@ -77,7 +77,7 @@ const StakingCard = ({
             <Col xs={12}>
               <div className={styles.stakeDiv}>
                 <div className={styles.buttonsDiv}>
-                  <div>
+                  <div style={{ maxWidth: 120 }}>
                     <div>{tokenName} STAKED</div>
                   </div>
                   <div className={styles.buttons}>

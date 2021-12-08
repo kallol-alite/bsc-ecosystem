@@ -53,15 +53,8 @@ const FarmingCard = ({
   const [img1, setImg1] = useState(notFound);
   const [inputAmount, setInputAmount] = useState("");
 
-  const [modal, setModal] = useState(false);
-  const openModal = () => {
+  const onModelToggle = () => {
     setInputAmount("");
-    setModal(!modal);
-  };
-  const [modal1, setModal1] = useState(false);
-  const openModal1 = () => {
-    setInputAmount("");
-    setModal1(!modal1);
   };
 
   const depositFunction = useUtilContractFunction(farmingContract, depositFarmingFunction);
@@ -82,7 +75,7 @@ const FarmingCard = ({
 
   const stake = () => {
     depositFunction.send(id, utils.parseUnits(inputAmount.toString(), 18));
-    openModal();
+    onModelToggle();
   };
 
   const checkAndStake = () => {
@@ -98,7 +91,7 @@ const FarmingCard = ({
   const checkAndUnstake = () => {
     if (parseFloat(inputAmount) > 0) {
       withdrawFunction.send(id, utils.parseUnits(inputAmount.toString(), 18));
-      openModal1();
+      onModelToggle();
     }
   };
 
@@ -199,6 +192,7 @@ const FarmingCard = ({
                   <div className={styles.buttons}>
                     <div>
                       <FarmingUnstakeModal
+                        toggle={onModelToggle}
                         loading={withdrawFunction.loading}
                         style={{ margin: "5px" }}
                         max={maxUnstake}
@@ -211,6 +205,7 @@ const FarmingCard = ({
                     </div>
                     <div>
                       <FarmingStakeModal
+                        toggle={onModelToggle}
                         loading={depositFunction.loading}
                         style={{ margin: "5px" }}
                         max={maxStake}

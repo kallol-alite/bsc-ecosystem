@@ -5,7 +5,7 @@ import styles from "./FarmingStakeModal.module.css";
 
 import Button from "../../common/Button";
 
-const FarmingStakeModal = ({ style, enteredAmount, changeEnteredAmount, walletBalance, stake, title, max, loading }) => {
+const FarmingStakeModal = ({ style, toggle, enteredAmount, changeEnteredAmount, walletBalance, stake, title, max, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const callStake = () => {
@@ -20,6 +20,7 @@ const FarmingStakeModal = ({ style, enteredAmount, changeEnteredAmount, walletBa
         disabled={loading}
         onClick={() => {
           !loading && setIsModalOpen(true);
+          toggle && toggle();
         }}
         style={style}
       >
