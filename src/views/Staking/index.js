@@ -65,7 +65,7 @@ const Staking = () => {
       allowance: getAllowance,
       walletBalance: userBalance,
     },
-    { 
+    {
       totalStaked: (val) => (val ? utils.formatUnits(val[0]._hex, 18) : 0),
       totalEarned: (val) => (val ? utils.formatUnits(val[2]._hex, 18) : 0),
       stakeAmount: (val) => (val ? utils.formatUnits(val[0]._hex, 18) : 0),
@@ -89,9 +89,9 @@ const Staking = () => {
   };
 
   const checkAndStakeToken = () => {
-    if (inputAmount <= displayState.walletBalance) {
+    if (inputAmount <= displayState.walletBalance && inputAmount > 0) {
       if (parseFloat(displayState.allowance) > 0 && parseFloat(displayState.allowance) > inputAmount) {
-        depositToken.send(utils.parseUnits(inputAmount.toString(), 18), 300);
+        depositToken.send(utils.parseUnits(inputAmount.toString(), 18), lockTime);
       } else {
         setApproveAllowances.send(CONTRACT_ADDRESS.STAKING.BSC, BigNumber.from(2).pow(256).sub(1));
       }
@@ -133,8 +133,8 @@ const Staking = () => {
   };
 
   const checkAndHarvestToken = () => {
-    if(displayState.pendingReward){
-      harvestToken.send(0, 0);
+    if (displayState.pendingReward) {
+      harvestToken.send(0, 86400 * 30 * 12 * 4);
     }
   };
 
@@ -152,27 +152,31 @@ const Staking = () => {
 
   return (
     <div className={styles.viewContainer}>
-      <StakingCard
-        disabled={ALLOWED_NETWORKS.STAKING.BSC !== chainId}
-        tokenName="DT"
-        tokenIcon={icon}
-        aprValue={aprValue}
-        totalStaked={displayState.totalStaked}
-        totalEarned={displayState.totalEarned}
-        totalStaker={displayState.totalStaker}
-        totalPending={displayState.pendingReward}
-        stakeAmount={displayState.stakeAmount}
-        updateWalletAmount={handleInputValueChange}
-        checkAndStakeToken={checkAndStakeToken}
-        buyUrl={"https://quickswap.exchange/#/swap?outputCurrency"}
-        walletBalance={displayState.walletBalance}
-        walletAmount={inputAmount}
-        updateCountPerPeriod={updateCountPerPeriod}
-        lockTime={lockTime}
-        checkAndHarvestToken={checkAndHarvestToken}
-        checkAndUnstake={checkAndUnstake}
-        aprValuePeriodically={aprValuePeriodically}
-      />
+      {chainId === Number(ALLOWED_NETWORKS.STAKING.BSC) ? (
+        <StakingCard
+          disabled={ALLOWED_NETWORKS.STAKING.BSC !== chainId}
+          tokenName="FORWARD"
+          tokenIcon={icon}
+          aprValue={aprValue}
+          totalStaked={displayState.totalStaked}
+          totalEarned={displayState.totalEarned}
+          totalStaker={displayState.totalStaker}
+          totalPending={displayState.pendingReward}
+          stakeAmount={displayState.stakeAmount}
+          updateWalletAmount={handleInputValueChange}
+          checkAndStakeToken={checkAndStakeToken}
+          buyUrl={"https://quickswap.exchange/#/swap?outputCurrency"}
+          walletBalance={displayState.walletBalance}
+          walletAmount={inputAmount}
+          updateCountPerPeriod={updateCountPerPeriod}
+          lockTime={lockTime}
+          checkAndHarvestToken={checkAndHarvestToken}
+          checkAndUnstake={checkAndUnstake}
+          aprValuePeriodically={aprValuePeriodically}
+        />
+      ) : (
+        <h5>Please switch to Polygon network</h5>
+      )}
     </div>
   );
 };

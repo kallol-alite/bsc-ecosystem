@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Col, Container, Row } from "reactstrap";
 
 import styles from "./StakingCard.module.css";
@@ -7,6 +7,7 @@ import TokenIcon from "../../common/TokenIcon";
 import Button from "../../common/Button";
 import StakingModal from "../../modals/StakingModal";
 import UnstakingModal from "../../modals/UnstakingModal";
+import ConfirmationModal from "../../modals/ConfirmationModal";
 
 const StakingCard = ({
   disabled,
@@ -31,7 +32,6 @@ const StakingCard = ({
 }) => {
   const handleStakeToggle = () => {
     updateWalletAmount("");
-    updateCountPerPeriod("");
   };
 
   const handleUnstakeToggle = () => {
@@ -57,14 +57,14 @@ const StakingCard = ({
                   <div>APR</div>
                   <div className={styles.infoValue}>{aprValue}%</div>
                 </div>
-                <div>
+                {/* <div>
                   <div>TOTAL STAKED</div>
                   <div className={styles.infoValue}>${totalStaked}</div>
                 </div>
                 <div>
                   <div>TOTAL STAKERS</div>
                   <div className={styles.infoValue}>{totalStaker}</div>
-                </div>
+                </div> */}
               </div>
             </Col>
           </Row>
@@ -106,7 +106,7 @@ const StakingCard = ({
                     </div>
                   </div>
                 </div>
-                <div className={styles.zero}>0.0000</div>
+                <div className={styles.zero}>{stakeAmount ? stakeAmount : 0.0}</div>
               </div>
             </Col>
           </Row>
@@ -128,9 +128,17 @@ const StakingCard = ({
           </Row>
           <Row>
             <Col>
-              <Button buttonStyle="btnStyle2" buttonSize="largeBtn" onClick={checkAndHarvestToken}>
-                Harvest
-              </Button>
+              <ConfirmationModal
+                message={"Are you sure you want to claim pending tokens?"}
+                style={{ margin: "5px", minWidth: "100px" }}
+                onConfirm={() => {
+                  totalPending !== 0 && checkAndHarvestToken();
+                }}
+              >
+                <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
+                  Harvest
+                </Button>
+              </ConfirmationModal>
             </Col>
           </Row>
         </Container>
