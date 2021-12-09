@@ -241,11 +241,20 @@ const FarmingCard = ({
                   if (Number(earned) !== 0) {
                     !harvestFunction.loading && harvest();
                   } else {
-                    toast.error("Pending Amount is Null");
+                    toast.error("No tokens available for claim");
                   }
                 }}
               >
-                <Button buttonStyle="btnStyle2" buttonSize="largeBtn" disabled={harvestFunction.loading}>
+                <Button buttonStyle="btnStyle2" buttonSize="largeBtn" disabled={harvestFunction.loading} onClick={(event) => {
+                  console.log(parseFloat(walletBalance))
+                    if (parseFloat(stakedValue) <= 0) {
+                      toast.error("Please stake tokens before you claim");
+                      event.stopPropagation();
+                    } else if (Number(earned) === 0) {
+                      toast.error("No tokens available for claim");
+                      event.stopPropagation();
+                    }
+                  }}>
                   {harvestFunction.loading ? <Spinner animation="grow" variant="light" size="sm" as="span" /> : <span>Harvest</span>}
                 </Button>
               </ConfirmationModal>

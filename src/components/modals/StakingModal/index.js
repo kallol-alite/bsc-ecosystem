@@ -84,7 +84,7 @@ const StakingModal = ({
             setSelectedChip(defaultPill);
             updateCountPerPeriod(countsPerPeriod(defaultPill, aprValue));
           } else {
-            toast.error("Insufficient Wallet Balance");
+            toast.error("No tokens available for staking");
           }
         }}
         // disabled={Number(walletBalance) === 0}
@@ -111,7 +111,7 @@ const StakingModal = ({
         </ModalHeader>
         <ModalBody>
           <div className={styles.infoText}>
-            <div>Balance in Wallet : {utils.commify(toMax4Decimals(parseFloat(walletBalance)))}</div>
+            <div>Token Balance : {utils.commify(toMax4Decimals(parseFloat(walletBalance)))}</div>
           </div>
           <div className={styles.inputSection}>
             <Input
@@ -127,7 +127,7 @@ const StakingModal = ({
           </div>
           <div className={styles.infoText + " mt-3"}>
             <div>
-              Estimated APR : <span className={styles.percentage}>{aprValuePeriodically ? aprValuePeriodically : 0}%</span>
+              Estimated APR : <span className={styles.percentage}>{aprValuePeriodically ? aprValuePeriodically.toFixed(3) : 0}%</span>
             </div>
           </div>
           <div className={styles.pills}>
@@ -158,7 +158,6 @@ const StakingModal = ({
               buttonSize="largeBtn"
               onClick={() => {
                 checkAndStakeToken();
-                toggle && toggle();
               }}
             >
               Stake

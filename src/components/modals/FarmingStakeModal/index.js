@@ -24,7 +24,7 @@ const FarmingStakeModal = ({ style, toggle, enteredAmount, changeEnteredAmount, 
             !loading && setIsModalOpen(true);
             toggle && toggle();
           } else {
-            toast.error("Insufficient LP Tokens");
+            toast.error("No tokens available for staking");
           }
         }}
         style={style}

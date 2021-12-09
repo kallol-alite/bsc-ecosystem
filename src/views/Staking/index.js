@@ -88,13 +88,20 @@ const Staking = () => {
     setInputAmount(inputAmount);
   };
 
+  useEffect(() => {
+    if(setApproveAllowances.state && setApproveAllowances.state.status==="Success"){
+      depositToken.send(utils.parseUnits(Number(inputAmount).toString(), 18), lockTime);
+    }
+  }, [setApproveAllowances.state])
+
   const checkAndStakeToken = () => {
-    if (inputAmount <= displayState.walletBalance && inputAmount > 0) {
-      if (parseFloat(displayState.allowance) > 0 && parseFloat(displayState.allowance) > inputAmount) {
-        depositToken.send(utils.parseUnits(inputAmount.toString(), 18), lockTime);
-      } else {
+    if (Number(inputAmount) <= Number(displayState.walletBalance) && Number(inputAmount) > 0) {
+      if(!(parseFloat(displayState.allowance) > 0 && parseFloat(displayState.allowance) > inputAmount)){
         setApproveAllowances.send(CONTRACT_ADDRESS.STAKING.BSC, BigNumber.from(2).pow(256).sub(1));
-      }
+       }
+      else {
+        depositToken.send(utils.parseUnits(Number(inputAmount).toString(), 18), lockTime);
+      } 
     } else {
       // Show error to user
     }
@@ -133,7 +140,7 @@ const Staking = () => {
   };
 
   const checkAndHarvestToken = () => {
-    if (displayState.pendingReward) {
+    if (Number(displayState.pendingReward)) {
       harvestToken.send(0, 86400 * 30 * 12 * 4);
     }
   };

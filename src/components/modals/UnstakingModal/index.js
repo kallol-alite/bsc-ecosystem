@@ -27,7 +27,7 @@ const UnstakingModal = ({ style, tokenName, toggle, stakeAmount, walletAmount, c
             setIsModalOpen(true);
             toggle && toggle();
           } else {
-            toast.error("Please Stake Token First");
+            toast.error("No tokens available for unstaking");
           }
         }}
         style={style}
@@ -66,7 +66,6 @@ const UnstakingModal = ({ style, tokenName, toggle, stakeAmount, walletAmount, c
               disabled={walletAmount && walletAmount === 0}
               onClick={() => {
                 checkAndUnstake();
-                toggle();
               }}
             >
               Unstake

@@ -140,11 +140,23 @@ const StakingCard = ({
                   if (Number(totalPending) !== 0) {
                     checkAndHarvestToken();
                   } else {
-                    toast.error("Pending Amount is Null");
+                    toast.error("No tokens available for claim");
                   }
                 }}
               >
-                <Button buttonStyle="btnStyle2" buttonSize="largeBtn">
+                <Button
+                  buttonStyle="btnStyle2"
+                  buttonSize="largeBtn"
+                  onClick={(event) => {
+                    if (parseFloat(walletBalance) <= 0) {
+                      toast.error("Please stake tokens before you claim");
+                      event.stopPropagation();
+                    } else if (Number(totalPending) === 0) {
+                      toast.error("No tokens available for claim");
+                      event.stopPropagation();
+                    }
+                  }}
+                >
                   Harvest
                 </Button>
               </ConfirmationModal>

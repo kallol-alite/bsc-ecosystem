@@ -22,7 +22,7 @@ const FarmingUnstakeModal = ({ style, enteredAmount, changeEnteredAmount, staked
           if (Number(stakedAmount) !== 0) {
             !loading && setIsModalOpen(true);
           } else {
-            toast.error("No LP Token Staked");
+            toast.error("No tokens available for unstaking");
           }
         }}
         style={style}
