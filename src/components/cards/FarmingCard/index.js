@@ -4,6 +4,7 @@ import { utils } from "ethers";
 import { BigNumber } from "@ethersproject/bignumber";
 
 import styles from "./FarmingCard.module.css";
+import { toast } from "react-toastify";
 
 import { calculateLiquidity, calculateApr } from "../../../views/Farming/utils/farmUtils";
 import { depositFarmingFunction, withdrawFarmingFunction } from "../../../views/Farming/services/FarmingContractService";
@@ -14,7 +15,7 @@ import TokenPairIcon from "../../common/TokenPairIcon";
 import Button from "../../common/Button";
 import FarmingStakeModal from "../../modals/FarmingStakeModal";
 import FarmingUnstakeModal from "../../modals/FarmingUnstakeModal";
-
+import ConfirmationModal from "../../modals/ConfirmationModal";
 import notFound from "../../../assets/oval.png";
 
 const FarmingCard = ({
@@ -233,9 +234,21 @@ const FarmingCard = ({
           </Row>
           <Row>
             <Col>
-              <Button onClick={!harvestFunction.loading && harvest} disabled={harvestFunction.loading} buttonStyle="btnStyle2" buttonSize="largeBtn">
-                {harvestFunction.loading ? <Spinner animation="grow" variant="light" size="sm" as="span" /> : <span>Harvest</span>}
-              </Button>
+              <ConfirmationModal
+                message={"Are you sure you want to claim pending tokens?"}
+                style={{ margin: "5px", minWidth: "100px" }}
+                onConfirm={() => {
+                  if (Number(earned) !== 0) {
+                    !harvestFunction.loading && harvest();
+                  } else {
+                    toast.error("Pending Amount is Null");
+                  }
+                }}
+              >
+                <Button buttonStyle="btnStyle2" buttonSize="largeBtn" disabled={harvestFunction.loading}>
+                  {harvestFunction.loading ? <Spinner animation="grow" variant="light" size="sm" as="span" /> : <span>Harvest</span>}
+                </Button>
+              </ConfirmationModal>
             </Col>
           </Row>
         </Container>

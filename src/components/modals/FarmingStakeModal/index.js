@@ -4,6 +4,7 @@ import { Modal, ModalHeader, ModalBody, Input, Spinner } from "reactstrap";
 import styles from "./FarmingStakeModal.module.css";
 
 import Button from "../../common/Button";
+import { toast } from "react-toastify";
 
 const FarmingStakeModal = ({ style, toggle, enteredAmount, changeEnteredAmount, walletBalance, stake, title, max, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,8 +20,12 @@ const FarmingStakeModal = ({ style, toggle, enteredAmount, changeEnteredAmount, 
         buttonStyle="btnStyle"
         disabled={loading}
         onClick={() => {
-          !loading && setIsModalOpen(true);
-          toggle && toggle();
+          if (Number(walletBalance) !== 0) {
+            !loading && setIsModalOpen(true);
+            toggle && toggle();
+          } else {
+            toast.error("Insufficient LP Tokens");
+          }
         }}
         style={style}
       >

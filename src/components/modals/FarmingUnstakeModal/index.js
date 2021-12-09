@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, Input, Spinner } from "reactstrap";
 
 import styles from "./FarmingUnstakeModal.module.css";
-
+import { toast } from "react-toastify";
 import Button from "../../common/Button";
 
 const FarmingUnstakeModal = ({ style, enteredAmount, changeEnteredAmount, stakedAmount, unstake, title, max, loading }) => {
@@ -19,7 +19,11 @@ const FarmingUnstakeModal = ({ style, enteredAmount, changeEnteredAmount, staked
         buttonStyle="btnStyle"
         disabled={loading}
         onClick={() => {
-          !loading && setIsModalOpen(true);
+          if (Number(stakedAmount) !== 0) {
+            !loading && setIsModalOpen(true);
+          } else {
+            toast.error("No LP Token Staked");
+          }
         }}
         style={style}
       >

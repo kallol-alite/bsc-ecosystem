@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Col, Container, Row } from "reactstrap";
 
 import styles from "./StakingCard.module.css";
-
+import { toast } from "react-toastify";
 import TokenIcon from "../../common/TokenIcon";
 import Button from "../../common/Button";
 import StakingModal from "../../modals/StakingModal";
@@ -137,7 +137,11 @@ const StakingCard = ({
                 message={"Are you sure you want to claim pending tokens?"}
                 style={{ margin: "5px", minWidth: "100px" }}
                 onConfirm={() => {
-                  totalPending !== 0 && checkAndHarvestToken();
+                  if (Number(totalPending) !== 0) {
+                    checkAndHarvestToken();
+                  } else {
+                    toast.error("Pending Amount is Null");
+                  }
                 }}
               >
                 <Button buttonStyle="btnStyle2" buttonSize="largeBtn">

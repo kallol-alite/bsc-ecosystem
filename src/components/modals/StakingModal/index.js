@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Modal, ModalHeader, ModalBody, Input } from "reactstrap";
+import { toast } from "react-toastify";
 import { utils } from "ethers";
 
 import styles from "./StakingModal.module.css";
 
 import Button from "../../common/Button";
 
-const pills = [/* "1m", "1h",  */"1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
+const pills = [/* "1m", "1h",  */ "1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
 
 const countsPerPeriod = (e, aprValue) => {
   switch (e) {
@@ -68,7 +69,6 @@ const StakingModal = ({
   const setMaxAmount = () => {
     walletBalance < MAX_BALANCE ? updateWalletAmount(walletBalance) : updateWalletAmount(MAX_BALANCE);
   };
-
   useEffect(() => {
     updateCountPerPeriod(countsPerPeriod(selectedChip, aprValue));
   }, [aprValue]);
@@ -78,13 +78,16 @@ const StakingModal = ({
       <Button
         buttonStyle="btnStyle"
         onClick={() => {
-          if (walletBalance !== 0) {
+          if (Number(walletBalance) !== 0) {
             setIsModalOpen(true);
             toggle && toggle();
             setSelectedChip(defaultPill);
             updateCountPerPeriod(countsPerPeriod(defaultPill, aprValue));
+          } else {
+            toast.error("Insufficient Wallet Balance");
           }
         }}
+        // disabled={Number(walletBalance) === 0}
         style={style}
       >
         Stake &#43;

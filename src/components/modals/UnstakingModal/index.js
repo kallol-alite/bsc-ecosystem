@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, Input } from "reactstrap";
 
 import styles from "./UnstakingModal.module.css";
-
+import { toast } from "react-toastify";
 import Button from "../../common/Button";
 
 const UnstakingModal = ({ style, tokenName, toggle, stakeAmount, walletAmount, checkAndUnstake, updateWalletAmount }) => {
@@ -23,7 +23,12 @@ const UnstakingModal = ({ style, tokenName, toggle, stakeAmount, walletAmount, c
       <Button
         buttonStyle="btnStyle"
         onClick={() => {
-          stakeAmount !== 0 && setIsModalOpen(true) && toggle && toggle();
+          if (Number(stakeAmount) !== 0) {
+            setIsModalOpen(true);
+            toggle && toggle();
+          } else {
+            toast.error("Please Stake Token First");
+          }
         }}
         style={style}
       >
