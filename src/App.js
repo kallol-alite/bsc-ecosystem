@@ -6,7 +6,7 @@ import LoaderComponent from "./components/common/Loader";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 
 import Farming from "./views/Farming";
-import Staking from "./views/Staking";
+import Staking from "./views/StakingV2";
 import ConnectWallet from "./views/ConnectWallet";
 import ComingSoon from "./views/ComingSoon";
 

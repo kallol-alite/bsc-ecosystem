@@ -5,7 +5,7 @@ import { utils } from "ethers";
 
 import styles from "./StakingModal.module.css";
 
-import Button from "../../common/Button";
+import Button from "../../../components/common/Button";
 
 const pills = [/* "1m", "1h",  */ "1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y"];
 
