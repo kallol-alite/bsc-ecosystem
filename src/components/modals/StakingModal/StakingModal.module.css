@@ -41,7 +41,7 @@ div.pills > div button {
   border: 1px solid #aaa;
   border-radius: 20px;
   text-decoration: none;
-  min-width: 50px;
+  min-width: 20px;
 }
 
 .activePill:focus {

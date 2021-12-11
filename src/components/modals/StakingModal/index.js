@@ -63,7 +63,7 @@ const StakingModal = ({
   };
 
   const toMax4Decimals = (x) => {
-    return +x.toFixed(4);
+    return +x.toFixed(2);
   };
 
   const setMaxAmount = () => {
@@ -127,7 +127,7 @@ const StakingModal = ({
           </div>
           <div className={styles.infoText + " mt-3"}>
             <div>
-              Estimated APR : <span className={styles.percentage}>{aprValuePeriodically ? aprValuePeriodically.toFixed(3) : 0}%</span>
+              Estimated APR : <span className={styles.percentage}>{aprValuePeriodically ? aprValuePeriodically.toFixed(5) : 0.00}%</span>
             </div>
           </div>
           <div className={styles.pills}>

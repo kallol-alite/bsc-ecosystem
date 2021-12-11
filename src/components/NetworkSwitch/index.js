@@ -6,6 +6,7 @@ import PolygonIcon from "../../assets/Matic.svg";
 import EthereumIcon from "../../assets/Ethereum.svg";
 import BinanceIcon from "../../assets/bsc.svg";
 import Button from "../common/Button";
+import { VALID_APP_NETWORK } from "../../App.Config";
 
 const NETWORK = {
   1: {
@@ -72,9 +73,19 @@ const NetworkSwitch = (props) => {
 
   return (
     <>
-      <Button buttonStyle="btnStyle2" onClick={() => setIsNetworkModalOpen(true)} {...props}>
-        Network Switch
-      </Button>
+      {chainId !== VALID_APP_NETWORK ? (
+        <Button
+          buttonStyle="btnStyle2"
+          onClick={() => switchNetwork(NETWORK[VALID_APP_NETWORK])}
+          /* onClick={() => setIsNetworkModalOpen(true)} */ {...props}
+        >
+          Switch Network
+        </Button>
+      ) : (
+        <Button buttonStyle="btnStyle" /* onClick={() => setIsNetworkModalOpen(true)} */ {...props}>
+          {NETWORK[chainId].name}
+        </Button>
+      )}
       {isNetworkModalOpen && (
         <Modal isOpen={isNetworkModalOpen} centered toggle={() => setIsNetworkModalOpen(false)}>
           <ModalHeader toggle={() => setIsNetworkModalOpen(false)}>Change Network</ModalHeader>

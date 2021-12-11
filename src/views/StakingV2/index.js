@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useEthers, useTokenBalance, useContractCalls } from "@usedapp/core";
 import { utils, BigNumber } from "ethers";
-
 import styles from "./Staking.module.css";
-
 import StakingBSC from "./abi/StakingBSC.json";
 import TokenABI from "./abi/Token.json";
 import { useUtilContractFunction, useContractValueTrasnformation } from "../../hooks/useDappUtility";
@@ -24,19 +22,21 @@ import {
   // totalStakeTokenByAddress,
   approveAllowanceFunction,
 } from "./services/TokenContractService";
-import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, BSC_BLOCK_TIME } from "./../../App.Config";
-import StakingCard from "../../components/cards/StakingCard";
+import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, BSC_BLOCK_TIME } from "../../App.Config";
+
+import StakingCardV2 from "../../components/cards/StakingCardV2";
 
 import icon from "../../assets/torus.png";
 
 const Staking = () => {
   const { chainId, account } = useEthers();
-
   const [aprValue, setAprValue] = useState(0);
   const [inputAmount, setInputAmount] = useState("");
   const [lockTime, setLockTime] = useState(0);
   const [aprValuePeriodically, setAprValuePeriodically] = useState(0);
+
   // const [lockTimeFromContract, setLockTimeFromContract] = useState(0);
+
   // const [txnBlockTime, setTxnBlockTime] = useState();
 
   const userBalance = useTokenBalance(CONTRACT_ADDRESS.STAKING.TOKEN, account);
@@ -92,12 +92,6 @@ const Staking = () => {
     setInputAmount(inputAmount);
   };
 
-  useEffect(() => {
-    if(setApproveAllowances.state && setApproveAllowances.state.status==="Success"){
-      depositToken.send(utils.parseUnits(Number(inputAmount).toString(), 18), lockTime);
-    }
-  }, [setApproveAllowances.state])
-
   const checkAndStakeToken = () => {
     if (Number(inputAmount) <= Number(displayState.walletBalance) && Number(inputAmount) > 0) {
       if (!(parseFloat(displayState.allowance) > 0 && parseFloat(displayState.allowance) > inputAmount)) {
@@ -129,7 +123,7 @@ const Staking = () => {
   };
 
   const checkAndHarvestToken = () => {
-    if (Number(displayState.pendingReward)) {
+    if (displayState.pendingReward) {
       harvestToken.send(0, 86400 * 30 * 12 * 4);
     }
   };
@@ -149,7 +143,7 @@ const Staking = () => {
   return (
     <div className={styles.viewContainer}>
       {chainId === Number(ALLOWED_NETWORKS.STAKING.BSC) ? (
-        <StakingCard
+        <StakingCardV2
           disabled={ALLOWED_NETWORKS.STAKING.BSC !== chainId}
           tokenName="FORWARD"
           tokenIcon={icon}

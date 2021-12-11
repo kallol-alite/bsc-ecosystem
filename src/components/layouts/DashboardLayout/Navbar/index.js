@@ -30,9 +30,8 @@ const Navbar = () => {
       </div>
       <div className={styles.linkElements}>
         <div>
-          <ConnectWalletButton />
-          {/* style={{ marginLeft: 10 }} */}
-          <NetworkSwitch style={{ marginLeft: 5, marginRight: 5 }} />
+          <ConnectWalletButton showConnectedAddress={true} style={{ marginRight: 5 }} />
+          <NetworkSwitch style={{ marginRight: 5 }} />
         </div>
       </div>
     </div>
