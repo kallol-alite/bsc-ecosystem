@@ -118,7 +118,7 @@ const Staking = () => {
       ? (totalRewardPricePerYear / totalStakingTokenInPool) * 100
       : (totalRewardPricePerYear / TOKEN_PRICE_USD) * 100;
 
-    setAprValue(Number(apr).toFixed(2));
+    setAprValue(Number(apr).toFixed(12));
   };
 
   const checkAndHarvestToken = () => {
