@@ -10,7 +10,6 @@ import {
   totalStakersContractCall,
   userInfoContractCall,
   getPendingDivsContractCall,
-  // getStakersListContractCall,
   depositStakingFunction,
   withdrawStakingFunction,
   getRewardPerBlock
@@ -19,10 +18,9 @@ import {
   stakingTokenContract,
   totalStakedContractCall,
   allowanceContractCall,
-  // totalStakeTokenByAddress,
   approveAllowanceFunction,
 } from "./services/TokenContractService";
-import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, BSC_BLOCK_TIME } from "../../App.Config";
+import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, CURRENT_CHAIN_BLOCK_TIME } from "../../App.Config";
 
 import StakingCardV2 from "../../components/cards/StakingCardV2";
 
@@ -35,21 +33,17 @@ const Staking = () => {
   const [lockTime, setLockTime] = useState(0);
   const [aprValuePeriodically, setAprValuePeriodically] = useState(0);
 
-  // const [lockTimeFromContract, setLockTimeFromContract] = useState(0);
-
-  // const [txnBlockTime, setTxnBlockTime] = useState();
-
   const userBalance = useTokenBalance(CONTRACT_ADDRESS.STAKING.TOKEN, account);
 
   const [totalStakersCount, userInfo, pendingReward, rewardPerBlock] = useContractCalls([
-    totalStakersContractCall(CONTRACT_ADDRESS.STAKING.BSC, StakingBSC),
-    userInfoContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.BSC, account),
-    getPendingDivsContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.BSC, account),
-    getRewardPerBlock(StakingBSC, CONTRACT_ADDRESS.STAKING.BSC)
+    totalStakersContractCall(CONTRACT_ADDRESS.STAKING.CONTRACT, StakingBSC),
+    userInfoContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.CONTRACT, account),
+    getPendingDivsContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.CONTRACT, account),
+    getRewardPerBlock(StakingBSC, CONTRACT_ADDRESS.STAKING.CONTRACT)
   ]);
   const [totalStakedofContract, getAllowance] = useContractCalls([
-    totalStakedContractCall(TokenABI, CONTRACT_ADDRESS.STAKING.TOKEN, CONTRACT_ADDRESS.STAKING.BSC),
-    allowanceContractCall(TokenABI, CONTRACT_ADDRESS.STAKING.TOKEN, account, CONTRACT_ADDRESS.STAKING.BSC),
+    totalStakedContractCall(TokenABI, CONTRACT_ADDRESS.STAKING.TOKEN, CONTRACT_ADDRESS.STAKING.CONTRACT),
+    allowanceContractCall(TokenABI, CONTRACT_ADDRESS.STAKING.TOKEN, account, CONTRACT_ADDRESS.STAKING.CONTRACT),
   ]);
 
   const depositToken = useUtilContractFunction(stakingContract, depositStakingFunction);
@@ -95,7 +89,7 @@ const Staking = () => {
   const checkAndStakeToken = () => {
     if (Number(inputAmount) <= Number(displayState.walletBalance) && Number(inputAmount) > 0) {
       if (!(parseFloat(displayState.allowance) > 0 && parseFloat(displayState.allowance) > inputAmount)) {
-        setApproveAllowances.send(CONTRACT_ADDRESS.STAKING.BSC, BigNumber.from(2).pow(256).sub(1));
+        setApproveAllowances.send(CONTRACT_ADDRESS.STAKING.CONTRACT, BigNumber.from(2).pow(256).sub(1));
       } else {
         depositToken.send(utils.parseUnits(Number(inputAmount).toString(), 18), lockTime);
       }
@@ -112,7 +106,7 @@ const Staking = () => {
     const TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
     const REWARD_TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
 
-    const blocksPerYear = (60 / BSC_BLOCK_TIME) * 60 * 24 * 365;
+    const blocksPerYear = (60 / CURRENT_CHAIN_BLOCK_TIME) * 60 * 24 * 365;
     const rewardEveryBlock = displayState.rewardPerBlock ? displayState.rewardPerBlock : 0; // e.g 0.000000000047564688
 
     const totalRewardPricePerYear = REWARD_TOKEN_PRICE_USD * rewardEveryBlock * blocksPerYear;
@@ -130,21 +124,13 @@ const Staking = () => {
 
   const checkAndUnstake = () => {
     withdrawToken.send(utils.parseUnits(inputAmount.toString(), 18));
-
-    //this logic will impliment on production tym
-    // let currentTime = new Date().getTime();
-    // if (currentTime >= txnBlockTime + lockTimeFromContract) {
-    //   withdrawToken(utils.parseUnits(inputAmount.toString(), 18));
-    // } else {
-    //   ///will not work
-    // }
   };
 
   return (
     <div className={styles.viewContainer}>
-      {chainId === Number(ALLOWED_NETWORKS.STAKING.BSC) ? (
+      {chainId === Number(ALLOWED_NETWORKS.STAKING) ? (
         <StakingCardV2
-          disabled={ALLOWED_NETWORKS.STAKING.BSC !== chainId}
+          disabled={ALLOWED_NETWORKS.STAKING !== chainId}
           tokenName="FORWARD"
           tokenIcon={icon}
           aprValue={aprValue}

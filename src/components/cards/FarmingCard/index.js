@@ -49,7 +49,7 @@ const FarmingCard = ({
   iconEndPoint,
 }) => {
   const [liquidityValue, setLiquidityValue] = useState(0);
-  const [farmApr, steFarmApr] = useState(0);
+  const [farmApr, setFarmApr] = useState(0);
   const [img0, setImg0] = useState(notFound);
   const [img1, setImg1] = useState(notFound);
   const [inputAmount, setInputAmount] = useState("");
@@ -137,7 +137,7 @@ const FarmingCard = ({
 
   useEffect(async () => {
     let apr = await calculateApr(forwardTokenCoingeckoEndPoint, forwardTokenCsv, currentBlockTime, liquidityValue, allocPoint, totalAllocPoint);
-    steFarmApr(apr);
+    setFarmApr(apr);
   }, [liquidityValue]);
 
   useEffect(() => {

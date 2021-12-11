@@ -4,7 +4,7 @@ import { CONTRACT_ADDRESS } from "../../../App.Config";
 import StakingBSC from "../abi/StakingBSC.json";
 
 let abiInterface = new utils.Interface(StakingBSC);
-export const stakingContract = new Contract(CONTRACT_ADDRESS.STAKING.BSC, abiInterface);
+export const stakingContract = new Contract(CONTRACT_ADDRESS.STAKING.CONTRACT, abiInterface);
 
 export const totalStakersContractCall = (contractAddress, abi) => ({
   abi: new utils.Interface(abi),

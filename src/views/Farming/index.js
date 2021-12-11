@@ -13,9 +13,9 @@ import {
   CONTRACT_ADDRESS,
   ALLOWED_NETWORKS,
   ICON_END_POINT,
-  FORWARD_TOKEN_COINGECKO_PRICE_BSC,
+  FORWARD_TOKEN_COINGECKO_PRICE,
   FORWARD_TOKEN_CSV_NAME,
-  BSC_BLOCK_TIME,
+  CURRENT_CHAIN_BLOCK_TIME,
 } from "../../App.Config";
 import FarmingAbi from "./abi/FarmingBsc.json";
 import TokenAbi from "./abi/Token.json";
@@ -176,7 +176,7 @@ const Farming = () => {
 
   const createFarms = () => {
     let newFarms = [];
-    if(ALLOWED_NETWORKS.FARMING.BSC === chainId){
+    if(ALLOWED_NETWORKS.FARMING === chainId){
       for (let i = 0; i < totalPoolLengthState; i++) {
         newFarms.push({
           id: i,
@@ -212,10 +212,10 @@ const Farming = () => {
   }, [totalPoolLengthResolved]);
 
   useEffect(() => {
-    if (Number(chainId) === Number(ALLOWED_NETWORKS.FARMING.BSC)) {
-      setCurrentNetworkContract(CONTRACT_ADDRESS.FARMING.BSC);
+    if (Number(chainId) === Number(ALLOWED_NETWORKS.FARMING)) {
+      setCurrentNetworkContract(CONTRACT_ADDRESS.FARMING.CONTRACT);
       setCurrentNetworkAbi(FarmingAbi);
-      setCurrentBlockTime(BSC_BLOCK_TIME);
+      setCurrentBlockTime(CURRENT_CHAIN_BLOCK_TIME);
     } else {
       setCurrentNetworkContract("");
       setCurrentNetworkAbi([]);
@@ -230,17 +230,17 @@ const Farming = () => {
 
   return (
     <div className={styles.viewContainer}>
-      {ALLOWED_NETWORKS.FARMING.BSC === chainId ? totalPoolLengthState > 0 &&
+      {ALLOWED_NETWORKS.FARMING === chainId ? totalPoolLengthState > 0 &&
         farms &&
         farms.length > 0 &&
         farms.map((pool) => {
           return (
             <FarmingCard
               key={pool.id}
-              disabled={ALLOWED_NETWORKS.FARMING.BSC !== chainId}
+              disabled={ALLOWED_NETWORKS.FARMING !== chainId}
               pool={pool}
               coingeckoUrlData={coingeckoUrlData}
-              forwardTokenCoingeckoEndPoint={FORWARD_TOKEN_COINGECKO_PRICE_BSC}
+              forwardTokenCoingeckoEndPoint={FORWARD_TOKEN_COINGECKO_PRICE}
               forwardTokenCsv={FORWARD_TOKEN_CSV_NAME}
               currentBlockTime={currentBlocktime}
               iconEndPoint={ICON_END_POINT}
