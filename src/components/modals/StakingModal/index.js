@@ -127,7 +127,7 @@ const StakingModal = ({
           </div>
           <div className={styles.infoText + " mt-3"}>
             <div>
-              Estimated APR : <span className={styles.percentage}>{aprValuePeriodically ? toMax4Decimals(aprValuePeriodically) : 0}%</span>
+              Estimated APR : <span className={styles.percentage}>{aprValuePeriodically}%</span>
             </div>
           </div>
           <div className={styles.pills}>

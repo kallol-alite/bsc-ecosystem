@@ -51,7 +51,7 @@ const Sidebar = () => {
     <div className={`${sidebar ? styles.sidebarContainer : styles.sidebarContainerClose}`}>
       <div className={styles.sListDiv}>
         <div className={styles.showElements}>
-          <ConnectWalletButton style={{ width: "100%" }} />
+          <ConnectWalletButton style={{ width: "100%" }} showConnectedAddress={true} />
           <NetworkSwitch style={{ marginTop: 10, width: "100%" }} />
         </div>
         <ul className={styles.sidebarList}>

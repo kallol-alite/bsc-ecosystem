@@ -1,5 +1,5 @@
 import React from "react";
-import { useEthers } from "@usedapp/core";
+import { useEthers, shortenAddress } from "@usedapp/core";
 import { useDispatch, useSelector } from "react-redux";
 
 import MakeQuerablePromise from "../../utils/querable-promise";
@@ -33,7 +33,13 @@ const ConnectWalletButton = (props) => {
 
   return (
     <Button onClick={() => connectWallet()} buttonStyle="btnStyle2" {...props}>
-      {!isWalletConnected ? "Connect Wallet" : "Disconnect Wallet"}
+      {!isWalletConnected ? (
+        "Connect Wallet"
+      ) : props.showConnectedAddress ? (
+        <span style={{ color: "#ff0" }}>{shortenAddress(account)}</span>
+      ) : (
+        "Disconnect Wallet"
+      )}
     </Button>
   );
 };

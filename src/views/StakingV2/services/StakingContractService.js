@@ -33,5 +33,11 @@ export const getStakersListContractCall = (abi, contractAddress, startIndex, end
   args: [startIndex, endIndex],
 });
 
+export const getRewardPerBlock = (abi, contractAddress) => ({
+  abi: new utils.Interface(abi),
+  address: contractAddress,
+  method: "rewardPerBlock",
+});
+
 export const depositStakingFunction = "deposit";
 export const withdrawStakingFunction = "withdraw";

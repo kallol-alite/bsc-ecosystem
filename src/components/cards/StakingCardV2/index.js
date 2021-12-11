@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col, Container, Row, Input } from "reactstrap";
+import { Card, Col, Container, Row, Input, Alert } from "reactstrap";
 import { utils } from "ethers";
-import styles from "./StakingCard.module.css";
 import { toast } from "react-toastify";
+
+import styles from "./StakingCardV2.module.css";
 import TokenIcon from "../../../components/common/TokenIcon";
 import Button from "../../../components/common/Button";
-import StakingModal from "../StakingModal/index";
-import UnstakingModal from "../UnstakingModal/index";
 import ConfirmationModal from "../../../components/modals/ConfirmationModal";
 import countsPerPeriod, { pills, toMax2Decimals, toMax4Decimals } from "./utils";
 
-const StakingCard = ({
+const StakingCardV2 = ({
   disabled,
   tokenName,
   rewardTokenName,
@@ -44,36 +43,15 @@ const StakingCard = ({
     const newWindow = window.open(url);
   };
 
-  const [stake, setStake] = useState(true);
-  const [unstake, setUnstake] = useState(false);
+  const [isStakeSelected, setIsStakeSelected] = useState(true);
+
   const defaultPill = pills[0];
   const [selectedChip, setSelectedChip] = useState(defaultPill);
 
-  const clickStake = (e) => {
-    setStake(true);
-    setUnstake(false);
-  };
-
-  const clickUnstake = (e) => {
-    setUnstake(true);
-    setStake(false);
-  };
-
-  useEffect(() => {
-    document.getElementById("stake").addEventListener("click", clickStake);
+  const onStakeToggle = (isStake) => {
+    setIsStakeSelected(isStake);
     updateWalletAmount("");
-    return () => {
-      document.getElementById("stake").removeEventListener("click", clickStake);
-    };
-  }, [stake]);
-
-  useEffect(() => {
-    document.getElementById("unstake").addEventListener("click", clickUnstake);
-    updateWalletAmount("");
-    return () => {
-      document.getElementById("unstake").removeEventListener("click", clickUnstake);
-    };
-  }, [unstake]);
+  };
 
   useEffect(() => {
     updateCountPerPeriod(countsPerPeriod(selectedChip, aprValue));
@@ -124,12 +102,24 @@ const StakingCard = ({
           <Row>
             <div className={styles.tabesFunction}>
               <div>
-                <h6 id="stake" className={`${stake ? styles.stakeActiveLabel : styles.stakeLabel}`}>
+                <h6
+                  id="stake"
+                  className={`${isStakeSelected ? styles.stakeActiveLabel : styles.stakeLabel}`}
+                  onClick={() => {
+                    onStakeToggle(true);
+                  }}
+                >
                   STAKE
                 </h6>
               </div>
               <div>
-                <h6 id="unstake" className={`${unstake ? styles.unstakeActiveLabel : styles.unstakeLabel}`}>
+                <h6
+                  id="unstake"
+                  className={`${!isStakeSelected ? styles.unstakeActiveLabel : styles.unstakeLabel}`}
+                  onClick={() => {
+                    onStakeToggle(false);
+                  }}
+                >
                   UNSTAKE
                 </h6>
               </div>
@@ -137,7 +127,7 @@ const StakingCard = ({
           </Row>
           <Row>
             <div className={styles.functionalSection}>
-              <div className={`${unstake ? "" : styles.unStake}`}>
+              <div className={`${!isStakeSelected ? "" : styles.unStake}`}>
                 <div className={styles.infoText}>
                   <div>Total Staked : {toMax4Decimals(parseFloat(stakeAmount))}</div>
                 </div>
@@ -166,7 +156,7 @@ const StakingCard = ({
                   </Button>
                 </div>
               </div>
-              <div className={`${stake ? "" : styles.stake}`}>
+              <div className={`${isStakeSelected ? "" : styles.stake}`}>
                 <div className={styles.infoText}>
                   <div>Balance in Wallet : {utils.commify(toMax2Decimals(parseFloat(walletBalance)))}</div>
                 </div>
@@ -182,11 +172,7 @@ const StakingCard = ({
                     Max
                   </Button>
                 </div>
-                <div className={styles.infoText + " mt-3"}>
-                  <div>
-                    Estimated APR : <span className={styles.percentage}>{aprValuePeriodically ? toMax2Decimals(aprValuePeriodically) : 0}%</span>
-                  </div>
-                </div>
+                <div className={styles.infoText + " mt-3"}>Select lock time:</div>
                 <div className={styles.pills}>
                   {pills.map((option) => {
                     const style =
@@ -209,21 +195,20 @@ const StakingCard = ({
                     );
                   })}
                 </div>
+                <div className={styles.infoText + " mt-3"}>
+                  <div>Estimated APR : {aprValuePeriodically ? toMax2Decimals(aprValuePeriodically) : 0}%</div>
+                </div>
                 <div className={styles.buttonSectionForStake + " mt-2"}>
                   <Button
                     buttonStyle="btnStyle2"
-                    style={{ margin: "5px", minWidth: "100px" }}
+                    style={{ margin: "5px", minWidth: "45%" }}
                     onClick={() => {
                       checkAndStakeToken();
                     }}
                   >
                     Deposit
                   </Button>
-                  <Button
-                    buttonStyle="btnStyle3"
-                    style={{ margin: "5px", width: "150px", minWidth: "100px" }}
-                    onClick={() => openInNewWindow(buyUrl)}
-                  >
+                  <Button buttonStyle="btnStyle3" style={{ margin: "5px", width: "150px", minWidth: "45%" }} onClick={() => openInNewWindow(buyUrl)}>
                     Buy {tokenName}
                   </Button>
                 </div>
@@ -265,10 +250,23 @@ const StakingCard = ({
               </ConfirmationModal>
             </Col>
           </Row>
+          <Row>
+            <Col className="m-1 mt-3">
+              <Alert color="primary" className="mb-0">
+                <h6>Rules</h6>
+                <ol>
+                  <li>The returns are over the stake timed time period.</li>
+                  <li>Opting for a longer staking period will earn a better APR.</li>
+                  <li>All rewards are paid in $FORWARD tokens.</li>
+                  <li>Users are not allowed to unstake their staked tokens until the redemption date is over.</li>
+                </ol>
+              </Alert>
+            </Col>
+          </Row>
         </Container>
       </Card>
     </>
   );
 };
 
-export default StakingCard;
+export default StakingCardV2;

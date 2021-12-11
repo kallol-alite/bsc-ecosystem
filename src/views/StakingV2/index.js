@@ -13,6 +13,7 @@ import {
   // getStakersListContractCall,
   depositStakingFunction,
   withdrawStakingFunction,
+  getRewardPerBlock
 } from "./services/StakingContractService";
 import {
   stakingTokenContract,
@@ -21,8 +22,9 @@ import {
   // totalStakeTokenByAddress,
   approveAllowanceFunction,
 } from "./services/TokenContractService";
-import { CONTRACT_ADDRESS, ALLOWED_NETWORKS } from "../../App.Config";
-import StakingCard from "../StakingV2/StakingCard";
+import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, BSC_BLOCK_TIME } from "../../App.Config";
+
+import StakingCardV2 from "../../components/cards/StakingCardV2";
 
 import icon from "../../assets/torus.png";
 
@@ -39,10 +41,11 @@ const Staking = () => {
 
   const userBalance = useTokenBalance(CONTRACT_ADDRESS.STAKING.TOKEN, account);
 
-  const [totalStakersCount, userInfo, pendingReward] = useContractCalls([
+  const [totalStakersCount, userInfo, pendingReward, rewardPerBlock] = useContractCalls([
     totalStakersContractCall(CONTRACT_ADDRESS.STAKING.BSC, StakingBSC),
     userInfoContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.BSC, account),
     getPendingDivsContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.BSC, account),
+    getRewardPerBlock(StakingBSC, CONTRACT_ADDRESS.STAKING.BSC)
   ]);
   const [totalStakedofContract, getAllowance] = useContractCalls([
     totalStakedContractCall(TokenABI, CONTRACT_ADDRESS.STAKING.TOKEN, CONTRACT_ADDRESS.STAKING.BSC),
@@ -63,6 +66,7 @@ const Staking = () => {
       pendingReward: pendingReward,
       allowance: getAllowance,
       walletBalance: userBalance,
+      rewardPerBlock: rewardPerBlock
     },
     {
       totalStaked: (val) => (val ? utils.formatUnits(val[0]._hex, 18) : 0),
@@ -72,6 +76,7 @@ const Staking = () => {
       pendingReward: (val) => (val ? utils.formatUnits(val[0]._hex, 18) : 0),
       allowance: (val) => (val ? utils.formatUnits(val[0]._hex, "ether") : 0),
       walletBalance: (val) => (val ? utils.formatEther(val) : 0),
+      rewardPerBlock: (val) => (val ? Number(utils.formatUnits(val[0]._hex, "ether")) : 0)
     }
   );
 
@@ -88,11 +93,11 @@ const Staking = () => {
   };
 
   const checkAndStakeToken = () => {
-    if (inputAmount <= displayState.walletBalance && inputAmount > 0) {
-      if (parseFloat(displayState.allowance) > 0 && parseFloat(displayState.allowance) > inputAmount) {
-        depositToken.send(utils.parseUnits(inputAmount.toString(), 18), lockTime);
-      } else {
+    if (Number(inputAmount) <= Number(displayState.walletBalance) && Number(inputAmount) > 0) {
+      if (!(parseFloat(displayState.allowance) > 0 && parseFloat(displayState.allowance) > inputAmount)) {
         setApproveAllowances.send(CONTRACT_ADDRESS.STAKING.BSC, BigNumber.from(2).pow(256).sub(1));
+      } else {
+        depositToken.send(utils.parseUnits(Number(inputAmount).toString(), 18), lockTime);
       }
     } else {
       // Show error to user
@@ -104,30 +109,16 @@ const Staking = () => {
   }, [displayState.totalStaked]);
 
   const calculateApr = async () => {
-    // const url = chainId === Number(ALLOWED_NETWORKS.FARMING.BSC) ? API_COINGECO.TEST : " ";
-    // const response = await fetch(url).catch((e) => {}); ///removed for testing purpose
-    // const jsonData = await response.json();
-    const priceUSD = 0.05;
-    // const priceUsd = jsonData[chainId === Number(ALLOWED_NETWORKS.FARMING.BSC) ? [CSV.TEST_FORWARD].usd : ""];////Do this after API is ready
-    // const tokenBlockTime = chainId === Number(ALLOWED_NETWORKS.FARMING.BSC) ? BSC_TEST_BLOCKTIME : ""; //removed for testing
-    const tokenPerBlock = 0.1;
-    const blocksPerYear = (60 / 3) * 60 * 24 * 365; //change 3 after testing mode and use tokenBlockTime
-    // const tokenPerYear = tokenPerBlock * blocksPerYear;
+    const TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
+    const REWARD_TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
 
-    const rewardTokenPrice = 0.1; ///this is for test only
+    const blocksPerYear = (60 / BSC_BLOCK_TIME) * 60 * 24 * 365;
+    const rewardEveryBlock = displayState.rewardPerBlock ? displayState.rewardPerBlock : 0; // e.g 0.000000000047564688
 
-    const totalRewardPricePerYear = rewardTokenPrice * tokenPerBlock * blocksPerYear;
-    const totalStakingTokenInPool = priceUSD * displayState.totalStaked;
-    const apr = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
-    // if (liquidityValue !== 0 && allocPoint && allocPoint[0] && totalAllocation && totalAllocation[0] && priceUsd) {
-    //   const poolWeight = allocPoint[0] / totalAllocation[0];
-    //   const yearlyCopsRewardAllocation = tokenPerYear * poolWeight;
-    //   const copsRewardsApr = ((parseFloat(yearlyCopsRewardAllocation) * parseFloat(priceUsd)) / parseFloat(liquidityValue)) * 100;
-    //   if (copsRewardsApr !== Infinity) {
-    //     setAprValue(copsRewardsApr);
-    //   }
-    // }
-
+    const totalRewardPricePerYear = REWARD_TOKEN_PRICE_USD * rewardEveryBlock * blocksPerYear;
+    const totalStakingTokenInPool = TOKEN_PRICE_USD * displayState.totalStaked;
+    const apr = totalStakingTokenInPool ? (totalRewardPricePerYear / (totalStakingTokenInPool)) * 100 : (totalRewardPricePerYear / TOKEN_PRICE_USD) * 100;
+    
     setAprValue(Number(apr).toFixed(2));
   };
 
@@ -152,7 +143,7 @@ const Staking = () => {
   return (
     <div className={styles.viewContainer}>
       {chainId === Number(ALLOWED_NETWORKS.STAKING.BSC) ? (
-        <StakingCard
+        <StakingCardV2
           disabled={ALLOWED_NETWORKS.STAKING.BSC !== chainId}
           tokenName="FORWARD"
           tokenIcon={icon}
