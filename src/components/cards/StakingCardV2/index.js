@@ -196,7 +196,7 @@ const StakingCardV2 = ({
                   })}
                 </div>
                 <div className={styles.infoText + " mt-3"}>
-                  <div>Estimated APR : {aprValuePeriodically ? aprValuePeriodically.toFixed(12) : 0.00}%</div>
+                  <div>Estimated APR : {aprValuePeriodically ? aprValuePeriodically.toFixed(12) : 0.0}%</div>
                 </div>
                 <div className={styles.buttonSectionForStake + " mt-2"}>
                   <Button
