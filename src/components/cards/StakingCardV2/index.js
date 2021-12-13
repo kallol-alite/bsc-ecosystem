@@ -134,7 +134,7 @@ const StakingCardV2 = ({
             <div className={styles.functionalSection}>
               <div className={`${!isStakeSelected ? "" : styles.unStake}`}>
                 <div className={styles.infoText}>
-                  <div>Total Staked : {toMax4Decimals(parseFloat(stakeAmount))}</div>
+                  <div>Total {tokenName} staked : {toMax4Decimals(parseFloat(stakeAmount))}</div>
                 </div>
                 <div className={styles.inputSection}>
                   <Input
@@ -164,7 +164,7 @@ const StakingCardV2 = ({
               </div>
               <div className={`${isStakeSelected ? "" : styles.stake}`}>
                 <div className={styles.infoText}>
-                  <div>Balance in Wallet : {utils.commify(toMax2Decimals(parseFloat(walletBalance)))}</div>
+                  <div>Wallet {tokenName} balance : {utils.commify(toMax2Decimals(parseFloat(walletBalance)))}</div>
                 </div>
                 <div className={styles.inputSection}>
                   <Input

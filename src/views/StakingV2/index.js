@@ -19,7 +19,8 @@ import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, CURRENT_CHAIN_BLOCK_TIME, BUY_FORWA
 
 import StakingCardV2 from "../../components/cards/StakingCardV2";
 
-import icon from "../../assets/torus.png";
+import icon from "../../assets/logo-small.png";
+import NetworkError from "../../components/NetworkError";
 
 const TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
 const REWARD_TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
@@ -134,7 +135,7 @@ const Staking = () => {
       {chainId === Number(ALLOWED_NETWORKS.STAKING) ? (
         <StakingCardV2
           disabled={ALLOWED_NETWORKS.STAKING !== chainId}
-          tokenName="FORWARD"
+          tokenName="$FORWARD"
           tokenIcon={icon}
           aprValue={aprValue}
           totalStaked={displayState.totalStaked}
@@ -156,7 +157,7 @@ const Staking = () => {
           rewardTokenPriceUSD={REWARD_TOKEN_PRICE_USD}
         />
       ) : (
-        <h5>Please switch to Polygon network</h5>
+        <NetworkError />
       )}
     </div>
   );

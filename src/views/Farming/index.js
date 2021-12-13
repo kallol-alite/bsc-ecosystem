@@ -23,6 +23,7 @@ import LpTokenAbi from "./abi/LPToken.json";
 import { getCoingeckoUrls } from "../../actions/farming-actions";
 
 import FarmingCard from "../../components/cards/FarmingCard";
+import NetworkError from "../../components/NetworkError";
 
 const Farming = () => {
   const { chainId, account } = useEthers();
@@ -176,7 +177,7 @@ const Farming = () => {
 
   const createFarms = () => {
     let newFarms = [];
-    if(ALLOWED_NETWORKS.FARMING === chainId){
+    if (ALLOWED_NETWORKS.FARMING === chainId) {
       for (let i = 0; i < totalPoolLengthState; i++) {
         newFarms.push({
           id: i,
@@ -230,7 +231,8 @@ const Farming = () => {
 
   return (
     <div className={styles.viewContainer}>
-      {ALLOWED_NETWORKS.FARMING === chainId ? totalPoolLengthState > 0 &&
+      {ALLOWED_NETWORKS.FARMING === chainId ? (
+        totalPoolLengthState > 0 &&
         farms &&
         farms.length > 0 &&
         farms.map((pool) => {
@@ -246,7 +248,10 @@ const Farming = () => {
               iconEndPoint={ICON_END_POINT}
             />
           );
-        }) : <h5>Please switch to Polygon network</h5>}
+        })
+      ) : (
+        <NetworkError />
+      )}
     </div>
   );
 };
