@@ -43,7 +43,7 @@ const ComingSoonCard = () => {
           <h3>Coming Soon</h3>
           <div className={styles.infoValue}>Stay tuned for more details</div>
           <div className={styles.contactLinks}>
-            {LINKS.map(item => <div><a href={item.link} target="_blank"><img src={item.icon} alt=""/></a></div>)}
+            {LINKS.map(item => <div><a href={item.link} target="_blank"><img className={styles.linkIcon} src={item.icon} alt=""/></a></div>)}
           </div>
         </div>
       </Card>

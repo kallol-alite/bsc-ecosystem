@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { DAppProvider } from "@usedapp/core";
 import { createBrowserHistory } from "history";
 
@@ -17,9 +17,9 @@ export const history = createBrowserHistory();
 ReactDOM.render(
   <ReduxProvider>
     <DAppProvider>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </DAppProvider>
   </ReduxProvider>,
   document.getElementById("root")

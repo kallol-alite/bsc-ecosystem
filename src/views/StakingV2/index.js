@@ -12,19 +12,17 @@ import {
   getPendingDivsContractCall,
   depositStakingFunction,
   withdrawStakingFunction,
-  getRewardPerBlock
+  getRewardPerBlock,
 } from "./services/StakingContractService";
-import {
-  stakingTokenContract,
-  totalStakedContractCall,
-  allowanceContractCall,
-  approveAllowanceFunction,
-} from "./services/TokenContractService";
-import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, CURRENT_CHAIN_BLOCK_TIME } from "../../App.Config";
+import { stakingTokenContract, totalStakedContractCall, allowanceContractCall, approveAllowanceFunction } from "./services/TokenContractService";
+import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, CURRENT_CHAIN_BLOCK_TIME, BUY_FORWARD_LINK } from "../../App.Config";
 
 import StakingCardV2 from "../../components/cards/StakingCardV2";
 
 import icon from "../../assets/torus.png";
+
+const TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
+const REWARD_TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
 
 const Staking = () => {
   const { chainId, account } = useEthers();
@@ -39,7 +37,7 @@ const Staking = () => {
     totalStakersContractCall(CONTRACT_ADDRESS.STAKING.CONTRACT, StakingBSC),
     userInfoContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.CONTRACT, account),
     getPendingDivsContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.CONTRACT, account),
-    getRewardPerBlock(StakingBSC, CONTRACT_ADDRESS.STAKING.CONTRACT)
+    getRewardPerBlock(StakingBSC, CONTRACT_ADDRESS.STAKING.CONTRACT),
   ]);
   const [totalStakedofContract, getAllowance] = useContractCalls([
     totalStakedContractCall(TokenABI, CONTRACT_ADDRESS.STAKING.TOKEN, CONTRACT_ADDRESS.STAKING.CONTRACT),
@@ -60,7 +58,7 @@ const Staking = () => {
       pendingReward: pendingReward,
       allowance: getAllowance,
       walletBalance: userBalance,
-      rewardPerBlock: rewardPerBlock
+      rewardPerBlock: rewardPerBlock,
     },
     {
       totalStaked: (val) => (val ? utils.formatUnits(val[0]._hex, 18) : 0),
@@ -70,7 +68,7 @@ const Staking = () => {
       pendingReward: (val) => (val ? utils.formatUnits(val[0]._hex, 18) : 0),
       allowance: (val) => (val ? utils.formatUnits(val[0]._hex, "ether") : 0),
       walletBalance: (val) => (val ? utils.formatEther(val) : 0),
-      rewardPerBlock: (val) => (val ? Number(utils.formatUnits(val[0]._hex, "ether")) : 0)
+      rewardPerBlock: (val) => (val ? Number(utils.formatUnits(val[0]._hex, "ether")) : 0),
     }
   );
 
@@ -99,21 +97,26 @@ const Staking = () => {
   };
 
   useEffect(() => {
+    if (setApproveAllowances.state && setApproveAllowances.state.status === "Success") {
+      depositToken.send(utils.parseUnits(Number(inputAmount).toString(), 18), lockTime);
+    }
+  }, [setApproveAllowances.state]);
+
+  useEffect(() => {
     calculateApr();
   }, [displayState.totalStaked]);
 
   const calculateApr = async () => {
-    const TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
-    const REWARD_TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
-
     const blocksPerYear = (60 / CURRENT_CHAIN_BLOCK_TIME) * 60 * 24 * 365;
     const rewardEveryBlock = displayState.rewardPerBlock ? displayState.rewardPerBlock : 0; // e.g 0.000000000047564688
 
     const totalRewardPricePerYear = REWARD_TOKEN_PRICE_USD * rewardEveryBlock * blocksPerYear;
     const totalStakingTokenInPool = TOKEN_PRICE_USD * displayState.totalStaked;
-    const apr = totalStakingTokenInPool ? (totalRewardPricePerYear / (totalStakingTokenInPool)) * 100 : (totalRewardPricePerYear / TOKEN_PRICE_USD) * 100;
-    
-    setAprValue(Number(apr).toFixed(12));
+    const apr = totalStakingTokenInPool
+      ? (totalRewardPricePerYear / totalStakingTokenInPool) * 100
+      : (totalRewardPricePerYear / TOKEN_PRICE_USD) * 100;
+
+    setAprValue(Number(apr).toFixed(3));
   };
 
   const checkAndHarvestToken = () => {
@@ -141,7 +144,7 @@ const Staking = () => {
           stakeAmount={displayState.stakeAmount}
           updateWalletAmount={handleInputValueChange}
           checkAndStakeToken={checkAndStakeToken}
-          buyUrl={"https://quickswap.exchange/#/swap?outputCurrency"}
+          buyUrl={BUY_FORWARD_LINK}
           walletBalance={displayState.walletBalance}
           walletAmount={inputAmount}
           updateCountPerPeriod={updateCountPerPeriod}
@@ -149,6 +152,8 @@ const Staking = () => {
           checkAndHarvestToken={checkAndHarvestToken}
           checkAndUnstake={checkAndUnstake}
           aprValuePeriodically={aprValuePeriodically}
+          tokenPriceUSD={TOKEN_PRICE_USD}
+          rewardTokenPriceUSD={REWARD_TOKEN_PRICE_USD}
         />
       ) : (
         <h5>Please switch to Polygon network</h5>

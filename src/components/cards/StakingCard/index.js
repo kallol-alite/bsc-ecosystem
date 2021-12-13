@@ -30,6 +30,8 @@ const StakingCard = ({
   checkAndHarvestToken,
   totalPending,
   aprValuePeriodically,
+  tokenPriceUSD,
+  rewardTokenPriceUSD
 }) => {
   const handleStakeToggle = () => {
     updateWalletAmount("");
@@ -120,14 +122,14 @@ const StakingCard = ({
               <div className={styles.pending}>
                 <div>{rewardTokenName} EARNED</div>
                 <div className={styles.zero}>{totalEarned}</div>
-                <div>~ 0.0 USD</div>
+                <div>~ {Number(totalEarned) ? (Number(totalEarned) * rewardTokenPriceUSD).toFixed(4) : 0.00} USD</div>
               </div>
             </Col>
             <Col xs={6}>
               <div className={styles.pending}>
                 <div>{rewardTokenName} PENDING</div>
                 <div className={styles.zero}>{totalPending}</div>
-                <div>~ 0.0 USD</div>
+                <div>~ {Number(totalPending) ? (Number(totalPending) * rewardTokenPriceUSD).toFixed(4) : 0.00} USD</div>
               </div>
             </Col>
           </Row>

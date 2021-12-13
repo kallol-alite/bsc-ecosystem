@@ -30,13 +30,16 @@
   }
 }
 
-.contactLinks{
+.contactLinks {
+  margin-top: 15px;
+  padding-top: 5px;
+  border-top: 1px solid #bbbbbb;
   display: flex;
   justify-content: center;
 }
 
-.contactLinks > div {
-  margin: 5px;
+.linkIcon {
+  height: 45px;
 }
 
 .contactLinks > a {

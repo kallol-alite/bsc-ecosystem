@@ -11,7 +11,7 @@ import NetworkSwitch from "../../../NetworkSwitch";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const { isSidebarOpen } = useSelector((state) => state.masterReducer);
+  const { isSidebarOpen, isWalletConnected } = useSelector((state) => state.masterReducer);
 
   const history = useHistory();
 
@@ -31,7 +31,7 @@ const Navbar = () => {
       <div className={styles.linkElements}>
         <div>
           <ConnectWalletButton showConnectedAddress={true} style={{ marginRight: 5 }} />
-          <NetworkSwitch style={{ marginRight: 5 }} />
+          {isWalletConnected && <NetworkSwitch style={{ marginRight: 5 }} />}
         </div>
       </div>
     </div>
