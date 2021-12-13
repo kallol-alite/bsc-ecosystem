@@ -17,10 +17,13 @@ import {
   getRewardPerBlock,
 } from "./services/StakingContractService";
 import { stakingTokenContract, totalStakedContractCall, allowanceContractCall, approveAllowanceFunction } from "./services/TokenContractService";
-import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, CURRENT_CHAIN_BLOCK_TIME } from "./../../App.Config";
+import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, CURRENT_CHAIN_BLOCK_TIME, BUY_FORWARD_LINK } from "./../../App.Config";
 import StakingCard from "../../components/cards/StakingCard";
 
 import icon from "../../assets/torus.png";
+
+const TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
+const REWARD_TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
 
 const Staking = () => {
   const { chainId, account } = useEthers();
@@ -102,13 +105,16 @@ const Staking = () => {
   };
 
   useEffect(() => {
+    if (setApproveAllowances.state && setApproveAllowances.state.status === "Success") {
+      depositToken.send(utils.parseUnits(Number(inputAmount).toString(), 18), lockTime);
+    }
+  }, [setApproveAllowances.state]);
+
+  useEffect(() => {
     calculateApr();
   }, [displayState.totalStaked]);
 
   const calculateApr = async () => {
-    const TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
-    const REWARD_TOKEN_PRICE_USD = 0.005; //temporarily static until token listed
-
     const blocksPerYear = (60 / CURRENT_CHAIN_BLOCK_TIME) * 60 * 24 * 365;
     const rewardEveryBlock = displayState.rewardPerBlock ? displayState.rewardPerBlock : 0; // e.g 0.000000000047564688
 
@@ -146,7 +152,7 @@ const Staking = () => {
           stakeAmount={displayState.stakeAmount}
           updateWalletAmount={handleInputValueChange}
           checkAndStakeToken={checkAndStakeToken}
-          buyUrl={"https://quickswap.exchange/#/swap?outputCurrency"}
+          buyUrl={BUY_FORWARD_LINK}
           walletBalance={displayState.walletBalance}
           walletAmount={inputAmount}
           updateCountPerPeriod={updateCountPerPeriod}
@@ -154,6 +160,8 @@ const Staking = () => {
           checkAndHarvestToken={checkAndHarvestToken}
           checkAndUnstake={checkAndUnstake}
           aprValuePeriodically={aprValuePeriodically}
+          tokenPriceUSD={TOKEN_PRICE_USD}
+          rewardTokenPriceUSD={REWARD_TOKEN_PRICE_USD}
         />
       ) : (
         <h5>Please switch to Polygon network</h5>

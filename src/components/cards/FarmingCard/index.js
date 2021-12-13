@@ -245,8 +245,11 @@ const FarmingCard = ({
                   }
                 }}
               >
-                <Button buttonStyle="btnStyle2" buttonSize="largeBtn" disabled={harvestFunction.loading} onClick={(event) => {
-                  console.log(parseFloat(walletBalance))
+                <Button
+                  buttonStyle="btnStyle2"
+                  buttonSize="largeBtn"
+                  disabled={harvestFunction.loading}
+                  onClick={(event) => {
                     if (parseFloat(stakedValue) <= 0) {
                       toast.error("Please stake tokens before you claim");
                       event.stopPropagation();
@@ -254,7 +257,8 @@ const FarmingCard = ({
                       toast.error("No tokens available for claim");
                       event.stopPropagation();
                     }
-                  }}>
+                  }}
+                >
                   {harvestFunction.loading ? <Spinner animation="grow" variant="light" size="sm" as="span" /> : <span>Harvest</span>}
                 </Button>
               </ConfirmationModal>

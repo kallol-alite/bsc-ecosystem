@@ -30,6 +30,8 @@ const StakingCardV2 = ({
   checkAndHarvestToken,
   totalPending,
   aprValuePeriodically,
+  tokenPriceUSD,
+  rewardTokenPriceUSD
 }) => {
   const setMaxStakeAmount = () => {
     updateWalletAmount(walletBalance);
@@ -200,7 +202,7 @@ const StakingCardV2 = ({
                   })}
                 </div>
                 <div className={styles.infoText + " mt-3"}>
-                  <div>Estimated APR : {aprValuePeriodically ? aprValuePeriodically.toFixed(12) : 0.0}%</div>
+                  <div>Estimated APR : {aprValuePeriodically ? aprValuePeriodically.toFixed(3) : 0.00}%</div>
                 </div>
                 <div className={styles.buttonSectionForStake + " mt-2"}>
                   <Button
@@ -226,14 +228,14 @@ const StakingCardV2 = ({
               <div className={styles.pending}>
                 <div>{rewardTokenName} EARNED</div>
                 <div className={styles.zero}>{totalEarned}</div>
-                <div>~ 0.0 USD</div>
+                <div>~ {Number(totalEarned) ? (Number(totalEarned) * rewardTokenPriceUSD).toFixed(4) : 0.00} USD</div>
               </div>
             </Col>
             <Col xs={6}>
               <div className={styles.pending}>
                 <div>{rewardTokenName} PENDING</div>
                 <div className={styles.zero}>{totalPending}</div>
-                <div>~ 0.0 USD</div>
+                <div>~ {Number(totalPending) ? (Number(totalPending) * rewardTokenPriceUSD).toFixed(4) : 0.00} USD</div>
               </div>
             </Col>
           </Row>

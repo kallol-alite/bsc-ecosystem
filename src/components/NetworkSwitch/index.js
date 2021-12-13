@@ -32,7 +32,7 @@ const NETWORK = {
     chainIdHex: "0x38",
     chainName: "Binance Smart Chain",
     bgColor: "#f9a825",
-    name: "Binance",
+    name: "BSC",
     icon: BinanceIcon,
     rpcURL: ["https://bsc-dataseed1.ninicoin.io"],
   },
@@ -79,7 +79,7 @@ const NetworkSwitch = (props) => {
           onClick={() => switchNetwork(NETWORK[VALID_APP_NETWORK])}
           /* onClick={() => setIsNetworkModalOpen(true)} */ {...props}
         >
-          Switch Network
+          Switch to {NETWORK[VALID_APP_NETWORK].name}
         </Button>
       ) : (
         <Button buttonStyle="btnStyle" /* onClick={() => setIsNetworkModalOpen(true)} */ {...props}>

@@ -7,7 +7,7 @@ import NetworkSwitch from "../../../NetworkSwitch";
 import styles from "./Sidebar.module.css";
 
 const Sidebar = () => {
-  const { isSidebarOpen: sidebar } = useSelector((state) => state.masterReducer);
+  const { isSidebarOpen: sidebar, isWalletConnected } = useSelector((state) => state.masterReducer);
 
   const NAV_LINKS = [
     {
@@ -52,7 +52,7 @@ const Sidebar = () => {
       <div className={styles.sListDiv}>
         <div className={styles.showElements}>
           <ConnectWalletButton style={{ width: "100%" }} showConnectedAddress={true} />
-          <NetworkSwitch style={{ marginTop: 10, width: "100%" }} />
+          {isWalletConnected && <NetworkSwitch style={{ marginTop: 10, width: "100%" }} />}
         </div>
         <ul className={styles.sidebarList}>
           {NAV_LINKS.map((item) => {
