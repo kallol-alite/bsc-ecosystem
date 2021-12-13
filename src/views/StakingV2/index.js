@@ -12,14 +12,9 @@ import {
   getPendingDivsContractCall,
   depositStakingFunction,
   withdrawStakingFunction,
-  getRewardPerBlock
+  getRewardPerBlock,
 } from "./services/StakingContractService";
-import {
-  stakingTokenContract,
-  totalStakedContractCall,
-  allowanceContractCall,
-  approveAllowanceFunction,
-} from "./services/TokenContractService";
+import { stakingTokenContract, totalStakedContractCall, allowanceContractCall, approveAllowanceFunction } from "./services/TokenContractService";
 import { CONTRACT_ADDRESS, ALLOWED_NETWORKS, CURRENT_CHAIN_BLOCK_TIME } from "../../App.Config";
 
 import StakingCardV2 from "../../components/cards/StakingCardV2";
@@ -39,7 +34,7 @@ const Staking = () => {
     totalStakersContractCall(CONTRACT_ADDRESS.STAKING.CONTRACT, StakingBSC),
     userInfoContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.CONTRACT, account),
     getPendingDivsContractCall(StakingBSC, CONTRACT_ADDRESS.STAKING.CONTRACT, account),
-    getRewardPerBlock(StakingBSC, CONTRACT_ADDRESS.STAKING.CONTRACT)
+    getRewardPerBlock(StakingBSC, CONTRACT_ADDRESS.STAKING.CONTRACT),
   ]);
   const [totalStakedofContract, getAllowance] = useContractCalls([
     totalStakedContractCall(TokenABI, CONTRACT_ADDRESS.STAKING.TOKEN, CONTRACT_ADDRESS.STAKING.CONTRACT),
@@ -60,7 +55,7 @@ const Staking = () => {
       pendingReward: pendingReward,
       allowance: getAllowance,
       walletBalance: userBalance,
-      rewardPerBlock: rewardPerBlock
+      rewardPerBlock: rewardPerBlock,
     },
     {
       totalStaked: (val) => (val ? utils.formatUnits(val[0]._hex, 18) : 0),
@@ -70,7 +65,7 @@ const Staking = () => {
       pendingReward: (val) => (val ? utils.formatUnits(val[0]._hex, 18) : 0),
       allowance: (val) => (val ? utils.formatUnits(val[0]._hex, "ether") : 0),
       walletBalance: (val) => (val ? utils.formatEther(val) : 0),
-      rewardPerBlock: (val) => (val ? Number(utils.formatUnits(val[0]._hex, "ether")) : 0)
+      rewardPerBlock: (val) => (val ? Number(utils.formatUnits(val[0]._hex, "ether")) : 0),
     }
   );
 
@@ -111,8 +106,10 @@ const Staking = () => {
 
     const totalRewardPricePerYear = REWARD_TOKEN_PRICE_USD * rewardEveryBlock * blocksPerYear;
     const totalStakingTokenInPool = TOKEN_PRICE_USD * displayState.totalStaked;
-    const apr = totalStakingTokenInPool ? (totalRewardPricePerYear / (totalStakingTokenInPool)) * 100 : (totalRewardPricePerYear / TOKEN_PRICE_USD) * 100;
-    
+    const apr = totalStakingTokenInPool
+      ? (totalRewardPricePerYear / totalStakingTokenInPool) * 100
+      : (totalRewardPricePerYear / TOKEN_PRICE_USD) * 100;
+
     setAprValue(Number(apr).toFixed(12));
   };
 

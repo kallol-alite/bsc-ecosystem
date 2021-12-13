@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col, Container, Row, Input, Alert } from "reactstrap";
+import { Card, Col, Container, Row, Input, Alert, DropdownItem, DropdownToggle, DropdownMenu, Dropdown } from "reactstrap";
 import { utils } from "ethers";
 import { toast } from "react-toastify";
 
@@ -150,6 +150,7 @@ const StakingCardV2 = ({
                     disabled={walletAmount && walletAmount === 0}
                     onClick={() => {
                       checkAndUnstake();
+                      updateWalletAmount("");
                     }}
                   >
                     WITHDRAW
@@ -204,6 +205,8 @@ const StakingCardV2 = ({
                     style={{ margin: "5px", minWidth: "45%" }}
                     onClick={() => {
                       checkAndStakeToken();
+                      updateWalletAmount("");
+                      setSelectedChip(defaultPill);
                     }}
                   >
                     Deposit

@@ -61,7 +61,7 @@ a.activeClass .sideLi {
   cursor: default;
 }
 
-.showElements{
+.showElements {
   margin: 10px;
   display: flex;
   flex-direction: column;
