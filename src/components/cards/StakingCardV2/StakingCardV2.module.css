@@ -205,12 +205,28 @@ div.pills > div button {
     justify-content: flex-start;
   }
 }
+
 .buttonSectionForStake {
   text-align: center;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-around;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.rulesLabel {
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.rulesLabel i {
+  padding-left: 10px;
+}
+
+.alertBoxForRule {
   padding-top: 10px;
   padding-bottom: 10px;
 }

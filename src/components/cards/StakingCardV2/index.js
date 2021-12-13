@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col, Container, Row, Input, Alert, DropdownItem, DropdownToggle, DropdownMenu, Dropdown } from "reactstrap";
+import { Card, Col, Container, Row, Input, Alert, DropdownItem, DropdownToggle, DropdownMenu, Dropdown, Collapse } from "reactstrap";
 import { utils } from "ethers";
 import { toast } from "react-toastify";
 
@@ -44,10 +44,13 @@ const StakingCardV2 = ({
   };
 
   const [isStakeSelected, setIsStakeSelected] = useState(true);
-
+  const [isRulesOpen, setRulesOpen] = useState(false);
   const defaultPill = pills[0];
   const [selectedChip, setSelectedChip] = useState(defaultPill);
 
+  const rulesToggle = (e) => {
+    setRulesOpen(e);
+  };
   const onStakeToggle = (isStake) => {
     setIsStakeSelected(isStake);
     updateWalletAmount("");
@@ -255,14 +258,18 @@ const StakingCardV2 = ({
           </Row>
           <Row>
             <Col className="m-1 mt-3">
-              <Alert color="primary" className="mb-0">
-                <h6>Rules</h6>
-                <ol>
-                  <li>The returns are over the stake timed time period.</li>
-                  <li>Opting for a longer staking period will earn a better APR.</li>
-                  <li>All rewards are paid in $FORWARD tokens.</li>
-                  <li>Users are not allowed to unstake their staked tokens until the redemption date is over.</li>
-                </ol>
+              <Alert color="primary" className={styles.alertBoxForRule + " mb-0"}>
+                <h6 className={styles.rulesLabel} onClick={() => rulesToggle(!isRulesOpen)}>
+                  Rules{isRulesOpen ? <i className="bi bi-chevron-up" /> : <i className="bi bi-chevron-down" />}
+                </h6>
+                <Collapse isOpen={isRulesOpen}>
+                  <ol>
+                    <li>Opting for a longer staking period will earn a better APR.</li>
+                    <li>All rewards are paid in FORWARD tokens.</li>
+                    <li>User rewards are available instantaneously at any time.</li>
+                    <li>Users are not allowed to unstake their staked tokens until the redemption date is over.</li>
+                  </ol>
+                </Collapse>
               </Alert>
             </Col>
           </Row>
